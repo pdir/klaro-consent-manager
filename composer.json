@@ -1,0 +1,59 @@
+{
+  "name": "pdir/klaro-consent-manager",
+  "type": "contao-bundle",
+  "description": "Use Klaro! Consent Manager in Contao CMS",
+  "keywords": [
+    "consent",
+    "cookie",
+    "cookiebar",
+    "gdpr",
+    "dsgvo"
+  ],
+  "license": "LGPL-3.0-or-later",
+  "homepage": "https://pdir.de/consent/",
+  "authors": [
+    {
+      "name": "Webdesign für Dresden",
+      "homepage": "https://pdir.de",
+      "email": "develop@pdir.de",
+      "role": "Developer"
+    }
+  ],
+  "require": {
+    "php": "^7.2 || ^8.0",
+    "contao/core-bundle": "^4.9"
+  },
+  "conflict": {
+    "contao/core": "*",
+    "contao/manager-plugin": "<2.0 || >=3.0"
+  },
+  "require-dev": {
+    "contao/manager-plugin": "^2.0",
+    "contao/easy-coding-standard": "^3.0",
+    "phpunit/phpunit": "^8.2 || ^8.4 || ^9.5",
+    "symfony/phpunit-bridge": "^4.4 || ^5.1"
+  },
+  "extra": {
+    "contao-manager-plugin": "Pdir\\KlaroConsentManagerBundle\\ContaoManager\\Plugin"
+  },
+  "autoload": {
+    "psr-4": {
+    "Pdir\\KlaroConsentManagerBundle\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Pdir\\KlaroConsentManagerBundle\\Tests\\": "tests/"
+    }
+  },
+  "support": {
+    "docs": "https://pdir.de/docs/extensions/klaro-consent-manager/",
+    "issues": "https://github.com/pdir/klaro-consent-manager/issues",
+    "source": "https://github.com/pdir/klaro-consent-manager"
+  },
+  "scripts": {
+    "cs-fixer": [
+      "vendor/bin/ecs check src/ tests/ --fix --ansi"
+    ]
+  }
+}
