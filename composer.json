@@ -34,16 +34,16 @@
     "symfony/phpunit-bridge": "^4.4 || ^5.1"
   },
   "extra": {
-    "contao-manager-plugin": "Pdir\\KlaroConsentManagerBundle\\ContaoManager\\Plugin"
+    "contao-manager-plugin": "Pdir\\ContaoKlaroConsentManager\\ContaoManager\\Plugin"
   },
   "autoload": {
     "psr-4": {
-    "Pdir\\KlaroConsentManagerBundle\\": "src/"
+    "Pdir\\ContaoKlaroConsentManager\\": "src/"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "Pdir\\KlaroConsentManagerBundle\\Tests\\": "tests/"
+      "Pdir\\ContaoKlaroConsentManager\\Tests\\": "tests/"
     }
   },
   "support": {
