@@ -35,11 +35,6 @@ $GLOBALS['TL_DCA']['tl_klaro_config'] = [
             ],
         ],
     ],
-    'edit' => [
-        'buttons_callback' => [
-            ['tl_klaro_config', 'buttonsCallback'],
-        ],
-    ],
     'list' => [
         'sorting' => [
             'mode' => 2,
@@ -87,7 +82,10 @@ $GLOBALS['TL_DCA']['tl_klaro_config'] = [
     // Palettes
     'palettes' => [
         '__selector__' => ['addSubpalette'],
-        'default' => '{first_legend},title,selectField,checkboxField,multitextField;{second_legend},addSubpalette',
+        'default' => '{first_legend},title,selectField,checkboxField,multitextField;' .
+            '{legend};' .
+            '{expert_legend},testing,elementID;',
+            #'{expert_legend},addSubpalette, ',
     ],
     // Subpalettes
     'subpalettes' => [
@@ -111,6 +109,30 @@ $GLOBALS['TL_DCA']['tl_klaro_config'] = [
             'eval' => ['mandatory' => true, 'maxlength' => 255, 'tl_class' => 'w50'],
             'sql' => "varchar(255) NOT NULL default ''",
         ],
+        'testing' => [
+            'exclude'   => true,
+            'inputType' => 'checkbox',
+            'eval'      => [],
+            'sql'       => [
+                'type'      => 'string',
+                'length'    => 1,
+                'fixed'     => true,
+                'default'   => ''
+            ]
+        ],
+        'elementID' => [
+            'exclude'   => true,
+            'inputType' => 'text',
+            'eval'      => [],
+            'sql'       => [
+                'type'      => 'string',
+                'length'    => 50,
+                'fixed'     => true,
+                'default'   => 'klaro',
+            ]
+        ],
+
+
         'selectField' => [
             'inputType' => 'select',
             'exclude' => true,
@@ -166,22 +188,4 @@ $GLOBALS['TL_DCA']['tl_klaro_config'] = [
     ],
 ];
 
-/**
- * Class tl_klaro_config.
- */
-class tl_klaro_config extends Backend
-{
-    /**
-     * @param $arrButtons
-     *
-     * @return mixed
-     */
-    public function buttonsCallback($arrButtons, DC_Table $dc)
-    {
-        if ('edit' === Input::get('act')) {
-            $arrButtons['customButton'] = '<button type="submit" name="customButton" id="customButton" class="tl_submit customButton" accesskey="x">'.$GLOBALS['TL_LANG']['tl_klaro_config']['customButton'].'</button>';
-        }
-
-        return $arrButtons;
-    }
-}
+class tl_klaro_config extends Backend {}

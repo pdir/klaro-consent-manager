@@ -17,37 +17,41 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-/*
- * Legends
- */
-$GLOBALS['TL_LANG']['tl_klaro_config']['first_legend'] = 'Basis Einstellungen';
-$GLOBALS['TL_LANG']['tl_klaro_config']['second_legend'] = 'Erweiterte Einstellungen';
+$sgl = 'Konfiguration';
+$pl = 'Konfigurationen';
 
-/*
- * Operations
- */
-$GLOBALS['TL_LANG']['tl_klaro_config']['edit'] = ['Datensatz mit ID: %s bearbeiten', 'Datensatz mit ID: %s bearbeiten'];
-$GLOBALS['TL_LANG']['tl_klaro_config']['copy'] = ['Datensatz mit ID: %s kopieren', 'Datensatz mit ID: %s kopieren'];
-$GLOBALS['TL_LANG']['tl_klaro_config']['delete'] = ['Datensatz mit ID: %s löschen', 'Datensatz mit ID: %s löschen'];
-$GLOBALS['TL_LANG']['tl_klaro_config']['show'] = ['Datensatz mit ID: %s ansehen', 'Datensatz mit ID: %s ansehen'];
+$GLOBALS['TL_LANG']['tl_klaro_config'] = [
 
-/*
- * Fields
- */
-$GLOBALS['TL_LANG']['tl_klaro_config']['title'] = ['Titel', 'Geben Sie den Titel ein'];
-$GLOBALS['TL_LANG']['tl_klaro_config']['selectField'] = ['Select Feld', 'Wählen Sie aus.'];
-$GLOBALS['TL_LANG']['tl_klaro_config']['checkboxField'] = ['Chosen Feld', 'Wählen Sie aus.'];
-$GLOBALS['TL_LANG']['tl_klaro_config']['multitextField'] = ['Multitext Feld', 'Geben Sie die Werte ein'];
-$GLOBALS['TL_LANG']['tl_klaro_config']['addSubpalette'] = ['Erweiterte Einstellungen aktivieren', 'Hier können Sie die erweiterten Einstellungen aktivieren.'];
-$GLOBALS['TL_LANG']['tl_klaro_config']['textareaField'] = ['Textarea', 'Geben Sie einen Text ein'];
+    // Legends
+    'expert_legend' => 'Experten Einstellungen',
 
-/*
- * References
- */
-$GLOBALS['TL_LANG']['tl_klaro_config']['firstoption'] = 'Erste Option';
-$GLOBALS['TL_LANG']['tl_klaro_config']['secondoption'] = 'Zweite Option';
+    // Operations
+    'edit' => ["$sgl mit ID: %s bearbeiten", 'Datensatz mit ID: %s bearbeiten'],
+    'copy' => ["$sgl mit ID: %s kopieren", 'Datensatz mit ID: %s kopieren'],
+    'delete' => ["$sgl mit ID: %s löschen", 'Datensatz mit ID: %s löschen'],
+    'show'  => ["$sgl mit ID: %s ansehen", 'Datensatz mit ID: %s ansehen'],
 
-/*
- * Buttons
- */
-$GLOBALS['TL_LANG']['tl_klaro_config']['customButton'] = 'Custom Routine starten';
+    // Naming
+    'first_legend' => 'Basis Einstellungen',
+    'title' => ["Name der $sgl", "Geben Sie einen Namen für die $sgl ein."],
+
+    // Basic Configuration
+
+
+    'selectField' => ['Select Feld', 'Wählen Sie aus.'],
+    'checkboxField' => ['Chosen Feld', 'Wählen Sie aus.'],
+    'multitextField' => ['Multitext Feld', 'Geben Sie die Werte ein'],
+    'addSubpalette' => ['Erweiterte Einstellungen aktivieren', 'Hier können Sie die erweiterten Einstellungen aktivieren.'],
+    'textareaField' => ['Textarea', 'Geben Sie einen Text ein'],
+
+    // Expert Legend
+    'testing' => ['Test-Modus aktivieren', 'Wenn Sie testing aktivieren, so zeigt Klaro standardmäßig weder den Einwilligungshinweis noch das modal-Window an, es sei denn, sie fügen den spezielle Hashtag #klaro-testing an die URL an. Dann ist es möglich, Klaro auf Ihrer Live-Website zu testen, ohne den normalen Betrieb zu beeinträchtigen.'],
+    'elementID' => ['Id des klaro-DIVs', 'Sie können hier die Id des DIV-Elements anpassen, welches Klaro beim Initialisieren des Scriptes erstellt. Standardmäßig wird Klaro &raquo;klaro&laquo; verwenden.'],
+
+    // References
+    'firstoption' => 'Erste Option',
+    'secondoption' => 'Zweite Option',
+
+    // Buttons
+    'customButton' => 'Custom Routine starten',
+];
