@@ -37,7 +37,7 @@ $GLOBALS['TL_LANG']['tl_klaro_config'] = [
 
     // Config
     'config_legend' => 'Skript Konfiguration',
-    'scriptLoadingMode' => ['script Lademodus', ''],
+    'scriptLoadingMode' => ['Lademodus', 'Wählen Sie hier aus, wie das script geladen werden soll. Der Modus &raquo;defer&laquo; sollte bevorzugt werden!'],
     'loading_mode_options' => [
         '' => 'synchron',
         'defer' => 'verzögert (defer)',
