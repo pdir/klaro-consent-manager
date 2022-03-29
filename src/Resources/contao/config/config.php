@@ -24,7 +24,7 @@ use Pdir\ContaoKlaroConsentManager\Model\KlaroConfigModel;
  */
 $GLOBALS['BE_MOD']['pdir']['klaro_config'] = [
     'tables' => ['tl_klaro_config'],
-    'stylesheet' => 'bundles/pdircontaoklaroconsentmanager/css/be.css'
+    'stylesheet' => 'bundles/pdircontaoklaroconsentmanager/css/be.css',
 ];
 
 /*

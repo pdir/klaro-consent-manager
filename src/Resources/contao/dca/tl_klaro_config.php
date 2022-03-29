@@ -18,8 +18,6 @@ declare(strict_types=1);
  */
 
 use Contao\Backend;
-use Contao\DC_Table;
-use Contao\Input;
 
 /*
  * Table tl_klaro_config
@@ -82,10 +80,10 @@ $GLOBALS['TL_DCA']['tl_klaro_config'] = [
     // Palettes
     'palettes' => [
         '__selector__' => ['addSubpalette'],
-        'default' => '{first_legend},title,selectField,checkboxField,multitextField;' .
-            '{legend};' .
-            '{expert_legend},testing,elementID;',
-            #'{expert_legend},addSubpalette, ',
+        'default' => '{first_legend},title,selectField,checkboxField,multitextField;'.
+            '{legend};'.
+            '{expert_legend},htmlTexts,testing,elementID,storageName,storageMethod,cookieDomain;',
+        //'{expert_legend},addSubpalette, ',
     ],
     // Subpalettes
     'subpalettes' => [
@@ -110,28 +108,76 @@ $GLOBALS['TL_DCA']['tl_klaro_config'] = [
             'sql' => "varchar(255) NOT NULL default ''",
         ],
         'testing' => [
-            'exclude'   => true,
+            'exclude' => true,
             'inputType' => 'checkbox',
-            'eval'      => [],
-            'sql'       => [
-                'type'      => 'string',
-                'length'    => 1,
-                'fixed'     => true,
-                'default'   => ''
-            ]
+            'eval' => ['tl_class' => 'w25'],
+            'sql' => [
+                'type' => 'string',
+                'length' => 1,
+                'fixed' => true,
+                'default' => '',
+            ],
         ],
         'elementID' => [
-            'exclude'   => true,
+            'exclude' => true,
             'inputType' => 'text',
-            'eval'      => [],
-            'sql'       => [
-                'type'      => 'string',
-                'length'    => 50,
-                'fixed'     => true,
-                'default'   => 'klaro',
-            ]
+            'eval' => ['tl_class' => 'w25 clr'],
+            'sql' => [
+                'type' => 'string',
+                'length' => 50,
+                'fixed' => true,
+                'default' => 'klaro',
+            ],
         ],
-
+        'storageMethod' => [
+            'inputType' => 'select',
+            'exclude' => true,
+            'search' => true,
+            'filter' => true,
+            'sorting' => true,
+            'reference' => $GLOBALS['TL_LANG']['tl_klaro_config']['storage_method_options'],
+            'options' => ['cookie', 'localStorage'],
+            'eval' => ['tl_class' => 'w25'],
+            'sql' => [
+                'type' => 'string',
+                'length' => 50,
+                'fixed' => true,
+                'default' => 'cookie',
+            ],
+        ],
+        'storageName' => [
+            'exclude' => true,
+            'inputType' => 'text',
+            'eval' => ['tl_class' => 'w25'],
+            'sql' => [
+                'type' => 'string',
+                'length' => 50,
+                'fixed' => true,
+                'default' => 'klaro',
+            ],
+        ],
+        'htmlTexts' => [
+            'exclude' => true,
+            'inputType' => 'checkbox',
+            'eval' => ['tl_class' => 'w25'],
+            'sql' => [
+                'type' => 'string',
+                'length' => 1,
+                'fixed' => true,
+                'default' => '',
+            ],
+        ],
+        'cookieDomain' => [
+            'exclude' => true,
+            'inputType' => 'text',
+            'eval' => ['tl_class' => 'w25'],
+            'sql' => [
+                'type' => 'string',
+                'length' => 50,
+                'fixed' => true,
+                'default' => '.example.com',
+            ],
+        ],
 
         'selectField' => [
             'inputType' => 'select',
@@ -187,5 +233,3 @@ $GLOBALS['TL_DCA']['tl_klaro_config'] = [
         ],
     ],
 ];
-
-class tl_klaro_config extends Backend {}

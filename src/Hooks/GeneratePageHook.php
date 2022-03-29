@@ -50,12 +50,11 @@ class GeneratePageHook
         // https://heyklaro.com/docs/integration/overview
         $mode = 'defer'; // '' = synchronous, 'async' = asyncronous
         // a fallback config
-        $config_fallback = "bundles/pdircontaoklaroconsentmanager/js/config.js";
-        $config_plain = "";
-
+        $config_fallback = 'bundles/pdircontaoklaroconsentmanager/js/config.js';
+        //$config_plain = '';
 
         $scriptTemplate->klaro_config = "<script $mode type='application/javascript' src='$config_fallback'></script>";
-        #$scriptTemplate->klaro_config = "<script type='application/javascript'>$config_plain</script>";
+        //$scriptTemplate->klaro_config = "<script type='application/javascript'>$config_plain</script>";
 
         $GLOBALS['TL_CSS']['klaro'] = $cssTemplate->parse();
         $GLOBALS['TL_BODY']['klaro'] = $scriptTemplate->parse();
