@@ -17,8 +17,6 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-use Contao\Backend;
-
 /*
  * Table tl_klaro_config
  */
@@ -81,7 +79,7 @@ $GLOBALS['TL_DCA']['tl_klaro_config'] = [
     'palettes' => [
         '__selector__' => ['addSubpalette'],
         'default' => '{first_legend},title,selectField,checkboxField,multitextField;'.
-            '{legend};'.
+            '{config_legend},scriptLoadingMode;'.
             '{expert_legend},htmlTexts,testing,elementID,storageName,storageMethod,cookieDomain;',
         //'{expert_legend},addSubpalette, ',
     ],
@@ -106,6 +104,22 @@ $GLOBALS['TL_DCA']['tl_klaro_config'] = [
             'flag' => 1,
             'eval' => ['mandatory' => true, 'maxlength' => 255, 'tl_class' => 'w50'],
             'sql' => "varchar(255) NOT NULL default ''",
+        ],
+        'scriptLoadingMode' => [
+            'inputType' => 'select',
+            'exclude' => true,
+            'search' => true,
+            'filter' => true,
+            'sorting' => true,
+            'reference' => $GLOBALS['TL_LANG']['tl_klaro_config']['loading_mode_options'],
+            'options' => ['', 'async', 'defer'], // https://heyklaro.com/docs/integration/overview
+            'eval' => ['tl_class' => 'w25'],
+            'sql' => [
+                'type' => 'string',
+                'length' => 50,
+                'fixed' => true,
+                'default' => 'defer',
+            ],
         ],
         'testing' => [
             'exclude' => true,

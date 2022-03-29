@@ -35,6 +35,15 @@ $GLOBALS['TL_LANG']['tl_klaro_config'] = [
     'first_legend' => 'Basis Einstellungen',
     'title' => ["Name der $sgl", "Geben Sie einen Namen für die $sgl ein."],
 
+    // Config
+    'config_legend' => 'Skript Konfiguration',
+    'scriptLoadingMode' => ['script Lademodus', ''],
+    'loading_mode_options' => [
+        '' => 'synchron',
+        'defer' => 'verzögert (defer)',
+        'async' => 'parallel (async)',
+    ],
+
     // Basic Configuration
 
     'selectField' => ['Select Feld', 'Wählen Sie aus.'],

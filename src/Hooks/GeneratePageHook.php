@@ -41,6 +41,7 @@ class GeneratePageHook
      */
     public function __invoke(PageModel $pageModel, LayoutModel $layout, PageRegular $pageRegular): void
     {
+        dump($pageModel->id);
         $cssTemplate = new FrontendTemplate('fe_klaro_css');
         $cssTemplate->version = 'v0.7';
 
@@ -58,5 +59,9 @@ class GeneratePageHook
 
         $GLOBALS['TL_CSS']['klaro'] = $cssTemplate->parse();
         $GLOBALS['TL_BODY']['klaro'] = $scriptTemplate->parse();
+    }
+
+    private function isChildFromPage(): void
+    {
     }
 }
