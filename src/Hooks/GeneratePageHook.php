@@ -20,6 +20,7 @@ declare(strict_types=1);
 namespace Pdir\ContaoKlaroConsentManager\Hooks;
 
 use Contao\CoreBundle\ServiceAnnotation\Hook;
+use Contao\FrontendTemplate;
 use Contao\LayoutModel;
 use Contao\PageModel;
 use Contao\PageRegular;
@@ -40,13 +41,23 @@ class GeneratePageHook
      */
     public function __invoke(PageModel $pageModel, LayoutModel $layout, PageRegular $pageRegular): void
     {
-        $GLOBALS['TL_BODY']['klaro'] = "
-<script defer type='application/javascript' src='bundles/pdircontaoklaroconsentmanager/js/config.js'></script>
-<script
-    defer
-    data-config='klaroConfig'
-    type='application/javascript'
-    src='https://cdn.kiprotect.com/klaro/v0.7/klaro.js'>
-</script>";
+        $cssTemplate = new FrontendTemplate('fe_klaro_css');
+        $cssTemplate->version = 'v0.7';
+
+        $scriptTemplate = new FrontendTemplate('fe_klaro_script');
+        // lock to version
+        $scriptTemplate->version = 'v0.7';
+        // https://heyklaro.com/docs/integration/overview
+        $mode = 'defer'; // '' = synchronous, 'async' = asyncronous
+        // a fallback config
+        $config_fallback = "bundles/pdircontaoklaroconsentmanager/js/config.js";
+        $config_plain = "";
+
+
+        $scriptTemplate->klaro_config = "<script $mode type='application/javascript' src='$config_fallback'></script>";
+        $scriptTemplate->klaro_config = "<script type='application/javascript'>$config_plain</script>";
+
+        $GLOBALS['TL_CSS']['klaro'] = $cssTemplate->parse();
+        $GLOBALS['TL_BODY']['klaro'] = $scriptTemplate->parse();
     }
 }
