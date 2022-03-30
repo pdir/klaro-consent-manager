@@ -41,7 +41,7 @@ class GeneratePageHook
      */
     public function __invoke(PageModel $pageModel, LayoutModel $layout, PageRegular $pageRegular): void
     {
-        dump($pageModel::findParentsById($pageModel->id)->fetchAll('id'));
+        dump($pageModel::findParentsById($pageModel->id));
 
         $cssTemplate = new FrontendTemplate('fe_klaro_css');
         $cssTemplate->version = 'v0.7';
@@ -49,8 +49,7 @@ class GeneratePageHook
         $scriptTemplate = new FrontendTemplate('fe_klaro_script');
         // lock to version
         $scriptTemplate->version = 'v0.7';
-        // https://heyklaro.com/docs/integration/overview
-        $mode = 'defer'; // '' = synchronous, 'async' = asyncronous
+        $mode = 'defer'; // '' = synchronous, 'async' = asyncronous see: https://heyklaro.com/docs/integration/overview
         // a fallback config
         $config_fallback = 'bundles/pdircontaoklaroconsentmanager/js/config.js';
         //$config_plain = '';

@@ -80,7 +80,7 @@ $GLOBALS['TL_DCA']['tl_klaro_config'] = [
         '__selector__' => ['addSubpalette'],
         'default' => '{first_legend},title;'.
             '{pages_legend},klaro_scope;'.
-            '{services_legend},scriptLoadingMode;'.
+            '{services_legend},klaro_services;'.
             '{script_legend},scriptLoadingMode;'.
             '{consent_legend},default,mustConsent,acceptAll,hideDeclineAll,hideLearnMore;'.
             '{cookie_legend},elementID,storageName,storageMethod,cookieDomain,cookieExpiresAfterDays;'.
@@ -115,6 +115,20 @@ $GLOBALS['TL_DCA']['tl_klaro_config'] = [
             'eval' => ['fieldType' => 'checkbox', 'tl_class' => 'clr', 'multiple' => true],
             'sql' => 'blob NULL',
         ],
+        'klaro_services' => [
+            'exclude' => true,
+            'inputType' => 'checkboxWizard',
+            'options' => ['layout.css', 'responsive.css', 'grid.css', 'reset.css', 'form.css', 'icons.css'],
+            'eval' => ['multiple' => true, 'helpwizard' => true],
+            'reference' => &$GLOBALS['TL_LANG']['tl_layout'],
+            'sql' => [
+                'type' => 'text',
+                'length' => 2048,
+                'fixed' => true,
+                'default' => '',
+            ],
+        ],
+
         'scriptLoadingMode' => [
             'inputType' => 'select',
             'exclude' => true,
