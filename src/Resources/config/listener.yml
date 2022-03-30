@@ -1,2 +1,8 @@
 services:
 
+    pdir.klaro.configlistener:
+        class: Pdir\ContaoKlaroConsentManager\EventListener\KlaroConfigListener
+        arguments:
+            - "@request_stack"
+            - "@session"
+            - "@logger"

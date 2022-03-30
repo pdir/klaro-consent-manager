@@ -79,7 +79,7 @@ $GLOBALS['TL_DCA']['tl_klaro_service'] = [
     'palettes' => [
         '__selector__' => ['addSubpalette'],
         'default' => '{name_legend},title;'.
-            '{service_legend},service;',
+            '{service_legend},name,default;',
         //'{expert_legend},addSubpalette, ',
     ],
     // Subpalettes
@@ -104,13 +104,27 @@ $GLOBALS['TL_DCA']['tl_klaro_service'] = [
             'eval' => ['mandatory' => true, 'maxlength' => 255, 'tl_class' => 'w50'],
             'sql' => "varchar(255) NOT NULL default ''",
         ],
-        'service' => [
+        /*
+         * Klaro Service Attributes
+         */
+        'name' => [
             'exclude' => true,
             'inputType' => 'text',
             'eval' => ['mandatory' => true, 'tl_class' => ''],
             'sql' => [
                 'type' => 'string',
                 'length' => 255,
+                'fixed' => true,
+                'default' => '',
+            ],
+        ],
+        'default' => [
+            'exclude' => true,
+            'inputType' => 'checkbox',
+            'eval' => ['tl_class' => 'w25'],
+            'sql' => [
+                'type' => 'string',
+                'length' => 1,
                 'fixed' => true,
                 'default' => '',
             ],

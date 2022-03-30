@@ -23,8 +23,8 @@ use Pdir\ContaoKlaroConsentManager\Controller\FrontendModule\KlaroFeModuleContro
  * Backend modules
  */
 $GLOBALS['TL_LANG']['MOD']['pdir'] = 'Pdir';
-$GLOBALS['TL_LANG']['MOD']['klaro_config'] = ['Klaro Configurations', 'Configure Klaro Consent Manager'];
-$GLOBALS['TL_LANG']['MOD']['klaro_service'] = ['Klaro Services', 'Configure Klaro Services'];
+$GLOBALS['TL_LANG']['MOD']['klaro_config'] = ['Klaro Konfiguration', 'Klaro Consent Manager konfigurieren'];
+$GLOBALS['TL_LANG']['MOD']['klaro_service'] = ['Klaro Dienste', 'Klaro Dienste konfigurieren'];
 
 /*
  * Frontend modules

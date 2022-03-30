@@ -79,8 +79,8 @@ $GLOBALS['TL_DCA']['tl_klaro_config'] = [
     'palettes' => [
         '__selector__' => ['addSubpalette'],
         'default' => '{first_legend},title;'.
-            '{pages_legend},klaro_scope;'.
-            '{services_legend},klaro_services;'.
+            '{pages_legend},scope;'.
+            '{services_legend},services;'.
             '{script_legend},scriptLoadingMode;'.
             '{consent_legend},default,mustConsent,acceptAll,hideDeclineAll,hideLearnMore;'.
             '{cookie_legend},elementID,storageName,storageMethod,cookieDomain,cookieExpiresAfterDays;'.
@@ -109,13 +109,13 @@ $GLOBALS['TL_DCA']['tl_klaro_config'] = [
             'eval' => ['mandatory' => true, 'maxlength' => 255, 'tl_class' => 'w50'],
             'sql' => "varchar(255) NOT NULL default ''",
         ],
-        'klaro_scope' => [
+        'scope' => [
             'exclude' => true,
             'inputType' => 'pageTree',
             'eval' => ['fieldType' => 'checkbox', 'tl_class' => 'clr', 'multiple' => true],
             'sql' => 'blob NULL',
         ],
-        'klaro_services' => [
+        'services' => [
             'exclude' => true,
             'inputType' => 'checkboxWizard',
             'options' => ['layout.css', 'responsive.css', 'grid.css', 'reset.css', 'form.css', 'icons.css'],
