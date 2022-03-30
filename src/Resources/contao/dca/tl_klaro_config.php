@@ -80,7 +80,9 @@ $GLOBALS['TL_DCA']['tl_klaro_config'] = [
         '__selector__' => ['addSubpalette'],
         'default' => '{first_legend},title,selectField,checkboxField,multitextField;'.
             '{config_legend},scriptLoadingMode;'.
-            '{expert_legend},htmlTexts,testing,elementID,storageName,storageMethod,cookieDomain,cookieExpiresAfterDays;',
+            '{consent_legend},default,mustConsent,acceptAll,hideDeclineAll,hideLearnMore;'.
+            '{cookie_legend},elementID,storageName,storageMethod,cookieDomain,cookieExpiresAfterDays;'.
+            '{expert_legend},htmlTexts,testing;',
         //'{expert_legend},addSubpalette, ',
     ],
     // Subpalettes
@@ -192,69 +194,73 @@ $GLOBALS['TL_DCA']['tl_klaro_config'] = [
                 'default' => '.example.com',
             ],
         ],
-        /*
-         * You can also set a custom expiration time for the Klaro cookie. By default, it
-         *  will expire after 30 days. Only relevant if 'storageMethod' is set to 'cookie'.
-         */
         'cookieExpiresAfterDays' => [
             'exclude' => true,
             'inputType' => 'text',
-            'eval' => ['tl_class' => 'w25'],
-            'sql'       => [
-                'type'      => 'integer',
-                'unsigned'  => false,
-                'notnull'   => true,
-                'default'   => 30,
-                'comment'   => ''
+            'eval' => ['tl_class' => 'w125'],
+            'sql' => [
+                'type' => 'integer',
+                'unsigned' => false,
+                'notnull' => true,
+                'default' => 30,
+                'comment' => '',
             ],
         ],
-        /*
-         * Defines the default state for services in the consent modal (true=enabled by
-         * default). You can override this setting in each service.
-         */
-        'default' => [false],
-        /*
-        If 'mustConsent' is set to 'true', Klaro will directly display the consent
-        manager modal and not allow the user to close it before having actively
-        consented or declined the use of third-party services.
-        */
-        'mustConsent' => [false],
-        /*
-        Setting 'acceptAll' to 'true' will show an "accept all" button in the notice and
-        modal, which will enable all third-party services if the user clicks on it. If
-        set to 'false', there will be an "accept" button that will only enable the
-        services that are enabled in the consent modal.
-        */
-        'acceptAll' => [true],
-        /*
-         * Setting 'hideDeclineAll' to 'true' will hide the "decline" button in the consent
-         * modal and force the user to open the modal in order to change his/her consent or
-         * disable all third-party services. We strongly advise you to not use this
-         * feature, as it opposes the "privacy by default" and "privacy by design"
-         * principles of the GDPR (but might be acceptable in other legislations such as
-         * under the CCPA)
-        */
-        'hideDeclineAll' => [false],
-        /*
-         * Setting 'hideLearnMore' to 'true' will hide the "learn more / customize" link in
-         * the consent notice. We strongly advise against using this under most
-         * circumstances, as it keeps the user from customizing his/her consent choices.
-        */
-        'hideLearnMore' => [false],
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        'default' => [
+            'exclude' => true,
+            'inputType' => 'checkbox',
+            'eval' => ['tl_class' => 'w25'],
+            'sql' => [
+                'type' => 'string',
+                'length' => 1,
+                'fixed' => true,
+                'default' => '',
+            ],
+        ],
+        'mustConsent' => [
+            'exclude' => true,
+            'inputType' => 'checkbox',
+            'eval' => ['tl_class' => 'w25'],
+            'sql' => [
+                'type' => 'string',
+                'length' => 1,
+                'fixed' => true,
+                'default' => '',
+            ],
+        ],
+        'acceptAll' => [
+            'exclude' => true,
+            'inputType' => 'checkbox',
+            'eval' => ['tl_class' => 'w25'],
+            'sql' => [
+                'type' => 'string',
+                'length' => 1,
+                'fixed' => true,
+                'default' => '',
+            ],
+        ],
+        'hideDeclineAll' => [
+            'exclude' => true,
+            'inputType' => 'checkbox',
+            'eval' => ['tl_class' => 'w25'],
+            'sql' => [
+                'type' => 'string',
+                'length' => 1,
+                'fixed' => true,
+                'default' => '',
+            ],
+        ],
+        'hideLearnMore' => [
+            'exclude' => true,
+            'inputType' => 'checkbox',
+            'eval' => ['tl_class' => 'w25'],
+            'sql' => [
+                'type' => 'string',
+                'length' => 1,
+                'fixed' => true,
+                'default' => '',
+            ],
+        ],
 
         'selectField' => [
             'inputType' => 'select',

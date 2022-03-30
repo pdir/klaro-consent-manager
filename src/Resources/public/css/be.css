@@ -1,4 +1,9 @@
 /** Still empty stylesheet **/
+.w125 {
+    width: calc(12.5% - 30px);
+    float: left;
+    min-height: 80px;
+}
 .w25 {
     width: calc(25% - 30px);
     float: left;

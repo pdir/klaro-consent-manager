@@ -56,6 +56,7 @@ class GeneratePageHook
 
         $scriptTemplate->klaro_config = "<script $mode type='application/javascript' src='$config_fallback'></script>";
         //$scriptTemplate->klaro_config = "<script type='application/javascript'>$config_plain</script>";
+        $scriptTemplate->klaro_script = "<script $mode data-config='klaroConfig' type='application/javascript' src='https://cdn.kiprotect.com/klaro/{$scriptTemplate->version}/klaro.js'></script>";
 
         $GLOBALS['TL_CSS']['klaro'] = $cssTemplate->parse();
         $GLOBALS['TL_BODY']['klaro'] = $scriptTemplate->parse();
