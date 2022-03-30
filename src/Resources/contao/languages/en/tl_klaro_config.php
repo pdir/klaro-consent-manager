@@ -32,8 +32,14 @@ $GLOBALS['TL_LANG']['tl_klaro_config'] = [
     'first_legend' => 'Basis Einstellungen',
     'title' => ["Name der $sgl", "Geben Sie einen Namen für die $sgl ein."],
 
+    // Pages
+    'pages_legend' => 'Seiten konfigurieren',
+
+    // Services
+    'services_legend' => 'Dienste konfigurieren',
+
     // Config
-    'config_legend' => 'Skript konfigurieren',
+    'script_legend' => 'Skript konfigurieren',
     'scriptLoadingMode' => ['Lademodus', 'Wählen Sie hier aus, wie das script geladen werden soll. Der Modus &raquo;defer&laquo; sollte bevorzugt werden!'],
     'loading_mode_options' => ['' => 'synchron', 'defer' => 'verzögert (defer)', 'async' => 'parallel (async)'],
 

@@ -41,7 +41,8 @@ class GeneratePageHook
      */
     public function __invoke(PageModel $pageModel, LayoutModel $layout, PageRegular $pageRegular): void
     {
-        dump($pageModel->id);
+        dump($pageModel::findParentsById($pageModel->id)->fetchAll('id'));
+
         $cssTemplate = new FrontendTemplate('fe_klaro_css');
         $cssTemplate->version = 'v0.7';
 
@@ -58,7 +59,8 @@ class GeneratePageHook
         //$scriptTemplate->klaro_config = "<script type='application/javascript'>$config_plain</script>";
         $scriptTemplate->klaro_script = "<script $mode data-config='klaroConfig' type='application/javascript' src='https://cdn.kiprotect.com/klaro/{$scriptTemplate->version}/klaro.js'></script>";
 
-        $GLOBALS['TL_CSS']['klaro'] = $cssTemplate->parse();
+        //$GLOBALS['TL_CSS']['klaro'] = $cssTemplate->parse();
+        $GLOBALS['TL_CSS']['klaro'] = "https://cdn.kiprotect.com/klaro/{$cssTemplate->version}/klaro.min.css";
         $GLOBALS['TL_BODY']['klaro'] = $scriptTemplate->parse();
     }
 
