@@ -43,6 +43,14 @@ class GeneratePageHook
     {
         dump($pageModel::findParentsById($pageModel->id));
 
+        //$configJsTemplate = new FrontendTemplate('fe_klaro_config');
+        $configJsTemplate = $this->render('@Contao/ce_my_content_element.html.twig', [
+            'text' => 'text',
+            'my_variable' => 'foobar',
+        ]);
+
+        dump($configJsTemplate->parse());
+
         $cssTemplate = new FrontendTemplate('fe_klaro_css');
         $cssTemplate->version = 'v0.7';
 
@@ -56,7 +64,9 @@ class GeneratePageHook
 
         $scriptTemplate->klaro_config = "<script $mode type='application/javascript' src='$config_fallback'></script>";
         //$scriptTemplate->klaro_config = "<script type='application/javascript'>$config_plain</script>";
-        $scriptTemplate->klaro_script = "<script $mode data-config='klaroConfig' type='application/javascript' src='https://cdn.kiprotect.com/klaro/{$scriptTemplate->version}/klaro.js'></script>";
+
+        //$scriptTemplate->klaro_script = "<script $mode data-config='klaroConfig' type='application/javascript' src='https://cdn.kiprotect.com/klaro/{$scriptTemplate->version}/klaro.js'></script>";
+        $scriptTemplate->klaro_script = "<script $mode data-config='klaroConfig' type='application/javascript' src='bundles/pdircontaoklaroconsentmanager/js/klaro.js'></script>";
 
         //$GLOBALS['TL_CSS']['klaro'] = $cssTemplate->parse();
         $GLOBALS['TL_CSS']['klaro'] = "https://cdn.kiprotect.com/klaro/{$cssTemplate->version}/klaro.min.css";

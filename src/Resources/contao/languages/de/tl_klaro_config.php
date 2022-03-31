@@ -52,11 +52,11 @@ $GLOBALS['TL_LANG']['tl_klaro_config'] = [
 
     // Cookie Legend
     'cookie_legend' => 'Cookies konfigurieren',
-    'elementID' => ['klaro-elementId', "Sie können hier die Id des DIV-Elements anpassen, das $klaro beim Start erstellt. Standardmäßig wird $klaro &raquo;klaro&laquo; verwenden."],
+    'elementID' => ['DIV-Id', "Sie können hier die Id des DIV-Elements anpassen, das $klaro beim Start erstellt. Standardmäßig wird $klaro &raquo;klaro&laquo; verwenden."],
     'storageMethod' => ['Speichermethode', "Hier können Sie festlegen, wie $klaro die Zustimmungsinformationen speichert. Wählen Sie &raquo;Cookie Storage&laquo; (Voreinstellung) oder &raquo;Browser Local Storage&laquo;."],
     'storage_method_options' => ['cookie' => 'Cookie Storage', 'localStorage' => 'Browser Local Storage'],
-    'storageName' => ['Speicher-Schlüssel', "Sie können den Key (Schlüssel) des Cookies oder des localStorage-Eintrags anpassen, den $klaro für die Speicherung der Zustimmungsinformationen verwendet. Standardmäßig verwendet $klaro &raquo;klaro&laquo;."],
-    'cookieDomain' => ['Cookie-Domain', "Sie können die Cookie-Domain für den Zustimmungsmanager anpassen. Tun Sie dies, wenn Sie die Zustimmung für mehrere übereinstimmende Domänen nur einmal erhalten möchten. Standardmäßig verwendet $klaro die aktuelle Domain. Diese Einstellung ist nur relevant, wenn &raquo;Speichermethode&laquo; auf &raquo;Cookie Storage&laquo; eingestellt ist."],
+    'storageName' => ['Speicherschlüssel', "Sie können den Key (Schlüssel) des Cookies oder des localStorage-Eintrags anpassen, den $klaro für die Speicherung der Zustimmungsinformationen verwendet. Standardmäßig verwendet $klaro &raquo;klaro&laquo;."],
+    'cookieDomain' => ['Cookie Domain', "Sie können die Cookie-Domain für den Zustimmungsmanager anpassen. Tun Sie dies, wenn Sie die Zustimmung für mehrere übereinstimmende Domänen nur einmal erhalten möchten. Standardmäßig verwendet $klaro die aktuelle Domain. Diese Einstellung ist nur relevant, wenn &raquo;Speichermethode&laquo; auf &raquo;Cookie Storage&laquo; eingestellt ist."],
     'cookieExpiresAfterDays' => ['Cookie Verfallszeit', "Hier können Sie Verfallszeit für das $klaro-Cookie festlegen. Voreinstellung ist 30 Tage (nur relevant, wenn &raquo;Speichermethode&laquo; auf &raquo;Cookie Storage&laquo; eingestellt ist)."],
 
     // Expert Legend

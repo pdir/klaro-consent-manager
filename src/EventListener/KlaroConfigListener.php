@@ -24,17 +24,16 @@ use Contao\CoreBundle\ServiceAnnotation\Callback;
 use Contao\DataContainer;
 use Pdir\ContaoKlaroConsentManager\Model\KlaroServiceModel;
 use Psr\Log\LoggerInterface;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class KlaroConfigListener
 {
-    private ?Request $request = null;
+    private $request;
 
-    private ?SessionInterface $session = null;
+    private $session;
 
-    private ?LoggerInterface $logger = null;
+    private $logger;
 
     public function __construct(RequestStack $requestStack, SessionInterface $session, LoggerInterface $logger)
     {
