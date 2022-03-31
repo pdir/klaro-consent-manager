@@ -81,7 +81,7 @@ $GLOBALS['TL_DCA']['tl_klaro_config'] = [
         'default' => '{first_legend},title;'.
             '{pages_legend},scope;'.
             '{services_legend},services;'.
-            '{script_legend},scriptLoadingMode;'.
+            '{script_legend},scriptLoadingMode,myConfigVariableName;'.
             '{consent_legend},default,mustConsent,acceptAll,hideDeclineAll,hideLearnMore;'.
             '{cookie_legend},elementID,storageName,storageMethod,cookieDomain,cookieExpiresAfterDays;'.
             '{expert_legend},htmlTexts,testing;',
@@ -128,7 +128,6 @@ $GLOBALS['TL_DCA']['tl_klaro_config'] = [
                 'default' => '',
             ],
         ],
-
         'scriptLoadingMode' => [
             'inputType' => 'select',
             'exclude' => true,
@@ -145,6 +144,18 @@ $GLOBALS['TL_DCA']['tl_klaro_config'] = [
                 'default' => 'defer',
             ],
         ],
+        'myConfigVariableName' => [
+            'exclude' => true,
+            'inputType' => 'text',
+            'eval' => ['tl_class' => 'w25'],
+            'sql' => [
+                'type' => 'string',
+                'length' => 50,
+                'fixed' => true,
+                'default' => 'klaroConfig',
+            ],
+        ],
+
         'testing' => [
             'exclude' => true,
             'inputType' => 'checkbox',

@@ -1,5 +1,4 @@
 services:
-
     # Contao frontend module Pdir\ContaoKlaroConsentManager\Controller\FrontendModule\KlaroFeModuleController
     # We used annotations for tagging the frontend module category, the frontend module type and the frontend module template
     Pdir\ContaoKlaroConsentManager\Controller\FrontendModule\KlaroFeModuleController:
@@ -14,3 +13,5 @@ services:
 
     pdir.klaro.hooks.generatepage:
         class: Pdir\ContaoKlaroConsentManager\Hooks\GeneratePageHook
+        arguments:
+            - "@twig"
