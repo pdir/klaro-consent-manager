@@ -110,7 +110,7 @@ $GLOBALS['TL_DCA']['tl_klaro_service'] = [
         'name' => [
             'exclude' => true,
             'inputType' => 'text',
-            'eval' => ['mandatory' => true, 'tl_class' => ''],
+            'eval' => ['mandatory' => true, 'tl_class' => 'w25'],
             'sql' => [
                 'type' => 'string',
                 'length' => 255,

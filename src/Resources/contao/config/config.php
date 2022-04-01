@@ -29,7 +29,7 @@ $GLOBALS['BE_MOD']['pdir']['klaro_config'] = [
 ];
 $GLOBALS['BE_MOD']['pdir']['klaro_service'] = [
     'tables' => ['tl_klaro_service'],
-    //'stylesheet' => 'bundles/pdircontaoklaroconsentmanager/css/be.css',
+    'stylesheet' => 'bundles/pdircontaoklaroconsentmanager/css/be.css',
 ];
 
 /*

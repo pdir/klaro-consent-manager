@@ -24,7 +24,9 @@ use Contao\FrontendTemplate;
 use Contao\LayoutModel;
 use Contao\PageModel;
 use Contao\PageRegular;
+use Contao\StringUtil;
 use Pdir\ContaoKlaroConsentManager\Model\KlaroConfigModel;
+use Pdir\ContaoKlaroConsentManager\Model\KlaroServiceModel;
 use Twig\Environment as TwigEnvironment;
 
 /**
@@ -56,16 +58,38 @@ class GeneratePageHook
             $pp[] = $page->id;
         }
 
-        dump('parentPageIds: ['.implode(',', $pp).']');
+        //dump('parentPageIds: ['.implode(',', $pp).']');
 
-        $klaroConfig = KlaroConfigModel::findByPk(5);
-        dump($klaroConfig);
+        $klaroConfig = KlaroConfigModel::findByPk(5); // ToDo: prevent empty collection
 
         // prepare the css template
         $cssTemplate = new FrontendTemplate('fe_klaro_css');
-        $cssTemplate->version = 'v0.7';
+        $cssTemplate->version = 'v0.7'; // ToDo: test the version string
 
-        // prepare the klaro config.js template
+        // prepare the klaro services.js template
+
+        // get all services for the given config
+        $services = KlaroServiceModel::findMultipleByIds(StringUtil::deserialize($klaroConfig->services));
+        // adjust fields
+        $serviceFieldsCallback = static function (&$value, $key): void { if ('default' === $key) { $value = '1' === $value ? 'true' : 'false'; } };
+        $serviceCallback = static function ($service) use ($serviceFieldsCallback) {
+            array_walk($service, $serviceFieldsCallback);
+
+            return $service;
+        };
+
+        // prepare a array of service data
+        $arrServices = null !== $services ? array_map($serviceCallback, $services->fetchAll()) : [];
+
+        // render the services.js section with the service data as javascript
+        $servicesPartial = $this->twig->render(
+            'fe_klaro_config_services.js.twig',
+            [
+                'services' => $arrServices,
+            ]
+        );
+
+        // render the config.js as javascript
         $configJsTemplate = $this->twig->render(
             'fe_klaro_config.js.twig',
             [
@@ -83,11 +107,11 @@ class GeneratePageHook
                     'acceptAll' => '1' === $klaroConfig->acceptAll ? 'true' : 'false',
                     'hideDeclineAll' => '1' === $klaroConfig->hideDeclineAll ? 'true' : 'false',
                     'hideLearnMore' => '1' === $klaroConfig->hideLearnMore ? 'true' : 'false',
+
+                    'services' => $servicesPartial,
                 ],
             ]
         );
-
-dump($configJsTemplate);
 
         // prepare the klaro script template
         $scriptTemplate = new FrontendTemplate('fe_klaro_script');
@@ -95,14 +119,14 @@ dump($configJsTemplate);
         $scriptTemplate->version = 'v0.7';
         $mode = 'defer'; // '' = synchronous, 'async' = asyncronous see: https://heyklaro.com/docs/integration/overview
         // a fallback config
-//$configJsFallbackSrc = 'bundles/pdircontaoklaroconsentmanager/js/config.js';
+        //$configJsFallbackSrc = 'bundles/pdircontaoklaroconsentmanager/js/config.js';
         //$config_plain = '';
 
         //$scriptTemplate->klaro_config = "<script $mode type='application/javascript' src='$configJsFallbackSrc'></script>";
         $scriptTemplate->klaro_config = "<script type='application/javascript'>$configJsTemplate</script>";
 
         //$scriptTemplate->klaro_script = "<script $mode data-config='klaroConfig' type='application/javascript' src='https://cdn.kiprotect.com/klaro/{$scriptTemplate->version}/klaro.js'></script>";
-        $scriptTemplate->klaro_script = "<script $mode data-config='klaroConfig' type='application/javascript' src='bundles/pdircontaoklaroconsentmanager/js/klaro.js'></script>";
+        $scriptTemplate->klaro_script = "<script $mode data-klaro-config='{$klaroConfig->myConfigVariableName}' type='application/javascript' src='bundles/pdircontaoklaroconsentmanager/js/klaro.js'></script>";
 
         //$GLOBALS['TL_CSS']['klaro'] = $cssTemplate->parse();
         $GLOBALS['TL_CSS']['klaro'] = "https://cdn.kiprotect.com/klaro/{$cssTemplate->version}/klaro.min.css";
