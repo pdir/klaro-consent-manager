@@ -17,10 +17,11 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
+$strTable = 'tl_klaro_config';
 /*
  * Table tl_klaro_config
  */
-$GLOBALS['TL_DCA']['tl_klaro_config'] = [
+$GLOBALS['TL_DCA'][$strTable] = [
     // Config
     'config' => [
         'dataContainer' => 'Table',
@@ -52,23 +53,23 @@ $GLOBALS['TL_DCA']['tl_klaro_config'] = [
         ],
         'operations' => [
             'edit' => [
-                'label' => &$GLOBALS['TL_LANG']['tl_klaro_config']['edit'],
+                'label' => &$GLOBALS['TL_LANG'][$strTable]['edit'],
                 'href' => 'act=edit',
                 'icon' => 'edit.svg',
             ],
             'copy' => [
-                'label' => &$GLOBALS['TL_LANG']['tl_klaro_config']['copy'],
+                'label' => &$GLOBALS['TL_LANG'][$strTable]['copy'],
                 'href' => 'act=copy',
                 'icon' => 'copy.svg',
             ],
             'delete' => [
-                'label' => &$GLOBALS['TL_LANG']['tl_klaro_config']['delete'],
+                'label' => &$GLOBALS['TL_LANG'][$strTable]['delete'],
                 'href' => 'act=delete',
                 'icon' => 'delete.svg',
                 'attributes' => 'onclick="if(!confirm(\''.$GLOBALS['TL_LANG']['MSC']['deleteConfirm'].'\'))return false;Backend.getScrollOffset()"',
             ],
             'show' => [
-                'label' => &$GLOBALS['TL_LANG']['tl_klaro_config']['show'],
+                'label' => &$GLOBALS['TL_LANG'][$strTable]['show'],
                 'href' => 'act=show',
                 'icon' => 'show.svg',
                 'attributes' => 'style="margin-right:3px"',
@@ -118,7 +119,6 @@ $GLOBALS['TL_DCA']['tl_klaro_config'] = [
         'services' => [
             'exclude' => true,
             'inputType' => 'checkboxWizard',
-            'options' => ['layout.css', 'responsive.css', 'grid.css', 'reset.css', 'form.css', 'icons.css'],
             'eval' => ['multiple' => true, 'helpwizard' => true],
             'reference' => &$GLOBALS['TL_LANG']['tl_layout'],
             'sql' => [
@@ -134,7 +134,7 @@ $GLOBALS['TL_DCA']['tl_klaro_config'] = [
             'search' => true,
             'filter' => true,
             'sorting' => true,
-            'reference' => $GLOBALS['TL_LANG']['tl_klaro_config']['loading_mode_options'],
+            'reference' => $GLOBALS['TL_LANG'][$strTable]['loading_mode_options'],
             'options' => ['', 'async', 'defer'], // https://heyklaro.com/docs/integration/overview
             'eval' => ['tl_class' => 'w25'],
             'sql' => [
@@ -184,7 +184,7 @@ $GLOBALS['TL_DCA']['tl_klaro_config'] = [
             'search' => true,
             'filter' => true,
             'sorting' => true,
-            'reference' => $GLOBALS['TL_LANG']['tl_klaro_config']['storage_method_options'],
+            'reference' => $GLOBALS['TL_LANG'][$strTable]['storage_method_options'],
             'options' => ['cookie', 'localStorage'],
             'eval' => ['tl_class' => 'w25'],
             'sql' => [
@@ -301,7 +301,7 @@ $GLOBALS['TL_DCA']['tl_klaro_config'] = [
             'search' => true,
             'filter' => true,
             'sorting' => true,
-            'reference' => $GLOBALS['TL_LANG']['tl_klaro_config'],
+            'reference' => $GLOBALS['TL_LANG'][$strTable],
             'options' => ['firstoption', 'secondoption'],
             //'foreignKey'            => 'tl_user.name',
             //'options_callback'      => array('CLASS', 'METHOD'),
@@ -315,7 +315,7 @@ $GLOBALS['TL_DCA']['tl_klaro_config'] = [
             'search' => true,
             'filter' => true,
             'sorting' => true,
-            'reference' => $GLOBALS['TL_LANG']['tl_klaro_config'],
+            'reference' => $GLOBALS['TL_LANG'][$strTable],
             'options' => ['firstoption', 'secondoption'],
             //'foreignKey'            => 'tl_user.name',
             //'options_callback'      => array('CLASS', 'METHOD'),

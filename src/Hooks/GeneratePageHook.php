@@ -26,6 +26,7 @@ use Contao\PageModel;
 use Contao\PageRegular;
 use Contao\StringUtil;
 use Pdir\ContaoKlaroConsentManager\Model\KlaroConfigModel;
+use Pdir\ContaoKlaroConsentManager\Model\KlaroPurposeModel;
 use Pdir\ContaoKlaroConsentManager\Model\KlaroServiceModel;
 use Twig\Environment as TwigEnvironment;
 
@@ -71,7 +72,17 @@ class GeneratePageHook
         // get all services for the given config
         $services = KlaroServiceModel::findMultipleByIds(StringUtil::deserialize($klaroConfig->services));
         // adjust fields
-        $serviceFieldsCallback = static function (&$value, $key): void { if ('default' === $key) { $value = '1' === $value ? 'true' : 'false'; } };
+        $serviceFieldsCallback = static function (&$value, $key): void {
+            switch ($key) {
+                case 'default':
+                    $value = '1' === $value ? 'true' : 'false';
+                    break;
+
+                case 'purposes':
+                    $purposes = KlaroPurposeModel::findMultipleByIds(StringUtil::deserialize($value));
+                    $value = null !== $purposes ? "'".implode("','", $purposes->fetchEach('title'))."'" : '';
+            }
+        };
         $serviceCallback = static function ($service) use ($serviceFieldsCallback) {
             array_walk($service, $serviceFieldsCallback);
 
@@ -88,7 +99,7 @@ class GeneratePageHook
                 'services' => $arrServices,
             ]
         );
-
+        dump($servicesPartial);
         // render the config.js as javascript
         $configJsTemplate = $this->twig->render(
             'fe_klaro_config.js.twig',

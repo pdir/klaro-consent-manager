@@ -18,6 +18,7 @@ declare(strict_types=1);
  */
 
 use Pdir\ContaoKlaroConsentManager\Model\KlaroConfigModel;
+use Pdir\ContaoKlaroConsentManager\Model\KlaroPurposeModel;
 use Pdir\ContaoKlaroConsentManager\Model\KlaroServiceModel;
 
 /*
@@ -37,3 +38,4 @@ $GLOBALS['BE_MOD']['pdir']['klaro_service'] = [
  */
 $GLOBALS['TL_MODELS']['tl_klaro_config'] = KlaroConfigModel::class;
 $GLOBALS['TL_MODELS']['tl_klaro_service'] = KlaroServiceModel::class;
+$GLOBALS['TL_MODELS']['tl_klaro_purpose'] = KlaroPurposeModel::class;

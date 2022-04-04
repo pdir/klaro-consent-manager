@@ -17,10 +17,11 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
+$strTable = 'tl_klaro_service';
 /*
  * Table tl_klaro_service
  */
-$GLOBALS['TL_DCA']['tl_klaro_service'] = [
+$GLOBALS['TL_DCA'][$strTable] = [
     // Config
     'config' => [
         'dataContainer' => 'Table',
@@ -52,23 +53,23 @@ $GLOBALS['TL_DCA']['tl_klaro_service'] = [
         ],
         'operations' => [
             'edit' => [
-                'label' => &$GLOBALS['TL_LANG']['tl_klaro_service']['edit'],
+                'label' => &$GLOBALS['TL_LANG'][$strTable]['edit'],
                 'href' => 'act=edit',
                 'icon' => 'edit.svg',
             ],
             'copy' => [
-                'label' => &$GLOBALS['TL_LANG']['tl_klaro_service']['copy'],
+                'label' => &$GLOBALS['TL_LANG'][$strTable]['copy'],
                 'href' => 'act=copy',
                 'icon' => 'copy.svg',
             ],
             'delete' => [
-                'label' => &$GLOBALS['TL_LANG']['tl_klaro_service']['delete'],
+                'label' => &$GLOBALS['TL_LANG'][$strTable]['delete'],
                 'href' => 'act=delete',
                 'icon' => 'delete.svg',
                 'attributes' => 'onclick="if(!confirm(\''.$GLOBALS['TL_LANG']['MSC']['deleteConfirm'].'\'))return false;Backend.getScrollOffset()"',
             ],
             'show' => [
-                'label' => &$GLOBALS['TL_LANG']['tl_klaro_service']['show'],
+                'label' => &$GLOBALS['TL_LANG'][$strTable]['show'],
                 'href' => 'act=show',
                 'icon' => 'show.svg',
                 'attributes' => 'style="margin-right:3px"',
@@ -77,10 +78,9 @@ $GLOBALS['TL_DCA']['tl_klaro_service'] = [
     ],
     // Palettes
     'palettes' => [
-        '__selector__' => ['addSubpalette'],
-        'default' => '{name_legend},title;'.
-            '{service_legend},name,default;',
-        //'{expert_legend},addSubpalette, ',
+        '__selector__' => [],
+        'default' => '{title_legend},title;'.
+            '{service_legend},name,default,purposes;',
     ],
     // Subpalettes
     'subpalettes' => [
@@ -129,7 +129,7 @@ $GLOBALS['TL_DCA']['tl_klaro_service'] = [
         'default' => [
             'exclude' => true,
             'inputType' => 'checkbox',
-            'eval' => ['tl_class' => 'w25'],
+            'eval' => ['tl_class' => 'w25 m12'],
             'sql' => [
                 'type' => 'string',
                 'length' => 1,
@@ -148,7 +148,18 @@ $GLOBALS['TL_DCA']['tl_klaro_service'] = [
          * The purpose(s) of this service that will be listed on the consent notice. Do not
          * forget to add translations for all purposes you list here.
          */
-        'purposes' => [],
+        'purposes' => [
+            'exclude' => true,
+            'inputType' => 'checkboxWizard',
+            'eval' => ['mandatory' => true, 'multiple' => true, 'helpwizard' => true, 'tl_class' => 'w25'],
+            'reference' => &$GLOBALS['TL_LANG'][$strTable],
+            'sql' => [
+                'type' => 'text',
+                'length' => 2048,
+                'fixed' => true,
+                'default' => '',
+            ],
+        ],
 
         /*
          * you an either only provide a cookie name or regular expression (regex) or a list
