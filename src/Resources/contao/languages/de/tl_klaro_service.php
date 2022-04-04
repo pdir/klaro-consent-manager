@@ -33,9 +33,12 @@ $GLOBALS['TL_LANG']['tl_klaro_service'] = [
     'title' => ['Name des Konfiguration', "Geben Sie einen Namen für die $sgl ein."],
 
     // Services
-    'services_legend' => "{$sgl}konfiguration",
+    'service_legend' => "{$sgl}konfiguration",
     'name' => ["Name des {$sgl}es", "Geben Sie den Namen für den $sgl ein, den $klaro intern als Symbol für diesen Dienst verwendet."],
     'default' => ['Standard: zugestimmt', 'Wenn Sie diese Option aktivieren, wird die Zustimmung für diesen Dienst beim Laden voreingestellt.'],
     'translation' => ['', ''],
+
     'purposes' => ['Zwecke', 'Wählen Sie hier mindestens einen Zweck, dem dieser Dienst zugeordnet ist.'],
+    'purposes_options' => ['analytics', 'security', 'lifechat', 'advertising', 'styling'],
+    'purposes_reference' => ['analytics' => 'Analyse', 'security' => 'Sicherheit', 'lifechat' => 'Lifechat', 'advertising' => 'Werbung', 'styling' => 'Stylesheets'],
 ];

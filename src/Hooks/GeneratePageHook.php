@@ -26,7 +26,6 @@ use Contao\PageModel;
 use Contao\PageRegular;
 use Contao\StringUtil;
 use Pdir\ContaoKlaroConsentManager\Model\KlaroConfigModel;
-use Pdir\ContaoKlaroConsentManager\Model\KlaroPurposeModel;
 use Pdir\ContaoKlaroConsentManager\Model\KlaroServiceModel;
 use Twig\Environment as TwigEnvironment;
 
@@ -72,19 +71,27 @@ class GeneratePageHook
         // get all services for the given config
         $services = KlaroServiceModel::findMultipleByIds(StringUtil::deserialize($klaroConfig->services));
         // adjust fields
-        $serviceFieldsCallback = static function (&$value, $key): void {
+        $serviceFieldsCallback = static function (&$value, $key, $c): void {
             switch ($key) {
-                case 'default':
-                    $value = '1' === $value ? 'true' : 'false';
-                    break;
+                case 'default': $value = $c->bool($value); break;
 
                 case 'purposes':
-                    $purposes = KlaroPurposeModel::findMultipleByIds(StringUtil::deserialize($value));
-                    $value = null !== $purposes ? "'".implode("','", $purposes->fetchEach('title'))."'" : '';
+                    $purposes = StringUtil::deserialize($value);
+                    $value = \is_array($purposes) ? "'".implode("','", $purposes)."'" : '';
+                    break;
+
+                case 'required': $value = $c->bool($value); break;
+
+                case 'optOut': $value = $c->bool($value); break;
+
+                case 'onlyOnce': $value = $c->bool($value); break;
+
+                case 'contextualConsentOnly': $value = $c->bool($value); break;
             }
         };
-        $serviceCallback = static function ($service) use ($serviceFieldsCallback) {
-            array_walk($service, $serviceFieldsCallback);
+        $c = $this; // does the trick
+        $serviceCallback = static function ($service) use ($serviceFieldsCallback, $c) {
+            array_walk($service, $serviceFieldsCallback, $c);
 
             return $service;
         };
@@ -144,7 +151,11 @@ class GeneratePageHook
         $GLOBALS['TL_BODY']['klaro'] = $scriptTemplate->parse();
     }
 
-    private function isChildFromPage(): void
+    /**
+     * @param $value
+     */
+    private function bool($value): string
     {
+        return '1' === $value ? 'true' : 'false';
     }
 }

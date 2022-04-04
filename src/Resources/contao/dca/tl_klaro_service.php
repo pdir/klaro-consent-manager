@@ -80,7 +80,7 @@ $GLOBALS['TL_DCA'][$strTable] = [
     'palettes' => [
         '__selector__' => [],
         'default' => '{title_legend},title;'.
-            '{service_legend},name,default,purposes;',
+            '{service_legend},name,purposes;default,required,optOut,onlyOnce,contextualConsentOnly;',
     ],
     // Subpalettes
     'subpalettes' => [
@@ -151,8 +151,9 @@ $GLOBALS['TL_DCA'][$strTable] = [
         'purposes' => [
             'exclude' => true,
             'inputType' => 'checkboxWizard',
+            'reference' => $GLOBALS['TL_LANG'][$strTable]['purposes_reference'],
+            'options' => $GLOBALS['TL_LANG'][$strTable]['purposes_options'],
             'eval' => ['mandatory' => true, 'multiple' => true, 'helpwizard' => true, 'tl_class' => 'w25'],
-            'reference' => &$GLOBALS['TL_LANG'][$strTable],
             'sql' => [
                 'type' => 'text',
                 'length' => 2048,
@@ -186,13 +187,33 @@ $GLOBALS['TL_DCA'][$strTable] = [
          * by the user. Use this for services that are always required for your website to
          * function (e.g. shopping cart cookies).
          */
-        'required' => [], // false,
+        'required' => [
+            'exclude' => true,
+            'inputType' => 'checkbox',
+            'eval' => ['tl_class' => 'w25 m12'],
+            'sql' => [
+                'type' => 'string',
+                'length' => 1,
+                'fixed' => true,
+                'default' => '',
+            ],
+        ], // false,
 
         /*
          * If 'optOut' is set to 'true', Klaro will load this service even before the user
          * has given explicit consent. We strongly advise against this.
          */
-        'optOut' => [], // false,
+        'optOut' => [
+            'exclude' => true,
+            'inputType' => 'checkbox',
+            'eval' => ['tl_class' => 'w25 m12'],
+            'sql' => [
+                'type' => 'string',
+                'length' => 1,
+                'fixed' => true,
+                'default' => '',
+            ],
+        ], // false,
 
         /*
          * If 'onlyOnce' is set to 'true', the service will only be executed once
@@ -200,11 +221,29 @@ $GLOBALS['TL_DCA'][$strTable] = [
          * tracking scripts that would generate new page view events every time Klaro
          * disables and re-enables them due to a consent change by the user.
          */
-        'onlyOnce' => [], // true,
+        'onlyOnce' => ['exclude' => true,
+            'inputType' => 'checkbox',
+            'eval' => ['tl_class' => 'w25 m12'],
+            'sql' => [
+                'type' => 'string',
+                'length' => 1,
+                'fixed' => true,
+                'default' => '',
+            ], ], // true,
 
         /*
          * unklar
          */
-        'contextualConsentOnly' => [], // true
+        'contextualConsentOnly' => [
+            'exclude' => true,
+            'inputType' => 'checkbox',
+            'eval' => ['tl_class' => 'w25 m12'],
+            'sql' => [
+                'type' => 'string',
+                'length' => 1,
+                'fixed' => true,
+                'default' => '',
+            ],
+        ], // true
     ],
 ];
