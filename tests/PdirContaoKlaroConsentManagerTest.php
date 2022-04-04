@@ -20,7 +20,7 @@ declare(strict_types=1);
 namespace Pdir\ContaoKlaroConsentManager\Tests;
 
 use Pdir\ContaoKlaroConsentManager\DependencyInjection\PdirContaoKlaroConsentManagerExtension;
-use Pdir\Pdir\ContaoKlaroConsentManager\PdirContaoKlaroConsentManager;
+use Pdir\ContaoKlaroConsentManager\PdirContaoKlaroConsentManager;
 use PHPUnit\Framework\TestCase;
 
 class PdirContaoKlaroConsentManagerTest extends TestCase
