@@ -25,6 +25,7 @@ use Contao\LayoutModel;
 use Contao\PageModel;
 use Contao\PageRegular;
 use Contao\StringUtil;
+use Contao\System;
 use Pdir\ContaoKlaroConsentManager\Model\KlaroConfigModel;
 use Pdir\ContaoKlaroConsentManager\Model\KlaroServiceModel;
 use Twig\Environment as TwigEnvironment;
@@ -92,6 +93,10 @@ class GeneratePageHook
         $c = $this; // does the trick
         $serviceCallback = static function ($service) use ($serviceFieldsCallback, $c) {
             array_walk($service, $serviceFieldsCallback, $c);
+            // add the key for translations here
+            System::loadLanguageFile('tl_klaro_service');
+            $service['translations'] = '';
+            dump($GLOBALS['TL_LANG']['tl_klaro_service']['purposes_translations'][$service['name']]);
 
             return $service;
         };

@@ -36,9 +36,21 @@ $GLOBALS['TL_LANG']['tl_klaro_service'] = [
     'service_legend' => "{$sgl}konfiguration",
     'name' => ["Name des {$sgl}es", "Geben Sie den Namen für den $sgl ein, den $klaro intern als Symbol für diesen Dienst verwendet."],
     'default' => ['Standard: zugestimmt', 'Wenn Sie diese Option aktivieren, wird die Zustimmung für diesen Dienst beim Laden voreingestellt.'],
-    'translation' => ['', ''],
+    'translations' => ['', ''],
 
     'purposes' => ['Zwecke', 'Wählen Sie hier mindestens einen Zweck, dem dieser Dienst zugeordnet ist.'],
-    'purposes_options' => ['analytics', 'security', 'lifechat', 'advertising', 'styling'],
-    'purposes_reference' => ['analytics' => 'Analyse', 'security' => 'Sicherheit', 'lifechat' => 'Lifechat', 'advertising' => 'Werbung', 'styling' => 'Stylesheets'],
+    //'purposes_options' => ['analytics', 'security', 'lifechat', 'advertising', 'styling'],
+    'purposes_reference' => [
+        'security' => 'Sicherheit',
+        'analytics' => 'Analyse',
+        'lifechat' => 'Lifechat',
+        'advertising' => 'Werbung',
+        'styling' => 'Stylesheets',
+    ],
+    'purposes_translations' => [
+        'youtube' => [
+            'zz' => ['title' => 'Übersetzung Fallback für Lifechat'],
+            'de' => ['description' => 'Deutsch für Lifechat'],
+        ],
+    ],
 ];

@@ -104,9 +104,8 @@ $GLOBALS['TL_DCA'][$strTable] = [
             'eval' => ['mandatory' => true, 'maxlength' => 255, 'tl_class' => 'w50'],
             'sql' => "varchar(255) NOT NULL default ''",
         ],
-        /*
-         * Klaro Service Attributes
-         */
+        /* Klaro Service Attributes */
+
         /*
          *  Each service must have a unique name. Klaro will look for HTML elements with a
          *  matching 'data-name' attribute to identify elements that belong to this service.
@@ -152,7 +151,7 @@ $GLOBALS['TL_DCA'][$strTable] = [
             'exclude' => true,
             'inputType' => 'checkboxWizard',
             'reference' => $GLOBALS['TL_LANG'][$strTable]['purposes_reference'],
-            'options' => $GLOBALS['TL_LANG'][$strTable]['purposes_options'],
+            'options' => $GLOBALS['TL_LANG'][$strTable]['purposes_reference'],
             'eval' => ['mandatory' => true, 'multiple' => true, 'helpwizard' => true, 'tl_class' => 'w25'],
             'sql' => [
                 'type' => 'text',
