@@ -63,6 +63,10 @@ class GeneratePageHook
 
         $klaroConfig = KlaroConfigModel::findByPk(5); // ToDo: prevent empty collection
 
+        if (null === $klaroConfig) {
+            return;
+        }
+
         // prepare the css template
         $cssTemplate = new FrontendTemplate('fe_klaro_css');
         $cssTemplate->version = 'v0.7'; // ToDo: test the version string
@@ -70,7 +74,9 @@ class GeneratePageHook
         // prepare the klaro services.js template
 
         // get all services for the given config
-        $services = KlaroServiceModel::findMultipleByIds(StringUtil::deserialize($klaroConfig->services));
+        if (null !== $klaroConfig->services) {
+            $services = KlaroServiceModel::findMultipleByIds(StringUtil::deserialize($klaroConfig->services));
+        }
         // adjust fields
         $serviceFieldsCallback = static function (&$value, $key, $c): void {
             switch ($key) {
@@ -96,7 +102,7 @@ class GeneratePageHook
             // add the key for translations here
             System::loadLanguageFile('tl_klaro_service');
             $service['translations'] = '';
-            dump($GLOBALS['TL_LANG']['tl_klaro_service']['purposes_translations'][$service['name']]);
+            // dump($GLOBALS['TL_LANG']['tl_klaro_service']['purposes_translations'][$service['name']]);
 
             return $service;
         };
@@ -111,7 +117,7 @@ class GeneratePageHook
                 'services' => $arrServices,
             ]
         );
-        dump($servicesPartial);
+        // dump($servicesPartial);
         // render the config.js as javascript
         $configJsTemplate = $this->twig->render(
             'fe_klaro_config.js.twig',

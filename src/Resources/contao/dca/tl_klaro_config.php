@@ -134,7 +134,7 @@ $GLOBALS['TL_DCA'][$strTable] = [
             'search' => false,
             'filter' => false,
             'sorting' => false,
-            'reference' => $GLOBALS['TL_LANG'][$strTable]['loading_mode_options'],
+            'reference' => &$GLOBALS['TL_LANG'][$strTable]['loading_mode_options'],
             'options' => ['', 'async', 'defer'], // https://heyklaro.com/docs/integration/overview
             'eval' => ['tl_class' => 'w25'],
             'sql' => [
@@ -184,7 +184,7 @@ $GLOBALS['TL_DCA'][$strTable] = [
             'search' => true,
             'filter' => true,
             'sorting' => true,
-            'reference' => $GLOBALS['TL_LANG'][$strTable]['storage_method_options'],
+            'reference' => &$GLOBALS['TL_LANG'][$strTable]['storage_method_options'],
             'options' => ['cookie', 'localStorage'],
             'eval' => ['tl_class' => 'w25'],
             'sql' => [
