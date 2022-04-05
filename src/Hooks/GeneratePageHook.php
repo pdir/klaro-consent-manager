@@ -97,12 +97,15 @@ class GeneratePageHook
                 case 'contextualConsentOnly': $value = $c->bool($value); break;
             }
         };
+
         $c = $this; // does the trick
         $serviceCallback = static function ($service) use ($serviceFieldsCallback, $c) {
             array_walk($service, $serviceFieldsCallback, $c);
             // add the key for translations here
             System::loadLanguageFile('tl_klaro_service');
-            $service['translations'] = '';
+            $serTranslation = '{}';
+            $serTranslation = "{zz: {title: 'Matomo/Piwik'},en: {description: 'Matomo is a simple, self-hosted analytics service.'},de: {description: 'Matomo ist ein einfacher, selbstgehosteter Analytics-Service.'}}";
+            $service['translations'] = $serTranslation;
             // dump($GLOBALS['TL_LANG']['tl_klaro_service']['purposes_translations'][$service['name']]);
 
             return $service;
@@ -110,6 +113,8 @@ class GeneratePageHook
 
         // prepare a array of service data
         $arrServices = null !== $services ? array_map($serviceCallback, $services->fetchAll()) : [];
+
+        dump($arrServices);
 
         // render the services.js section with the service data as javascript
         $servicesPartial = $this->twig->render(
