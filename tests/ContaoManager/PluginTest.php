@@ -1,14 +1,5 @@
 <?php
 
-/*
- * This file is part of klaro-consent-manager.
- *
- * (c) Christian Mette 2022 <mette@pdir.de>
- * @license GPL-3.0-or-later
- * For the full copyright and license information,
- * please view the LICENSE file that was distributed with this source code.
- * @link https://github.com/pdir/contao-klaro-consent-manager
- */
 declare(strict_types=1);
 
 /*
@@ -16,8 +7,8 @@ declare(strict_types=1);
  *
  * Copyright (c) 2022 pdir / digital agentur // pdir GmbH
  *
- * @package    krpano-bundle
- * @link       https://pdir.de/krpano-bundle/
+ * @package    klaro-consent-manager
+ * @link       https://pdir.de/consent/
  * @license    LGPL-3.0-or-later
  * @author     Mathias Arzberger <develop@pdir.de>
  * @author     Christian Mette <develop@pdir.de>
@@ -30,37 +21,22 @@ namespace Pdir\ContaoKlaroConsentManager\Tests\ContaoManager;
 
 use Contao\CoreBundle\ContaoCoreBundle;
 use Contao\ManagerPlugin\Bundle\Config\BundleConfig;
-use Contao\ManagerPlugin\Bundle\Parser\DelegatingParser;
-use Contao\TestCase\ContaoTestCase;
+use Contao\ManagerPlugin\Bundle\Parser\ParserInterface;
 use Pdir\ContaoKlaroConsentManager\ContaoManager\Plugin;
 use Pdir\ContaoKlaroConsentManager\PdirContaoKlaroConsentManager;
+use PHPUnit\Framework\TestCase;
 
-/**
- * Class PluginTest.
- */
-class PluginTest extends ContaoTestCase
+class PluginTest extends TestCase
 {
-    /**
-     * Test Contao manager plugin class instantiation.
-     */
-    public function testInstantiation(): void
+    public function testReturnsTheBundles(): void
     {
-        $this->assertInstanceOf(Plugin::class, new Plugin());
-    }
+        $parser = $this->createMock(ParserInterface::class);
 
-    /**
-     * Test returns the bundles.
-     */
-    public function testGetBundles(): void
-    {
-        $plugin = new Plugin();
+        /** @var BundleConfig $config */
+        $config = (new Plugin())->getBundles($parser)[0];
 
-        /** @var array $bundles */
-        $bundles = $plugin->getBundles(new DelegatingParser());
-
-        $this->assertCount(1, $bundles);
-        $this->assertInstanceOf(BundleConfig::class, $bundles[0]);
-        $this->assertSame(PdirContaoKlaroConsentManager::class, $bundles[0]->getName());
-        $this->assertSame([ContaoCoreBundle::class], $bundles[0]->getLoadAfter());
+        $this->assertInstanceOf(BundleConfig::class, $config);
+        $this->assertSame(PdirContaoKlaroConsentManager::class, $config->getName());
+        $this->assertSame([ContaoCoreBundle::class], $config->getLoadAfter());
     }
 }

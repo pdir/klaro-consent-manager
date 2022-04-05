@@ -17,27 +17,23 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Pdir\ContaoKlaroConsentManager;
+namespace Pdir\ContaoKlaroConsentManager\Tests;
 
 use Pdir\ContaoKlaroConsentManager\DependencyInjection\PdirContaoKlaroConsentManagerExtension;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\HttpKernel\Bundle\Bundle;
+use Pdir\ContaoKlaroConsentManager\PdirContaoKlaroConsentManager;
+use PHPUnit\Framework\TestCase;
 
-/**
- * Class PdirContaoKlaroConsentManager.
- */
-class PdirContaoKlaroConsentManager extends Bundle
+class PdirContaoKlaroConsentManagerTest extends TestCase
 {
-    public function getContainerExtension(): PdirContaoKlaroConsentManagerExtension
+    public function testCanBeInstantiated(): void
     {
-        return new PdirContaoKlaroConsentManagerExtension();
+        $bundle = new PdirContaoKlaroConsentManager();
+        $this->assertInstanceOf(PdirContaoKlaroConsentManager::class, $bundle);
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function build(ContainerBuilder $container): void
+    public function testGetContainerExtension(): void
     {
-        parent::build($container);
+        $bundle = new PdirContaoKlaroConsentManager();
+        $this->assertInstanceOf(PdirContaoKlaroConsentManagerExtension::class, $bundle->getContainerExtension());
     }
 }

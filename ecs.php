@@ -13,8 +13,8 @@ Klaro Consent Manager bundle for Contao Open Source CMS
 
 Copyright (c) $date pdir / digital agentur // pdir GmbH
 
-@package    krpano-bundle
-@link       https://pdir.de/krpano-bundle/
+@package    klaro-consent-manager
+@link       https://pdir.de/consent/
 @license    LGPL-3.0-or-later
 @author     Mathias Arzberger <develop@pdir.de>
 @author     Christian Mette <develop@pdir.de>
