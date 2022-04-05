@@ -1,6 +1,8 @@
 services:
-    # Contao frontend module Pdir\ContaoKlaroConsentManager\Controller\FrontendModule\KlaroFeModuleController
-    # We used annotations for tagging the frontend module category, the frontend module type and the frontend module template
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
     Pdir\ContaoKlaroConsentManager\Controller\FrontendModule\KlaroFeModuleController:
         tags:
             - { name: container.service_subscriber }

@@ -50,7 +50,7 @@ $GLOBALS['TL_LANG']['tl_klaro_service'] = [
     'purposes_translations' => [
         'youtube' => [
             'zz' => ['title' => 'Übersetzung Fallback für Lifechat'],
-            'de' => ['description' => 'Deutsch für Lifechat'],
+            'self' => ['description' => 'Deutsch für Lifechat'],
         ],
     ],
 ];

@@ -157,7 +157,7 @@ $GLOBALS['TL_DCA'][$strTable] = [
                 'type' => 'text',
                 'length' => 2048,
                 'fixed' => true,
-                'default' => '',
+                'notnull' => false,
             ],
         ],
 
