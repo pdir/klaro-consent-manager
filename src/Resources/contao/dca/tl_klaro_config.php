@@ -113,6 +113,7 @@ $GLOBALS['TL_DCA'][$strTable] = [
         'scope' => [
             'exclude' => true,
             'inputType' => 'pageTree',
+            'foreignKey' => 'tl_page.title',
             'eval' => ['fieldType' => 'checkbox', 'tl_class' => 'clr', 'multiple' => true],
             'sql' => 'blob NULL',
         ],
