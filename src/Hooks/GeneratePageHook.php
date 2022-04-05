@@ -59,10 +59,11 @@ class GeneratePageHook
             $pp[] = $page->id;
         }
 
-        //dump('parentPageIds: ['.implode(',', $pp).']');
+        dump('parentPageIds: ['.implode(',', $pp).']');
 
         $klaroConfig = KlaroConfigModel::findByPk(5); // ToDo: prevent empty collection
 
+        dump($klaroConfig);
         if (null === $klaroConfig) {
             return;
         }
@@ -117,7 +118,7 @@ class GeneratePageHook
                 'services' => $arrServices,
             ]
         );
-        // dump($servicesPartial);
+        dump($servicesPartial);
         // render the config.js as javascript
         $configJsTemplate = $this->twig->render(
             'fe_klaro_config.js.twig',

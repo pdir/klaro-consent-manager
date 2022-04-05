@@ -150,8 +150,8 @@ $GLOBALS['TL_DCA'][$strTable] = [
         'purposes' => [
             'exclude' => true,
             'inputType' => 'checkboxWizard',
-            'reference' => $GLOBALS['TL_LANG'][$strTable]['purposes_reference'],
-            'options' => $GLOBALS['TL_LANG'][$strTable]['purposes_reference'],
+            'reference' => &$GLOBALS['TL_LANG'][$strTable]['purposes_reference'],
+            'options' => &$GLOBALS['TL_LANG'][$strTable]['purposes_reference'],
             'eval' => ['mandatory' => true, 'multiple' => true, 'helpwizard' => true, 'tl_class' => 'w25'],
             'sql' => [
                 'type' => 'text',
