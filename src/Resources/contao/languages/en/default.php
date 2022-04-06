@@ -30,6 +30,31 @@ declare(strict_types=1);
 /*
  * klaro options
  */
-$GLOBALS['TL_LANG']['tl_klaro_config'] = [
-    'loading_mode_options' => ['' => 'synchron', 'defer' => 'verzögert (defer)', 'async' => 'parallel (async)'],
+$GLOBALS['TL_LANG']['klaro'] = [
+    'config' => [
+        'loading_mode_options' => [
+            '' => 'synchron',
+            'defer' => 'deferred (defer)',
+            'async' => 'asynchron (async)',
+        ],
+        'storage_method_options' => [
+            'cookie' => 'Cookie Storage',
+            'localStorage' => 'Browser Local Storage',
+        ],
+    ],
+    'service' => [
+        'purposes_reference' => [
+            'security' => 'Security',
+            'analytics' => 'Analyse',
+            'lifechat' => 'Lifechat',
+            'advertising' => 'Werbung',
+            'styling' => 'Stylesheets',
+        ],
+        'purposes_translations' => [
+            'youtube' => [
+                'zz' => ['title' => 'Übersetzung Fallback für Lifechat'],
+                'self' => ['description' => 'Deutsch für Lifechat'],
+            ],
+        ],
+    ],
 ];
