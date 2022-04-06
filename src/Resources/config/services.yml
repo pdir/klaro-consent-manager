@@ -12,7 +12,6 @@ services:
             - [ setContainer, [ '@Psr\Container\ContainerInterface' ] ]
 
     # Hooks
-
     pdir.klaro.hooks.generatepage:
         class: Pdir\ContaoKlaroConsentManager\Hooks\GeneratePageHook
         arguments:
