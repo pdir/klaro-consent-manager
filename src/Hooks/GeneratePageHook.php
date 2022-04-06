@@ -160,7 +160,7 @@ class GeneratePageHook
         $scriptTemplate->klaro_config = "<script type='application/javascript'>$configJsTemplate</script>";
 
         //$scriptTemplate->klaro_script = "<script $mode data-config='klaroConfig' type='application/javascript' src='https://cdn.kiprotect.com/klaro/{$scriptTemplate->version}/klaro.js'></script>";
-        $scriptTemplate->klaro_script = "<script $mode data-klaro-config='{$klaroConfig->myConfigVariableName}' type='application/javascript' src='bundles/pdircontaoklaroconsentmanager/js/klaro.js'></script>";
+        $scriptTemplate->klaro_script = "<script $mode data-config='{$klaroConfig->myConfigVariableName}' type='application/javascript' src='bundles/pdircontaoklaroconsentmanager/js/klaro.js'></script>";
 
         //$GLOBALS['TL_CSS']['klaro'] = $cssTemplate->parse();
         $GLOBALS['TL_CSS']['klaro'] = "https://cdn.kiprotect.com/klaro/{$cssTemplate->version}/klaro.min.css";
