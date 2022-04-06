@@ -17,3 +17,7 @@ services:
         class: Pdir\ContaoKlaroConsentManager\Hooks\GeneratePageHook
         arguments:
             - "@twig"
+
+    # InsertTags
+    Pdir\ContaoKlaroConsentManager\EventListener\KlaroButtonInsertTagListener:
+        public: true
