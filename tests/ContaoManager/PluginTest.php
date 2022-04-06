@@ -25,18 +25,32 @@ use Contao\ManagerPlugin\Bundle\Parser\ParserInterface;
 use Pdir\ContaoKlaroConsentManager\ContaoManager\Plugin;
 use Pdir\ContaoKlaroConsentManager\PdirContaoKlaroConsentManager;
 use PHPUnit\Framework\TestCase;
+use Contao\ManagerPlugin\Bundle\BundlePluginInterface;
+use Contao\ManagerPlugin\Routing\RoutingPluginInterface;
 
 class PluginTest extends TestCase
 {
-    public function testReturnsTheBundles(): void
+    public function testInstantiation(): void
     {
-        $parser = $this->createMock(ParserInterface::class);
+        $plugin = new Plugin();
+
+        $this->assertInstanceOf(Plugin::class, $plugin);
+        $this->assertInstanceOf(BundlePluginInterface::class, $plugin);
+        $this->assertInstanceOf(RoutingPluginInterface::class, $plugin);
+    }
+
+    public function testGetBundles(): void
+    {
+        $plugin = new Plugin();
+        $bundles = $plugin->getBundles($this->createMock(ParserInterface::class));
 
         /** @var BundleConfig $config */
-        $config = (new Plugin())->getBundles($parser)[0];
+        $config = $bundles[0];
 
+        $this->assertCount(1, $bundles);
         $this->assertInstanceOf(BundleConfig::class, $config);
         $this->assertSame(PdirContaoKlaroConsentManager::class, $config->getName());
         $this->assertSame([ContaoCoreBundle::class], $config->getLoadAfter());
     }
+
 }
