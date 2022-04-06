@@ -34,7 +34,7 @@ $GLOBALS['TL_LANG']['tl_klaro_config'] = [
 
     // Pages legend
     'pages_legend' => 'Seiten konfigurieren',
-    'scope' => ['Geltungsbereich' => 'Geltungsbereich'],
+    'scope' => ['Geltungsbereich', 'Geltungsbereich'],
 
     // Services legend
     'services_legend' => 'Dienste konfigurieren',

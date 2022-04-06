@@ -111,6 +111,7 @@ $GLOBALS['TL_DCA'][$strTable] = [
             'sql' => "varchar(255) NOT NULL default ''",
         ],
         'scope' => [
+            'label' => &$GLOBALS['TL_LANG'][$strTable]['scope'],
             'exclude' => true,
             'inputType' => 'pageTree',
             'foreignKey' => 'tl_page.title',
