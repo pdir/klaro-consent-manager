@@ -16,6 +16,7 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 /*
  * Miscelaneous
  */
@@ -25,3 +26,35 @@ declare(strict_types=1);
  * Errors
  */
 //$GLOBALS['TL_LANG']['ERR'][''] = '';
+
+/*
+ * klaro options
+ */
+$GLOBALS['TL_LANG']['klaro'] = [
+    'config' => [
+        'loading_mode_options' => [
+            '' => 'synchron',
+            'defer' => 'verzögert (defer)',
+            'async' => 'parallel (async)',
+        ],
+        'storage_method_options' => [
+            'cookie' => 'Cookie Storage',
+            'localStorage' => 'Browser Local Storage',
+        ],
+    ],
+    'service' => [
+        'purposes_reference' => [
+            'security' => 'Sicherheit',
+            'analytics' => 'Analyse',
+            'lifechat' => 'Lifechat',
+            'advertising' => 'Werbung',
+            'styling' => 'Stylesheets',
+        ],
+        'purposes_translations' => [
+            'youtube' => [
+                'zz' => ['title' => 'Übersetzung Fallback für Lifechat'],
+                'self' => ['description' => 'Deutsch für Lifechat'],
+            ],
+        ],
+    ],
+];

@@ -58,12 +58,11 @@ class GeneratePageHook
         foreach ($parentPages as $page) {
             $pp[] = $page->id;
         }
+        //dump('parentPageIds: ['.implode(',', $pp).']');
 
-        dump('parentPageIds: ['.implode(',', $pp).']');
+        $klaroConfig = KlaroConfigModel::findByPk(2); // ToDo: prevent empty collection
 
-        $klaroConfig = KlaroConfigModel::findByPk(5); // ToDo: prevent empty collection
-
-        dump($klaroConfig);
+        //dump($klaroConfig);
         if (null === $klaroConfig) {
             return;
         }
@@ -114,7 +113,7 @@ class GeneratePageHook
         // prepare a array of service data
         $arrServices = null !== $services ? array_map($serviceCallback, $services->fetchAll()) : [];
 
-        dump($arrServices);
+        //dump($arrServices);
 
         // render the services.js section with the service data as javascript
         $servicesPartial = $this->twig->render(
@@ -123,7 +122,7 @@ class GeneratePageHook
                 'services' => $arrServices,
             ]
         );
-        dump($servicesPartial);
+        //dump($servicesPartial);
         // render the config.js as javascript
         $configJsTemplate = $this->twig->render(
             'fe_klaro_config.js.twig',
@@ -147,7 +146,7 @@ class GeneratePageHook
                 ],
             ]
         );
-
+        dump($configJsTemplate);
         // prepare the klaro script template
         $scriptTemplate = new FrontendTemplate('fe_klaro_script');
         // lock to version

@@ -40,17 +40,6 @@ $GLOBALS['TL_LANG']['tl_klaro_service'] = [
 
     'purposes' => ['Zwecke', 'Wählen Sie hier mindestens einen Zweck, dem dieser Dienst zugeordnet ist.'],
     //'purposes_options' => ['analytics', 'security', 'lifechat', 'advertising', 'styling'],
-    'purposes_reference' => [
-        'security' => 'Sicherheit',
-        'analytics' => 'Analyse',
-        'lifechat' => 'Lifechat',
-        'advertising' => 'Werbung',
-        'styling' => 'Stylesheets',
-    ],
-    'purposes_translations' => [
-        'youtube' => [
-            'zz' => ['title' => 'Übersetzung Fallback für Lifechat'],
-            'self' => ['description' => 'Deutsch für Lifechat'],
-        ],
-    ],
+    //'purposes_reference' => [ 'security' => 'Sicherheit', 'analytics' => 'Analyse', 'lifechat' => 'Lifechat', 'advertising' => 'Werbung', 'styling' => 'Stylesheets', ],
+    //'purposes_translations' => [ 'youtube' => [ 'zz' => ['title' => 'Übersetzung Fallback für Lifechat'], 'self' => ['description' => 'Deutsch für Lifechat'], ],],
 ];

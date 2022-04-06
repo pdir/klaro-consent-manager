@@ -16,6 +16,7 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 /*
  * Miscelaneous
  */
@@ -25,3 +26,10 @@ declare(strict_types=1);
  * Errors
  */
 //$GLOBALS['TL_LANG']['ERR'][''] = '';
+
+/*
+ * klaro options
+ */
+$GLOBALS['TL_LANG']['tl_klaro_config'] = [
+    'loading_mode_options' => ['' => 'synchron', 'defer' => 'verzögert (defer)', 'async' => 'parallel (async)'],
+];

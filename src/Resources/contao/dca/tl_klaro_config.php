@@ -135,8 +135,8 @@ $GLOBALS['TL_DCA'][$strTable] = [
             'search' => false,
             'filter' => false,
             'sorting' => false,
-            'reference' => &$GLOBALS['TL_LANG'][$strTable]['loading_mode_options'],
-            'options' => ['', 'async', 'defer'], // https://heyklaro.com/docs/integration/overview
+            'reference' => &$GLOBALS['TL_LANG']['klaro']['config']['loading_mode_options'],
+            'options' => &$GLOBALS['TL_LANG']['klaro']['config']['loading_mode_options'], // https://heyklaro.com/docs/integration/overview
             'eval' => ['tl_class' => 'w25'],
             'sql' => [
                 'type' => 'string',
@@ -185,8 +185,8 @@ $GLOBALS['TL_DCA'][$strTable] = [
             'search' => true,
             'filter' => true,
             'sorting' => true,
-            'reference' => &$GLOBALS['TL_LANG'][$strTable]['storage_method_options'],
-            'options' => ['cookie', 'localStorage'],
+            'reference' => &$GLOBALS['TL_LANG']['klaro']['config']['storage_method_options'],
+            'options' => &$GLOBALS['TL_LANG']['klaro']['config']['storage_method_options'],
             'eval' => ['tl_class' => 'w25'],
             'sql' => [
                 'type' => 'string',
