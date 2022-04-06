@@ -125,7 +125,7 @@ class GeneratePageHook
         //dump($servicesPartial);
         // render the config.js as javascript
         $configJsTemplate = $this->twig->render(
-            'fe_klaro_config.js.twig',
+            '@PdirContaoKlaroConsentManager/fe_klaro_config.js.twig',
             [
                 'myConfigVariableName' => $klaroConfig->myConfigVariableName,
                 'config' => [

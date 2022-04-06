@@ -38,7 +38,7 @@
   },
   "autoload": {
     "psr-4": {
-    "Pdir\\ContaoKlaroConsentManager\\": "src/"
+      "Pdir\\ContaoKlaroConsentManager\\": "src/"
     }
   },
   "autoload-dev": {
