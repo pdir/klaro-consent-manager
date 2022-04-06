@@ -111,7 +111,6 @@ $GLOBALS['TL_DCA'][$strTable] = [
             'sql' => "varchar(255) NOT NULL default ''",
         ],
         'scope' => [
-            'label' => &$GLOBALS['TL_LANG'][$strTable]['scope'],
             'exclude' => true,
             'inputType' => 'pageTree',
             'foreignKey' => 'tl_page.title',
@@ -120,6 +119,7 @@ $GLOBALS['TL_DCA'][$strTable] = [
         ],
         'services' => [
             'exclude' => true,
+            'explanation' => 'klaro_services',
             'inputType' => 'checkboxWizard',
             'eval' => ['multiple' => true, 'helpwizard' => true],
             //'reference' => &$GLOBALS['TL_LANG'][$strTable],

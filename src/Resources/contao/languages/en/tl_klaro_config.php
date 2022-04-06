@@ -38,7 +38,7 @@ $GLOBALS['TL_LANG']['tl_klaro_config'] = [
 
     // Services legend
     'services_legend' => 'Dienste konfigurieren',
-    'services ' => ['Dienste', 'Dienste'],
+    'services' => ['Dienste', 'Dienste'],
 
     // Config legend
     'script_legend' => 'Skript konfigurieren',
