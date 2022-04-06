@@ -36,7 +36,6 @@ class PluginTest extends TestCase
 
         $this->assertInstanceOf(Plugin::class, $plugin);
         $this->assertInstanceOf(BundlePluginInterface::class, $plugin);
-        $this->assertInstanceOf(RoutingPluginInterface::class, $plugin);
     }
 
     public function testGetBundles(): void
