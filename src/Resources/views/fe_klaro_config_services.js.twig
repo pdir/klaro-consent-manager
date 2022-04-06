@@ -1,31 +1,31 @@
 {% for service in services %}
-{
-    name: '{{ service.name|raw }}',
-    default: {{ service.default }},
+    {
+      name: '{{ service.name|raw }}',
+      default: {{ service.default }},
 
-    /*
-    Translations belonging to this service go here. The key `zz` contains default
-    translations that will be used as a fallback if there are no translations
-    defined for a given language.
-    */
-    translations: {
+      /*
+      Translations belonging to this service go here. The key `zz` contains default
+      translations that will be used as a fallback if there are no translations
+      defined for a given language.
+      * /
+      translations: {
         zz: {
-            title: 'Matomo/Piwik'
+          title: 'Matomo/Piwik'
         },
         en: {
-            description: 'Matomo is a simple, self-hosted analytics service.'
+          description: 'Matomo is a simple, self-hosted analytics service.'
         },
         de: {
-            description: 'Matomo ist ein einfacher, selbstgehosteter Analytics-Service.'
+          description: 'Matomo ist ein einfacher, selbstgehosteter Analytics-Service.'
         },
-    },
-    /*
-    The purpose(s) of this service that will be listed on the consent notice. Do not
-    forget to add translations for all purposes you list here.
-    */
-    purposes: ['analytics'],
+      },
+      /*
+      The purpose(s) of this service that will be listed on the consent notice. Do not
+      forget to add translations for all purposes you list here.
+      */
+      purposes: ['analytics'],
 
-    cookies: [
+      cookies: [
         /*
         you an either only provide a cookie name or regular expression (regex) or a list
         consisting of a name or regex, a path and a cookie domain. Providing a path and
@@ -54,39 +54,39 @@
         '/' on the current domain
         */
         'piwik_ignore',
-    ],
+      ],
 
-    /*
-    You can define an optional callback function that will be called each time the
-    consent state for the given service changes. The consent value will be passed as
-    the first parameter to the function (true=consented). The `service` config will
-    be passed as the second parameter.
-    */
-    callback: function (consent, service) {
+      /*
+      You can define an optional callback function that will be called each time the
+      consent state for the given service changes. The consent value will be passed as
+      the first parameter to the function (true=consented). The `service` config will
+      be passed as the second parameter.
+      */
+      callback: function (consent, service) {
         console.log(
-            'User consent for service ' + service.name + ': consent=' + consent
+          'User consent for service ' + service.name + ': consent=' + consent
         );
+      },
+
+      /*
+      If 'required' is set to 'true', Klaro will not allow this service to be disabled
+      by the user. Use this for services that are always required for your website to
+      function (e.g. shopping cart cookies).
+      */
+      required: false,
+
+      /*
+      If 'optOut' is set to 'true', Klaro will load this service even before the user
+      has given explicit consent. We strongly advise against this.
+      */
+      optOut: false,
+
+      /*
+      If 'onlyOnce' is set to 'true', the service will only be executed once
+      regardless how often the user toggles it on and off. This is relevant e.g. for
+      tracking scripts that would generate new page view events every time Klaro
+      disables and re-enables them due to a consent change by the user.
+      */
+      onlyOnce: true,
     },
-
-    /*
-    If 'required' is set to 'true', Klaro will not allow this service to be disabled
-    by the user. Use this for services that are always required for your website to
-    function (e.g. shopping cart cookies).
-    */
-    required: false,
-
-    /*
-    If 'optOut' is set to 'true', Klaro will load this service even before the user
-    has given explicit consent. We strongly advise against this.
-    */
-    optOut: false,
-
-    /*
-    If 'onlyOnce' is set to 'true', the service will only be executed once
-    regardless how often the user toggles it on and off. This is relevant e.g. for
-    tracking scripts that would generate new page view events every time Klaro
-    disables and re-enables them due to a consent change by the user.
-    */
-    onlyOnce: true,
-},
 {% endfor %}
