@@ -20,7 +20,7 @@ declare(strict_types=1);
 /*
  * Miscelaneous
  */
-//$GLOBALS['TL_LANG']['MSC'][''] = '';
+$GLOBALS['TL_LANG']['MSC']['klaroConsentDefaultButtonText'] = 'Change consent settings';
 
 /*
  * Errors

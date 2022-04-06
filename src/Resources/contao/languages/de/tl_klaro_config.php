@@ -44,7 +44,7 @@ $GLOBALS['TL_LANG']['tl_klaro_config'] = [
     'script_legend' => 'Skript konfigurieren',
     'scriptLoadingMode' => ['Lademodus', 'Wählen Sie hier aus, wie das script geladen werden soll. Der Modus &raquo;defer&laquo; sollte bevorzugt werden!'],
     //'loding_mode_options' see default
-    'myConfigVariableName' => ['Name der Konfigurationsvariable', ''],
+    'myConfigVariableName' => ['Name der Konfigurationsvariable', 'Standardmäßig lädt Klaro die Konfiguration aus einer globalen Variable "klaroConfig". Sie können dies ändern, indem Sie einen neuen Variablennamen angeben.'],
 
     // Consent legend
     'consent_legend' => 'Einwilligungserklärung konfigurieren',
