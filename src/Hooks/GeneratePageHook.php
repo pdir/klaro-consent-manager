@@ -146,7 +146,7 @@ class GeneratePageHook
                 ],
             ]
         );
-        dump($configJsTemplate);
+
         // prepare the klaro script template
         $scriptTemplate = new FrontendTemplate('fe_klaro_script');
         // lock to version
