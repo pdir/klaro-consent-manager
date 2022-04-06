@@ -117,7 +117,7 @@ class GeneratePageHook
 
         // render the services.js section with the service data as javascript
         $servicesPartial = $this->twig->render(
-            'fe_klaro_config_services.js.twig',
+            '@PdirContaoKlaroConsentManager/fe_klaro_config_services.js.twig',
             [
                 'services' => $arrServices,
             ]
