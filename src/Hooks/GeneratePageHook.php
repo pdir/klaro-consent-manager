@@ -60,7 +60,7 @@ class GeneratePageHook
         }
         //dump('parentPageIds: ['.implode(',', $pp).']');
 
-        $klaroConfig = KlaroConfigModel::findByPk(2); // ToDo: prevent empty collection
+        $klaroConfig = KlaroConfigModel::findByPk(5); // ToDo: prevent empty collection
 
         //dump($klaroConfig);
         if (null === $klaroConfig) {
