@@ -37,8 +37,8 @@ class KlaroButtonInsertTagListener
         }
 
         return sprintf('<a class="%s" onclick="return klaro.show();">%s</a>',
-            $chunks[2] ?: 'button is-success',
-            $chunks[1] ?: $GLOBALS['TL_LANG']['MSC']['klaroConsentDefaultButtonText']
+            $chunks[2] ?? 'button is-success',
+            $chunks[1] ?? $GLOBALS['TL_LANG']['MSC']['klaroConsentDefaultButtonText']
         );
     }
 }

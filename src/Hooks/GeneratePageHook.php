@@ -57,25 +57,22 @@ class GeneratePageHook
         global $objPage;
 
         $root = Frontend::getRootPageFromUrl();
-        dump('Root page');
-        dump($root);
-        dump('Current page');
-        dump($objPage);
 
-        // check if klaro has to be load
+        // Check if klaro must be loaded
+        if (!$root->includeKlaro && 0 !== $root->klaroConfig) {
+            return;
+        }
 
         // check if current page is in exclude list
-
-        $parentPages = $pageModel::findParentsById($pageModel->id);
-
-        foreach ($parentPages as $page) {
-            $pp[] = $page->id;
+        $excludePages = unserialize($root->klaroExclude);
+        if(is_array($excludePages) && 0 !== $root->klaroConfig) {
+            if (in_array($objPage->id, $excludePages)) {
+                return;
+            }
         }
-        //dump('parentPageIds: ['.implode(',', $pp).']');
 
-        $klaroConfig = KlaroConfigModel::findByPk(5); // ToDo: prevent empty collection
+        $klaroConfig = KlaroConfigModel::findByPk($root->klaroConfig);
 
-        //dump($klaroConfig);
         if (null === $klaroConfig) {
             return;
         }
