@@ -55,6 +55,10 @@ $GLOBALS['TL_LANG']['klaro'] = [
                 'zz' => ['title' => 'Übersetzung Fallback für Lifechat'],
                 'self' => ['description' => 'Deutsch für Lifechat'],
             ],
+            'matomo' => [
+                'zz' => ['title' => 'Übersetzung Fallback für Matomo'],
+                'de' => ['description' => 'Deutsch für Matomo'],
+            ],
         ],
     ],
 ];

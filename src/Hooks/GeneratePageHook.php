@@ -78,6 +78,14 @@ class GeneratePageHook
             return;
         }
 
+        // Check if the modal should not be opened on this page
+        if ($klaroConfig->noticeAsModal && $klaroConfig->hideModal) {
+            $hideModalPages = unserialize($klaroConfig->hideModal);
+            if (\is_array($hideModalPages) && \in_array($objPage->id, $hideModalPages, true)) {
+                $klaroConfig->noticeAsModal = false;
+            }
+        }
+
         // prepare the css template
         $cssTemplate = new FrontendTemplate('fe_klaro_css');
         $cssTemplate->version = 'v0.7'; // ToDo: test the version string
@@ -117,7 +125,7 @@ class GeneratePageHook
 "
         {
             zz: {
-                title: '{$GLOBALS['TL_LANG']['tl_klaro_service']['purposes_translations'][$service['name']]}'
+                title: '{$GLOBALS['TL_LANG']['klaro']['service']['purposes_translations'][$service['name']]['zz']['title']}'
                 },
             en: {
                 description: 'aus Hook Matomo is a simple, self-hosted analytics service.'
@@ -157,6 +165,7 @@ class GeneratePageHook
                     'htmlTexts' => '1' === $klaroConfig->htmlTexts ? 'true' : 'false',
                     'cookieDomain' => $klaroConfig->cookieDomain,
                     'cookieExpiresAfterDays' => $klaroConfig->cookieExpiresAfterDays,
+                    'noticeAsModal' => '1' === $klaroConfig->noticeAsModal ? 'true' : 'false',
                     'default' => '1' === $klaroConfig->default ? 'true' : 'false',
                     'mustConsent' => '1' === $klaroConfig->mustConsent ? 'true' : 'false',
                     'acceptAll' => '1' === $klaroConfig->acceptAll ? 'true' : 'false',

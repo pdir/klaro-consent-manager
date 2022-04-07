@@ -83,7 +83,7 @@ $GLOBALS['TL_DCA'][$strTable] = [
             '{pages_legend},scope;'.
             '{services_legend},services;'.
             '{script_legend},scriptLoadingMode,myConfigVariableName;'.
-            '{consent_legend},default,mustConsent,acceptAll,hideDeclineAll,hideLearnMore;'.
+            '{consent_legend},noticeAsModal,default,mustConsent,acceptAll,hideDeclineAll,hideLearnMore,hideModal;'.
             '{cookie_legend},elementID,storageName,storageMethod,cookieDomain,cookieExpiresAfterDays;'.
             '{expert_legend},htmlTexts,testing;',
         //'{expert_legend},addSubpalette, ',
@@ -110,7 +110,7 @@ $GLOBALS['TL_DCA'][$strTable] = [
             'eval' => ['mandatory' => true, 'maxlength' => 255, 'tl_class' => 'w50'],
             'sql' => "varchar(255) NOT NULL default ''",
         ],
-        'scope' => [
+        'hideModal' => [
             'exclude' => true,
             'inputType' => 'pageTree',
             'foreignKey' => 'tl_page.title',
@@ -239,6 +239,17 @@ $GLOBALS['TL_DCA'][$strTable] = [
                 'notnull' => true,
                 'default' => 30,
                 'comment' => '',
+            ],
+        ],
+        'noticeAsModal' => [
+            'exclude' => true,
+            'inputType' => 'checkbox',
+            'eval' => ['tl_class' => 'w25'],
+            'sql' => [
+                'type' => 'string',
+                'length' => 1,
+                'fixed' => true,
+                'default' => '',
             ],
         ],
         'default' => [
