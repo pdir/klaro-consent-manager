@@ -20,6 +20,7 @@ declare(strict_types=1);
 namespace Pdir\ContaoKlaroConsentManager\Hooks;
 
 use Contao\CoreBundle\ServiceAnnotation\Hook;
+use Contao\Frontend;
 use Contao\FrontendTemplate;
 use Contao\LayoutModel;
 use Contao\PageModel;
@@ -53,6 +54,18 @@ class GeneratePageHook
      */
     public function __invoke(PageModel $pageModel, LayoutModel $layout, PageRegular $pageRegular): void
     {
+        global $objPage;
+
+        $root = Frontend::getRootPageFromUrl();
+        dump('Root page');
+        dump($root);
+        dump('Current page');
+        dump($objPage);
+
+        // check if klaro has to be load
+
+        // check if current page is in exclude list
+
         $parentPages = $pageModel::findParentsById($pageModel->id);
 
         foreach ($parentPages as $page) {
