@@ -65,8 +65,9 @@ class GeneratePageHook
 
         // check if current page is in exclude list
         $excludePages = unserialize($root->klaroExclude);
-        if(is_array($excludePages) && 0 !== $root->klaroConfig) {
-            if (in_array($objPage->id, $excludePages)) {
+
+        if (\is_array($excludePages) && 0 !== $root->klaroConfig) {
+            if (\in_array($objPage->id, $excludePages, true)) {
                 return;
             }
         }
@@ -112,17 +113,27 @@ class GeneratePageHook
             array_walk($service, $serviceFieldsCallback, $c);
             // add the key for translations here
             System::loadLanguageFile('tl_klaro_service');
-            $serTranslation = '{}';
-            $serTranslation = "{zz: {title: 'Matomo/Piwik'},en: {description: 'Matomo is a simple, self-hosted analytics service.'},de: {description: 'Matomo ist ein einfacher, selbstgehosteter Analytics-Service.'}}";
+            $serTranslation =
+"
+        {
+            zz: {
+                title: '{$GLOBALS['TL_LANG']['tl_klaro_service']['purposes_translations'][$service['name']]}'
+                },
+            en: {
+                description: 'aus Hook Matomo is a simple, self-hosted analytics service.'
+                },
+            de: {
+                description: 'Matomo ist ein einfacher, selbstgehosteter Analytics-Service.'
+                }
+        }";
             $service['translations'] = $serTranslation;
-            // dump($GLOBALS['TL_LANG']['tl_klaro_service']['purposes_translations'][$service['name']]);
-
+            // dump($GLOBALS['TL_LANG']['klaro']['service']['purposes_translations'][$service['name']]);
             return $service;
         };
 
         // prepare a array of service data
         $arrServices = null !== $services ? array_map($serviceCallback, $services->fetchAll()) : [];
-
+        dump($arrServices);
         //dump($arrServices);
 
         // render the services.js section with the service data as javascript
@@ -132,7 +143,7 @@ class GeneratePageHook
                 'services' => $arrServices,
             ]
         );
-        //dump($servicesPartial);
+        dump($servicesPartial);
         // render the config.js as javascript
         $configJsTemplate = $this->twig->render(
             '@PdirContaoKlaroConsentManager/fe_klaro_config.js.twig',
@@ -156,7 +167,7 @@ class GeneratePageHook
                 ],
             ]
         );
-
+        //dump($configJsTemplate);
         // prepare the klaro script template
         $scriptTemplate = new FrontendTemplate('fe_klaro_script');
         // lock to version

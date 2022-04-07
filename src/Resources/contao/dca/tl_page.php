@@ -23,7 +23,8 @@ PaletteManipulator::create()
     ->addLegend('klaro_legend', 'layout_legend', PaletteManipulator::POSITION_AFTER)
     ->addField('includeKlaro', 'klaro_legend', PaletteManipulator::POSITION_APPEND)
     ->applyToPalette('root', 'tl_page')
-    ->applyToPalette('rootfallback', 'tl_page');
+    ->applyToPalette('rootfallback', 'tl_page')
+;
 
 $GLOBALS['TL_DCA']['tl_page']['palettes']['__selector__'][] = 'includeKlaro';
 $GLOBALS['TL_DCA']['tl_page']['subpalettes']['includeKlaro'] = 'klaroConfig,klaroExclude';
@@ -32,7 +33,7 @@ $GLOBALS['TL_DCA']['tl_page']['fields']['includeKlaro'] = [
     'exclude' => true,
     'inputType' => 'checkbox',
     'eval' => ['submitOnChange' => true],
-    'sql' => "char(1) NOT NULL default ''"
+    'sql' => "char(1) NOT NULL default ''",
 ];
 
 $GLOBALS['TL_DCA']['tl_page']['fields']['klaroConfig'] = [
@@ -41,8 +42,8 @@ $GLOBALS['TL_DCA']['tl_page']['fields']['klaroConfig'] = [
     'inputType' => 'select',
     'foreignKey' => 'tl_klaro_config.title',
     'eval' => ['chosen' => true, 'tl_class' => 'w50', 'includeBlankOption' => true],
-    'sql' => "int(10) unsigned NOT NULL default 0",
-    'relation' => array('type' => 'hasOne', 'load' => 'lazy')
+    'sql' => 'int(10) unsigned NOT NULL default 0',
+    'relation' => ['type' => 'hasOne', 'load' => 'lazy'],
 ];
 
 $GLOBALS['TL_DCA']['tl_page']['fields']['klaroExclude'] = [

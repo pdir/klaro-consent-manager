@@ -1,29 +1,15 @@
 {% for service in services %}
     {
-      name: '{{ service.name|raw }}',
-      default: {{ service.default }},
+        name: '{{ service.name|raw }}',
+        default: {{ service.default }},
+        /*
+        Translations belonging to this service go here. The key `zz` contains default
+        translations that will be used as a fallback if there are no translations
+        defined for a given language.
+        */
+        translations: {{ service.translations | raw }},
 
-      /*
-      Translations belonging to this service go here. The key `zz` contains default
-      translations that will be used as a fallback if there are no translations
-      defined for a given language.
-      * /
-      translations: {
-        zz: {
-          title: 'Matomo/Piwik'
-        },
-        en: {
-          description: 'Matomo is a simple, self-hosted analytics service.'
-        },
-        de: {
-          description: 'Matomo ist ein einfacher, selbstgehosteter Analytics-Service.'
-        },
-      },
-      /*
-      The purpose(s) of this service that will be listed on the consent notice. Do not
-      forget to add translations for all purposes you list here.
-      */
-      purposes: ['analytics'],
+        purposes: [{{ service.purposes | raw }}],
 
       cookies: [
         /*
