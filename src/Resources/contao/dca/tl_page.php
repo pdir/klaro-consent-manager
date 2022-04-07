@@ -20,16 +20,18 @@ declare(strict_types=1);
 use Contao\CoreBundle\DataContainer\PaletteManipulator;
 
 PaletteManipulator::create()
-    ->addLegend('klaro_legend', 'layout_legend', PaletteManipulator::POSITION_BEFORE)
+    ->addLegend('klaro_legend', 'layout_legend', PaletteManipulator::POSITION_AFTER)
     ->addField('includeKlaro', 'klaro_legend', PaletteManipulator::POSITION_APPEND)
-    ->addField('klaroConfig', 'klaro_legend', PaletteManipulator::POSITION_APPEND)
-    ->addField('klaroExclude', 'klaro_legend', PaletteManipulator::POSITION_APPEND)
-    ->applyToPalette('default', 'tl_page');
+    ->applyToPalette('root', 'tl_page')
+    ->applyToPalette('rootfallback', 'tl_page');
+
+$GLOBALS['TL_DCA']['tl_page']['palettes']['__selector__'][] = 'includeKlaro';
+$GLOBALS['TL_DCA']['tl_page']['subpalettes']['includeKlaro'] = 'klaroConfig,klaroExclude';
 
 $GLOBALS['TL_DCA']['tl_page']['fields']['includeKlaro'] = [
     'exclude' => true,
     'inputType' => 'checkbox',
-    'eval' => array('submitOnChange' => true),
+    'eval' => ['submitOnChange' => true],
     'sql' => "char(1) NOT NULL default ''"
 ];
 
@@ -38,7 +40,7 @@ $GLOBALS['TL_DCA']['tl_page']['fields']['klaroConfig'] = [
     'search' => true,
     'inputType' => 'select',
     'foreignKey' => 'tl_klaro_config.title',
-    'eval' => ['chosen' => true, 'tl_class' => 'w50'],
+    'eval' => ['chosen' => true, 'tl_class' => 'w50', 'includeBlankOption' => true],
     'sql' => "int(10) unsigned NOT NULL default 0",
     'relation' => array('type' => 'hasOne', 'load' => 'lazy')
 ];

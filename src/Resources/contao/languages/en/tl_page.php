@@ -17,6 +17,7 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
+$GLOBALS['TL_LANG']['tl_page']['klaro_legend'] = 'Klaro-Einstellungen';
 $GLOBALS['TL_LANG']['tl_page']['includeKlaro'] = ['Eine Klaro Konfiguration zuweisen', 'Der Seite und ihren Unterseiten eine Klaro Konfiguration zuweisen.'];
 $GLOBALS['TL_LANG']['tl_page']['klaroConfig'] = ['Klaro Konfiguration', 'Klaro Konfigurationen können im Modul Klaro Konfigurationen verwaltet werden.'];
 $GLOBALS['TL_LANG']['tl_page']['klaroExclude'] = ['Auszuschließende Seiten', 'Auf den angegebenen Seiten wird das Klaro Popup nicht angezeigt.'];
