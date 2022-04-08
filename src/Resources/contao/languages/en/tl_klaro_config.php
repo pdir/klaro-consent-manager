@@ -34,7 +34,6 @@ $GLOBALS['TL_LANG']['tl_klaro_config'] = [
 
     // Pages legend
     'pages_legend' => 'Seiten konfigurieren',
-    'scope' => ['Geltungsbereich', 'Geltungsbereich'],
 
     // Services legend
     'services_legend' => 'Dienste konfigurieren',
@@ -48,10 +47,12 @@ $GLOBALS['TL_LANG']['tl_klaro_config'] = [
 
     // Consent legend
     'consent_legend' => 'Einwilligungserklärung konfigurieren',
-    'default' => ['Modal starten', 'Öffnet das Overlay beim Start modal (standardmäßig deaktiviert). Sie können diese Einstellung in jedem Dienst außer Kraft setzen.'],
-    'mustConsent' => ['Zustimmung erzwingen', 'Wenn Sie diese Option aktivieren, wird das Zustimmungs-Fenster modal angezeigt. Es ist dann nicht möglich, dass der Benutzer es schließt, bevor er nicht aktiv zugestimmt oder abgelehnt hat.'],
+    'noticeAsModal' => ['Cookie-Hinweis als Modal anzeigen', 'Öffnet das Overlay beim Laden als Modal.'],
+    'default' => ['Default status for services', 'Sets the default status for services (enabled by default). You can override this setting in any service.'],
+    'mustConsent' => ['Zustimmung erzwingen', 'Wenn Sie diese Option aktivieren, wird das Zustimmungs-Fenster als Modal angezeigt. Es ist dann nicht möglich, dass der Benutzer es schließt, bevor er nicht aktiv zugestimmt oder abgelehnt hat.'],
     'acceptAll' => ['&raquo;Alle akzeptieren&laquo;', 'Wenn Sie diese Option aktivieren, wird im Hinweis und im Overlay die Schaltfläche &raquo;Alle akzeptieren&laquo; angezeigt, über die Sie allen Diensten von Drittanbietern mit einem Klick zustimmen können. Wenn Sie diese Option deaktivieren, können Sie jedem Dienst einzeln zustimmen.'],
     'hideDeclineAll' => ['&raquo;Alle ablehnen&laquo; ausblenden', 'Wenn Sie diese Option aktivieren, wird die Schaltfläche &raquo;Ablehnen&laquo; im Overlay ausgeblendet und der Nutzer gezwungen, das Overlay gesondert zu öffnen, um seine Zustimmung zu ändern oder alle Drittanbieterdienste zu deaktivieren. Wir raten Ihnen dringend davon ab, diese Funktion zu verwenden, da sie den Grundsätzen &raquo;privacy by default&laquo; und &raquo;privacy by design&laquo; der Datenschutz-Grundverordnung zuwiderläuft.'],
+    'hideModal' => ['Disable modal on certain pages', 'Here you can define on which subpages the modal should not be opened.'],
     'hideLearnMore' => ['&raquo;Mehr erfahren&laquo; ausblenden', 'Wenn Sie diese Option aktivieren, wird der Link &raquo;mehr erfahren / anpassen&laquo; in der Einwilligungserklärung ausgeblendet. Wir raten dringend davon ab, dies zu tun, da es den Benutzer daran hindert, seine Einwilligungsentscheidungen anzupassen.'],
 
     // Cookie legend
