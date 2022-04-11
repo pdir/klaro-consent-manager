@@ -81,6 +81,7 @@ class GeneratePageHook
         // Check if the modal should not be opened on this page
         if ($klaroConfig->noticeAsModal && $klaroConfig->hideModal) {
             $hideModalPages = unserialize($klaroConfig->hideModal);
+
             if (\is_array($hideModalPages) && \in_array($objPage->id, $hideModalPages, true)) {
                 $klaroConfig->noticeAsModal = false;
             }
@@ -121,8 +122,11 @@ class GeneratePageHook
             array_walk($service, $serviceFieldsCallback, $c);
             // add the key for translations here
             System::loadLanguageFile('tl_klaro_service');
-            $serTranslation =
-"
+
+            $strFallback = $GLOBALS['TL_LANG']['klaro']['service']['purposes_translations'][$service['name']];
+            dump("GLOBALS['TL_LANG']['klaro']['service']['purposes_translations'][{$service['name']}]");
+            dump($strFallback);
+            $serTranslation = "
         {
             zz: {
                 title: '{$GLOBALS['TL_LANG']['klaro']['service']['purposes_translations'][$service['name']]['zz']['title']}'
@@ -135,6 +139,7 @@ class GeneratePageHook
                 }
         }";
             $service['translations'] = $serTranslation;
+            dump($serTranslation);
             // dump($GLOBALS['TL_LANG']['klaro']['service']['purposes_translations'][$service['name']]);
             return $service;
         };

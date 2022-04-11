@@ -51,10 +51,6 @@ $GLOBALS['TL_LANG']['klaro'] = [
             'styling' => 'Stylesheets',
         ],
         'purposes_translations' => [
-            'youtube' => [
-                'zz' => ['title' => 'Übersetzung Fallback für YouTube'],
-                'de' => ['description' => 'Deutsch für YouTube'],
-            ],
             'matomo' => [
                 'zz' => ['title' => 'Übersetzung Fallback für Matomo'],
                 'de' => ['description' => 'Deutsch für Matomo'],

@@ -80,13 +80,12 @@ $GLOBALS['TL_DCA'][$strTable] = [
     'palettes' => [
         '__selector__' => ['addSubpalette'],
         'default' => '{first_legend},title;'.
-            '{pages_legend},scope;'.
             '{services_legend},services;'.
             '{script_legend},scriptLoadingMode,myConfigVariableName;'.
             '{consent_legend},noticeAsModal,default,mustConsent,acceptAll,hideDeclineAll,hideLearnMore,hideModal;'.
             '{cookie_legend},elementID,storageName,storageMethod,cookieDomain,cookieExpiresAfterDays;'.
+            '{translations_legend},translations;'.
             '{expert_legend},htmlTexts,testing;',
-        //'{expert_legend},addSubpalette, ',
     ],
     // Subpalettes
     'subpalettes' => [
@@ -306,6 +305,55 @@ $GLOBALS['TL_DCA'][$strTable] = [
                 'fixed' => true,
                 'default' => '',
             ],
+        ],
+        'translations' => [
+            'label' => &$GLOBALS['TL_LANG']['tl_my_table']['someField'],
+            'inputType' => 'multiColumnEditor',
+            'exclude' => true,
+            'eval' => [
+                'multiColumnEditor' => [
+                    // set to true if the rows should be sortable (backend only atm)
+                    'sortable' => true,
+                    'class' => 'some-class',
+                    // set to 0 if it should also be possible to have *no* row (default: 1)
+                    'minRowCount' => 2,
+                    // set to 0 if an infinite number of rows should be possible (default: 0)
+                    'maxRowCount' => 5,
+                    // defaults to false
+                    'skipCopyValuesOnAdd' => false,
+                    'editorTemplate' => 'multi_column_editor_backend_default',
+                    // Optional: add palette and subpalette if you need supalettes support (otherwise all fields will be shows)
+                    // Legends are supported since verison 2.8
+                    'palettes' => [
+                        '__selector__' => ['field1'],
+                        'default' => 'field1',
+                    ],
+                    'subpalettes' => [
+                        'field1' => 'field2', // key selector
+                        'field1_10' => 'field3', // key_value selector
+                    ],
+                    // place your fields here as you would normally in your DCA
+                    // (sql is not required)
+                    'fields' => [
+                        'field1' => [
+                            'label' => 'field 1',
+                            'inputType' => 'text',
+                            'eval' => ['groupStyle' => 'width:150px', 'submitOnChange' => true],
+                        ],
+                        'field2' => [
+                            'label' => 'field 2',
+                            'inputType' => 'text',
+                            'eval' => ['groupStyle' => 'width:150px'],
+                        ],
+                        'field3' => [
+                            'label' => 'field 3',
+                            'inputType' => 'text',
+                            'eval' => ['groupStyle' => 'width:150px'],
+                        ],
+                    ],
+                ],
+            ],
+            'sql' => 'blob NULL',
         ],
     ],
 ];
