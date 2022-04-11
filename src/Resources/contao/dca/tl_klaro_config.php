@@ -316,39 +316,54 @@ $GLOBALS['TL_DCA'][$strTable] = [
                     'sortable' => true,
                     'class' => 'some-class',
                     // set to 0 if it should also be possible to have *no* row (default: 1)
-                    'minRowCount' => 2,
+                    'minRowCount' => 1,
                     // set to 0 if an infinite number of rows should be possible (default: 0)
-                    'maxRowCount' => 5,
+                    'maxRowCount' => 0,
                     // defaults to false
                     'skipCopyValuesOnAdd' => false,
+
                     'editorTemplate' => 'multi_column_editor_backend_default',
                     // Optional: add palette and subpalette if you need supalettes support (otherwise all fields will be shows)
                     // Legends are supported since verison 2.8
                     'palettes' => [
-                        '__selector__' => ['field1'],
-                        'default' => 'field1',
+                        '__selector__' => [],
+                        'default' => 'langKey,privacyPolicyUrl,consentNotice,consentModal',
                     ],
                     'subpalettes' => [
-                        'field1' => 'field2', // key selector
-                        'field1_10' => 'field3', // key_value selector
+                        //'field1' => 'field2', // key selector
+                        //'field1_10' => 'field3', // key_value selector
                     ],
                     // place your fields here as you would normally in your DCA
-                    // (sql is not required)
                     'fields' => [
-                        'field1' => [
-                            'label' => 'field 1',
-                            'inputType' => 'text',
-                            'eval' => ['groupStyle' => 'width:150px', 'submitOnChange' => true],
+                        'langKey' => [
+                            'label' => &$GLOBALS['TL_LANG'][$strTable]['translations']['langKey'],
+                            'exclude' => true,
+                            'filter' => true,
+                            'inputType' => 'select',
+                            'default' => str_replace('-', '_', $GLOBALS['TL_LANGUAGE']),
+                            'eval' => ['rgxp' => 'locale', 'groupStyle' => 'width:210px'],
+                            'options_callback' => static function () {
+                                return array_merge(
+                                    System::getLanguages(true),
+                                    $GLOBALS['TL_LANG']['tl_klaro_config']['translations']['fallback']
+                                );
+                            },
                         ],
-                        'field2' => [
-                            'label' => 'field 2',
-                            'inputType' => 'text',
-                            'eval' => ['groupStyle' => 'width:150px'],
+                        'privacyPolicyUrl' => [
+                            'label' => &$GLOBALS['TL_LANG'][$strTable]['translations']['privacyPolicyUrl'],
+                            'inputType' => 'pageTree',
+                            'foreignKey' => 'tl_page.title',
+                            'eval' => ['fieldType' => 'radio', 'tl_class' => '', 'multiple' => false],
                         ],
-                        'field3' => [
-                            'label' => 'field 3',
+                        'consentNotice' => [
+                            'label' => &$GLOBALS['TL_LANG'][$strTable]['translations']['consentNotice'],
                             'inputType' => 'text',
-                            'eval' => ['groupStyle' => 'width:150px'],
+                            'eval' => ['groupStyle' => ''],
+                        ],
+                        'consentModal' => [
+                            'label' => &$GLOBALS['TL_LANG'][$strTable]['translations']['consentModal'],
+                            'inputType' => 'textarea',
+                            'eval' => ['groupStyle' => ''],
                         ],
                     ],
                 ],

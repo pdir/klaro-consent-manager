@@ -118,28 +118,23 @@ class GeneratePageHook
         };
 
         $c = $this; // does the trick
-        $serviceCallback = static function ($service) use ($serviceFieldsCallback, $c) {
+        $serviceCallback = static function ($service) use ($serviceFieldsCallback, $c, $klaroConfig) {
             array_walk($service, $serviceFieldsCallback, $c);
             // add the key for translations here
             System::loadLanguageFile('tl_klaro_service');
 
-            $strFallback = $GLOBALS['TL_LANG']['klaro']['service']['purposes_translations'][$service['name']];
-            dump("GLOBALS['TL_LANG']['klaro']['service']['purposes_translations'][{$service['name']}]");
-            dump($strFallback);
-            $serTranslation = "
-        {
-            zz: {
-                title: '{$GLOBALS['TL_LANG']['klaro']['service']['purposes_translations'][$service['name']]['zz']['title']}'
-                },
-            en: {
-                description: 'aus Hook Matomo is a simple, self-hosted analytics service.'
-                },
-            de: {
-                description: 'Matomo ist ein einfacher, selbstgehosteter Analytics-Service.'
-                }
-        }";
-            $service['translations'] = $serTranslation;
-            dump($serTranslation);
+            $arrTranslations = StringUtil::deserialize($klaroConfig->translations);
+
+            foreach ($arrTranslations as $t) {
+                dump(PageModel::findByPk($t['privacyPolicyUrl']));
+                $translationsTemplate .= "{
+                {$t['langKey']}: {
+                privacyPolicyUrl: '{$t['privacyPolicyUrl']}',
+                consentNotice: '{$t['consentNotice']}',
+                },";
+            }
+            $service['translations'] = '{'.$translationsTemplate.'}';
+            dump($translationsTemplate);
             // dump($GLOBALS['TL_LANG']['klaro']['service']['purposes_translations'][$service['name']]);
             return $service;
         };
@@ -147,7 +142,6 @@ class GeneratePageHook
         // prepare a array of service data
         $arrServices = null !== $services ? array_map($serviceCallback, $services->fetchAll()) : [];
         dump($arrServices);
-        //dump($arrServices);
 
         // render the services.js section with the service data as javascript
         $servicesPartial = $this->twig->render(

@@ -39,13 +39,13 @@ $GLOBALS['TL_LANG']['tl_klaro_config'] = [
     'services_legend' => 'Dienste konfigurieren',
     'services' => ['Dienste', 'Dienste'],
 
-    // Config legend
+    // config legend
     'script_legend' => 'Skript konfigurieren',
     'scriptLoadingMode' => ['Lademodus', 'Wählen Sie hier aus, wie das script geladen werden soll. Der Modus &raquo;defer&laquo; sollte bevorzugt werden!'],
     //'loding_mode_options' see default
     'myConfigVariableName' => ['Name der Konfigurationsvariable', 'Standardmäßig lädt Klaro die Konfiguration aus einer globalen Variable "klaroConfig". Sie können dies ändern, indem Sie einen neuen Variablennamen angeben.'],
 
-    // Consent legend
+    // consent legend
     'consent_legend' => 'Einwilligungserklärung konfigurieren',
     'noticeAsModal' => ['Cookie-Hinweis als Modal anzeigen', 'Öffnet das Overlay beim Laden als Modal.'],
     'default' => ['Standardstatus für Dienste', 'Legt den Standardstatus für Dienste fest (standardmäßig aktiviert). Sie können diese Einstellung in jedem Dienst außer Kraft setzen.'],
@@ -55,7 +55,7 @@ $GLOBALS['TL_LANG']['tl_klaro_config'] = [
     'hideModal' => ['Modal auf bestimmten Seiten deaktivieren', 'Hier können Sie festlegen, auf welchen Unterseiten das Modal nicht geöffnet werden soll.'],
     'hideLearnMore' => ['&raquo;Mehr erfahren&laquo; ausblenden', 'Wenn Sie diese Option aktivieren, wird der Link &raquo;mehr erfahren / anpassen&laquo; in der Einwilligungserklärung ausgeblendet. Wir raten dringend davon ab, dies zu tun, da es den Benutzer daran hindert, seine Einwilligungsentscheidungen anzupassen.'],
 
-    // Cookie legend
+    // cookie legend
     'cookie_legend' => 'Cookies konfigurieren',
     'elementID' => ['DIV-Id', "Sie können hier die Id des DIV-Elements anpassen, das $klaro beim Start erstellt. Standardmäßig wird $klaro &raquo;klaro&laquo; verwenden."],
     'storageMethod' => ['Speichermethode', "Hier können Sie festlegen, wie $klaro die Zustimmungsinformationen speichert. Wählen Sie &raquo;Cookie Storage&laquo; (Voreinstellung) oder &raquo;Browser Local Storage&laquo;."],
@@ -64,7 +64,20 @@ $GLOBALS['TL_LANG']['tl_klaro_config'] = [
     'cookieDomain' => ['Cookie Domain', "Sie können die Cookie-Domain für den Zustimmungsmanager anpassen. Tun Sie dies, wenn Sie die Zustimmung für mehrere übereinstimmende Domänen nur einmal erhalten möchten. Standardmäßig verwendet $klaro die aktuelle Domain. Diese Einstellung ist nur relevant, wenn &raquo;Speichermethode&laquo; auf &raquo;Cookie Storage&laquo; eingestellt ist."],
     'cookieExpiresAfterDays' => ['Cookie Verfallszeit', "Hier können Sie Verfallszeit für das $klaro-Cookie festlegen. Voreinstellung ist 30 Tage (nur relevant, wenn &raquo;Speichermethode&laquo; auf &raquo;Cookie Storage&laquo; eingestellt ist)."],
 
-    // Expert legend
+    // translations legend
+    'translations_legend' => 'Sprachspezifische Einstellungen',
+    'translations' => [
+        'Definierte Sprachen',
+        'Fügen Sie hier Ihre Sprachdefinitionen hinzu.',
+        'langKey' => ['Sprachkürzel', 'Wählen Sie hier die Sprache aus. Die Fallback-Definition zz: sollte immer vorhanden sein!'],
+        'privacyPolicyUrl' => ['Link zur Datenschutzrichtlinie', 'Wählen Sie hier die Seite aus, auf der sich die Datenschutzrichtlinie für die ausgewählte Sprache befindet.'],
+        'consentNotice' => ['Text der Einwilligungsbox', 'Dieser Text wird in der Einwilligungsbox erscheinen.'],
+        'consentModal' => ['Erklärung in der Einwilligungsbox', 'Hier können sie die unten angegebenen Dienste genauer erklären.'],
+        // the special lang key zz:
+        'fallback' => ['zz' => 'Fallback - zz:'],
+    ],
+
+    // expert legend
     'expert_legend' => 'Test und Wartung',
     'testing' => ['Test-Modus aktivieren', "Wenn Sie testing aktivieren, so zeigt $klaro standardmäßig weder den Einwilligungshinweis noch das modal-Window an, es sei denn, sie fügen den spezielle Hashtag #klaro-testing an die URL an. Dann ist es möglich, $klaro auf Ihrer Live-Website zu testen, ohne den normalen Betrieb zu beeinträchtigen."],
     'htmlTexts' => ['HTML-Modus', "Wenn diese Option aktiviert ist, rendert $klaro die Texte, die in den Feldern `consentModal.description` und `consentNotice.description` angegebenen sind als HTML. Das ermöglicht es Ihnen, z.B. benutzerdefinierte Links oder interaktive Inhalte hinzuzufügen."],

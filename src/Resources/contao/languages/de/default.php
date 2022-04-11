@@ -42,6 +42,8 @@ $GLOBALS['TL_LANG']['klaro'] = [
             'localStorage' => 'Browser Local Storage',
         ],
     ],
+    // this section contains the klaro-config translations for the current language of this default file
+    /*
     'service' => [
         'purposes_reference' => [
             'security' => 'Sicherheit',
@@ -61,4 +63,5 @@ $GLOBALS['TL_LANG']['klaro'] = [
             ],
         ],
     ],
+    */
 ];
