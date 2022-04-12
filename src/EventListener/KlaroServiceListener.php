@@ -20,6 +20,8 @@ declare(strict_types=1);
 namespace Pdir\ContaoKlaroConsentManager\EventListener;
 
 use Contao\BackendUser;
+use Contao\DataContainer;
+use Pdir\ContaoKlaroConsentManager\Model\KlaroPurposeModel;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
@@ -41,5 +43,29 @@ class KlaroServiceListener
 
         // handle session bag
         $this->beBag = $this->session->getBag('contao_backend');
+    }
+
+    /**
+     * @Callback(
+     *     table="tl_klaro_service",
+     *     target="fields.purposes.options"
+     * )
+     * builds the service options
+     *
+     * @return array
+     */
+    public function buildPurposesOptions(DataContainer $dc)
+    {
+        $options = [];
+
+        $purposes = KlaroPurposeModel::findAll();
+
+        if (null !== $purposes) {
+            foreach ($purposes as $purpose) {
+                $options[$purpose->id] = "$purpose->title";
+            }
+        }
+
+        return $options;
     }
 }

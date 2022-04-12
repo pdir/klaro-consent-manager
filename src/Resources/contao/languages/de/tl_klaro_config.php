@@ -19,7 +19,7 @@ declare(strict_types=1);
 
 $sgl = 'Konfiguration';
 //$pl = 'Konfigurationen';
-$klaro = 'Klaro&copy;';
+$klaro = 'Klaro';
 
 $GLOBALS['TL_LANG']['tl_klaro_config'] = [
     // Operations
@@ -29,8 +29,9 @@ $GLOBALS['TL_LANG']['tl_klaro_config'] = [
     'show' => ["$sgl mit ID: %s ansehen", 'Datensatz mit ID: %s ansehen'],
 
     // Naming
-    'first_legend' => 'Basis Einstellungen',
+    'title_legend' => 'Basis Einstellungen',
     'title' => ["Name der $sgl", "Geben Sie einen Namen für die $sgl ein."],
+    'translation' => ['Übersetzung', "Wählen Sie hier eine Übersetzung. Ist keine Übersetzung zur Auswahl vorhanden, so legen Sie bitte eine neue unter &raquo;$klaro Übersetzungen&laquo; an. Sie können das Feld auch leer lassen. Dann verwendet $klaro die Übersetzung aus der $klaro-Config."],
 
     // Pages legend
     'pages_legend' => 'Seiten konfigurieren',
@@ -63,19 +64,6 @@ $GLOBALS['TL_LANG']['tl_klaro_config'] = [
     'storageName' => ['Speicherschlüssel', "Sie können den Key (Schlüssel) des Cookies oder des localStorage-Eintrags anpassen, den $klaro für die Speicherung der Zustimmungsinformationen verwendet. Standardmäßig verwendet $klaro &raquo;klaro&laquo;."],
     'cookieDomain' => ['Cookie Domain', "Sie können die Cookie-Domain für den Zustimmungsmanager anpassen. Tun Sie dies, wenn Sie die Zustimmung für mehrere übereinstimmende Domänen nur einmal erhalten möchten. Standardmäßig verwendet $klaro die aktuelle Domain. Diese Einstellung ist nur relevant, wenn &raquo;Speichermethode&laquo; auf &raquo;Cookie Storage&laquo; eingestellt ist."],
     'cookieExpiresAfterDays' => ['Cookie Verfallszeit', "Hier können Sie Verfallszeit für das $klaro-Cookie festlegen. Voreinstellung ist 30 Tage (nur relevant, wenn &raquo;Speichermethode&laquo; auf &raquo;Cookie Storage&laquo; eingestellt ist)."],
-
-    // translations legend
-    'translations_legend' => 'Sprachspezifische Einstellungen',
-    'translations' => [
-        'Definierte Sprachen',
-        'Fügen Sie hier Ihre Sprachdefinitionen hinzu.',
-        'langKey' => ['Sprachkürzel', 'Wählen Sie hier die Sprache aus. Die Fallback-Definition zz: sollte immer vorhanden sein!'],
-        'privacyPolicyUrl' => ['Link zur Datenschutzrichtlinie', 'Wählen Sie hier die Seite aus, auf der sich die Datenschutzrichtlinie für die ausgewählte Sprache befindet.'],
-        'consentNotice' => ['Text der Einwilligungsbox', 'Dieser Text wird in der Einwilligungsbox erscheinen.'],
-        'consentModal' => ['Erklärung in der Einwilligungsbox', 'Hier können sie die unten angegebenen Dienste genauer erklären.'],
-        // the special lang key zz:
-        'fallback' => ['zz' => 'Fallback - zz:'],
-    ],
 
     // expert legend
     'expert_legend' => 'Test und Wartung',

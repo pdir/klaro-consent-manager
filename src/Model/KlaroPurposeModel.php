@@ -17,4 +17,14 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-$GLOBALS['TL_LANG']['XPL']['klaro_services'] = 'Dienste Erläuterung';
+namespace Pdir\ContaoKlaroConsentManager\Model;
+
+use Contao\Model;
+
+/**
+ * Class KlaroServiceModel.
+ */
+class KlaroPurposeModel extends Model
+{
+    protected static $strTable = 'tl_klaro_purpose';
+}

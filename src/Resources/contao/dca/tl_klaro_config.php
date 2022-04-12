@@ -79,7 +79,7 @@ $GLOBALS['TL_DCA'][$strTable] = [
     // Palettes
     'palettes' => [
         '__selector__' => ['addSubpalette'],
-        'default' => '{first_legend},title;'.
+        'default' => '{title_legend},title,translation;'.
             '{services_legend},services;'.
             '{script_legend},scriptLoadingMode,myConfigVariableName;'.
             '{consent_legend},noticeAsModal,default,mustConsent,acceptAll,hideDeclineAll,hideLearnMore,hideModal;'.
@@ -106,28 +106,33 @@ $GLOBALS['TL_DCA'][$strTable] = [
             'filter' => true,
             'sorting' => true,
             'flag' => 1,
-            'eval' => ['mandatory' => true, 'maxlength' => 255, 'tl_class' => 'w50'],
+            'eval' => ['mandatory' => true, 'maxlength' => 255, 'tl_class' => 'w75'],
             'sql' => "varchar(255) NOT NULL default ''",
         ],
+        'translation' => [
+            'inputType' => 'select',
+            'exclude' => true,
+            'search' => true,
+            'filter' => true,
+            'sorting' => true,
+            'eval' => ['mandatory' => false, 'tl_class' => 'w25', 'includeBlankOption' => true],
+            'foreignKey' => 'tl_klaro_translation.title',
+            'relation' => ['type' => 'hasOne', 'load' => 'lazy'],
+            'sql' => [
+                'type' => 'integer',
+                'length' => 10,
+                'fixed' => true,
+                'notnull' => true,
+                'default' => '0',
+            ],
+        ],
+
         'hideModal' => [
             'exclude' => true,
             'inputType' => 'pageTree',
             'foreignKey' => 'tl_page.title',
             'eval' => ['fieldType' => 'checkbox', 'tl_class' => 'clr', 'multiple' => true],
             'sql' => 'blob NULL',
-        ],
-        'services' => [
-            'exclude' => true,
-            'explanation' => 'klaro_services',
-            'inputType' => 'checkboxWizard',
-            'eval' => ['multiple' => true, 'helpwizard' => true],
-            //'reference' => &$GLOBALS['TL_LANG'][$strTable],
-            'sql' => [
-                'type' => 'text',
-                'length' => 2048,
-                'fixed' => true,
-                'notnull' => false,
-            ],
         ],
         'scriptLoadingMode' => [
             'inputType' => 'select',
@@ -156,7 +161,6 @@ $GLOBALS['TL_DCA'][$strTable] = [
                 'default' => 'klaroConfig',
             ],
         ],
-
         'testing' => [
             'exclude' => true,
             'inputType' => 'checkbox',
@@ -306,69 +310,20 @@ $GLOBALS['TL_DCA'][$strTable] = [
                 'default' => '',
             ],
         ],
-        'translations' => [
-            'label' => &$GLOBALS['TL_LANG']['tl_my_table']['someField'],
-            'inputType' => 'multiColumnEditor',
+        'services' => [
             'exclude' => true,
-            'eval' => [
-                'multiColumnEditor' => [
-                    // set to true if the rows should be sortable (backend only atm)
-                    'sortable' => true,
-                    'class' => 'some-class',
-                    // set to 0 if it should also be possible to have *no* row (default: 1)
-                    'minRowCount' => 1,
-                    // set to 0 if an infinite number of rows should be possible (default: 0)
-                    'maxRowCount' => 0,
-                    // defaults to false
-                    'skipCopyValuesOnAdd' => false,
-
-                    'editorTemplate' => 'multi_column_editor_backend_default',
-                    // Optional: add palette and subpalette if you need supalettes support (otherwise all fields will be shows)
-                    // Legends are supported since verison 2.8
-                    'palettes' => [
-                        '__selector__' => [],
-                        'default' => 'langKey,privacyPolicyUrl,consentNotice,consentModal',
-                    ],
-                    'subpalettes' => [
-                        //'field1' => 'field2', // key selector
-                        //'field1_10' => 'field3', // key_value selector
-                    ],
-                    // place your fields here as you would normally in your DCA
-                    'fields' => [
-                        'langKey' => [
-                            'label' => &$GLOBALS['TL_LANG'][$strTable]['translations']['langKey'],
-                            'exclude' => true,
-                            'filter' => true,
-                            'inputType' => 'select',
-                            'default' => str_replace('-', '_', $GLOBALS['TL_LANGUAGE']),
-                            'eval' => ['rgxp' => 'locale', 'groupStyle' => 'width:210px'],
-                            'options_callback' => static function () {
-                                return array_merge(
-                                    System::getLanguages(true),
-                                    $GLOBALS['TL_LANG']['tl_klaro_config']['translations']['fallback']
-                                );
-                            },
-                        ],
-                        'privacyPolicyUrl' => [
-                            'label' => &$GLOBALS['TL_LANG'][$strTable]['translations']['privacyPolicyUrl'],
-                            'inputType' => 'pageTree',
-                            'foreignKey' => 'tl_page.title',
-                            'eval' => ['fieldType' => 'radio', 'tl_class' => '', 'multiple' => false],
-                        ],
-                        'consentNotice' => [
-                            'label' => &$GLOBALS['TL_LANG'][$strTable]['translations']['consentNotice'],
-                            'inputType' => 'text',
-                            'eval' => ['groupStyle' => ''],
-                        ],
-                        'consentModal' => [
-                            'label' => &$GLOBALS['TL_LANG'][$strTable]['translations']['consentModal'],
-                            'inputType' => 'textarea',
-                            'eval' => ['groupStyle' => ''],
-                        ],
-                    ],
-                ],
+            'explanation' => 'klaro_services',
+            'inputType' => 'checkboxWizard',
+            'eval' => ['multiple' => true, 'helpwizard' => true],
+            //'reference' => &$GLOBALS['TL_LANG'][$strTable],
+            'sql' => [
+                'type' => 'text',
+                'length' => 2048,
+                'fixed' => true,
+                'notnull' => false,
             ],
-            'sql' => 'blob NULL',
+        ],
+        'callback' => [
         ],
     ],
 ];

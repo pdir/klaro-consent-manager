@@ -21,8 +21,7 @@
   ],
   "require": {
     "php": "^7.2 || ^8.0",
-    "contao/core-bundle": "^4.9",
-    "heimrichhannot/contao-multi-column-editor-bundle": "^2.13"
+    "contao/core-bundle": "^4.9"
   },
   "conflict": {
     "contao/core": "*",

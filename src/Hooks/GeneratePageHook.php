@@ -28,7 +28,7 @@ use Contao\PageRegular;
 use Contao\StringUtil;
 use Contao\System;
 use Pdir\ContaoKlaroConsentManager\Model\KlaroConfigModel;
-use Pdir\ContaoKlaroConsentManager\Model\KlaroServiceModel;
+use Pdir\ContaoKlaroConsentManager\Model\KlaroPurposeModel;
 use Twig\Environment as TwigEnvironment;
 
 /**
@@ -95,7 +95,7 @@ class GeneratePageHook
 
         // get all services for the given config
         if (null !== $klaroConfig->services) {
-            $services = KlaroServiceModel::findMultipleByIds(StringUtil::deserialize($klaroConfig->services));
+            $services = KlaroPurposeModel::findMultipleByIds(StringUtil::deserialize($klaroConfig->services));
         }
         // adjust fields
         $serviceFieldsCallback = static function (&$value, $key, $c): void {
@@ -118,30 +118,20 @@ class GeneratePageHook
         };
 
         $c = $this; // does the trick
-        $serviceCallback = static function ($service) use ($serviceFieldsCallback, $c, $klaroConfig) {
+        $serviceCallback = static function ($service) use ($serviceFieldsCallback, $c) {
             array_walk($service, $serviceFieldsCallback, $c);
             // add the key for translations here
             System::loadLanguageFile('tl_klaro_service');
+            //dump($translationsTemplate);
 
-            $arrTranslations = StringUtil::deserialize($klaroConfig->translations);
+            $service['translations'] = '{}';
 
-            foreach ($arrTranslations as $t) {
-                dump(PageModel::findByPk($t['privacyPolicyUrl']));
-                $translationsTemplate .= "{
-                {$t['langKey']}: {
-                privacyPolicyUrl: '{$t['privacyPolicyUrl']}',
-                consentNotice: '{$t['consentNotice']}',
-                },";
-            }
-            $service['translations'] = '{'.$translationsTemplate.'}';
-            dump($translationsTemplate);
-            // dump($GLOBALS['TL_LANG']['klaro']['service']['purposes_translations'][$service['name']]);
             return $service;
         };
 
         // prepare a array of service data
         $arrServices = null !== $services ? array_map($serviceCallback, $services->fetchAll()) : [];
-        dump($arrServices);
+        //dump($arrServices);
 
         // render the services.js section with the service data as javascript
         $servicesPartial = $this->twig->render(
@@ -150,7 +140,15 @@ class GeneratePageHook
                 'services' => $arrServices,
             ]
         );
-        dump($servicesPartial);
+        //dump($servicesPartial);
+
+        // translations
+        $arrTranslations = StringUtil::deserialize($klaroConfig->translations);
+
+        $translationsTemplate = $this->buildConfigTranslations($arrTranslations);
+
+        dump($translationsTemplate);
+
         // render the config.js as javascript
         $configJsTemplate = $this->twig->render(
             '@PdirContaoKlaroConsentManager/fe_klaro_config.js.twig',
@@ -171,6 +169,8 @@ class GeneratePageHook
                     'hideDeclineAll' => '1' === $klaroConfig->hideDeclineAll ? 'true' : 'false',
                     'hideLearnMore' => '1' === $klaroConfig->hideLearnMore ? 'true' : 'false',
 
+                    'translations' => $translationsTemplate,
+
                     'services' => $servicesPartial,
                 ],
             ]
@@ -187,7 +187,7 @@ class GeneratePageHook
 
         //$scriptTemplate->klaro_config = "<script $mode type='application/javascript' src='$configJsFallbackSrc'></script>";
         $scriptTemplate->klaro_config = "<script type='application/javascript'>$configJsTemplate</script>";
-
+        dump($scriptTemplate->klaro_config);
         //$scriptTemplate->klaro_script = "<script $mode data-config='klaroConfig' type='application/javascript' src='https://cdn.kiprotect.com/klaro/{$scriptTemplate->version}/klaro.js'></script>";
         $scriptTemplate->klaro_script = "<script $mode data-config='{$klaroConfig->myConfigVariableName}' type='application/javascript' src='bundles/pdircontaoklaroconsentmanager/js/klaro.js'></script>";
 
@@ -202,5 +202,34 @@ class GeneratePageHook
     private function bool($value): string
     {
         return '1' === $value ? 'true' : 'false';
+    }
+
+    /**
+     * builds the configurations.translations.
+     *
+     * @param $arrTranslations
+     *
+     * @return string
+     */
+    private function buildConfigTranslations($arrTranslations)
+    {
+        $template = '';
+
+        foreach ($arrTranslations as $t) {
+            // prepare privacyPolicyUrl
+            if ('' !== $t['privacyPolicyUrl']) {
+                $alias = PageModel::findByPk($t['privacyPolicyUrl'])->alias;
+                $ppu = "  privacyPolicyUrl: '/$alias',\n";
+            } else {
+                $ppu = '';
+            }
+
+            $cn = "  consentNotice: '{$t['consentNotice']}',\n";
+            $cm = "  consentModal: '{$t['consentModal']}',\n";
+
+            $template .= "{$t['langKey']}: {\n      {$ppu}{$cn}{$cm}            },\n";
+        }
+
+        return $template;
     }
 }

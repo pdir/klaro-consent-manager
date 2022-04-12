@@ -17,28 +17,28 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-$sgl = 'Dienst';
+$sgl = 'Übersetzung';
 //$pl = 'Dienste';
-$klaro = 'Klaro&copy;';
+$klaro = 'Klaro';
 
-$GLOBALS['TL_LANG']['tl_klaro_service'] = [
+$GLOBALS['TL_LANG']['tl_klaro_translation'] = [
     // Operations
     'edit' => ["$sgl mit ID: %s bearbeiten", 'Datensatz mit ID: %s bearbeiten'],
     'copy' => ["$sgl mit ID: %s kopieren", 'Datensatz mit ID: %s kopieren'],
     'delete' => ["$sgl mit ID: %s löschen", 'Datensatz mit ID: %s löschen'],
     'show' => ["$sgl mit ID: %s ansehen", 'Datensatz mit ID: %s ansehen'],
 
-    // Naming
-    'title_legend' => 'Name',
-    'title' => ['Name des Konfiguration', "Geben Sie einen Namen für die $sgl ein."],
+    // name legend
+    'title_legend' => "Name der $sgl",
+    'title' => ["Name der $sgl", "Geben Sie einen Namen für die $sgl ein."],
 
-    // Services
-    'service_legend' => "{$sgl}konfiguration",
-    'name' => ["Name des {$sgl}es", "Geben Sie den Namen für den $sgl ein, den $klaro intern als Symbol für diesen Dienst verwendet."],
+    // translation legend
+    'translation_legend' => 'Übersetzung',
+    'lang_code' => ['Sprach-Kennzeichen', 'Geben Sie das Sprach-Kennzeichen (ISO 639-1 Code, z.B. de oder de-ch) ein.'],
     'default' => ['Standard: zugestimmt', 'Wenn Sie diese Option aktivieren, wird die Zustimmung für diesen Dienst beim Laden voreingestellt.'],
-    'translations' => ['Übersetzungen', ''],
+    'translations' => ['Übersetzungen', "$klaro"],
 
     'purposes' => ['Zwecke', 'Wählen Sie hier mindestens einen Zweck, dem dieser Dienst zugeordnet ist.'],
-    // 'purposes_reference' see default
-    // 'purposes_translations' see default
+    //  'purposes_reference' see default
+    //  'purposes_translations' see default
 ];

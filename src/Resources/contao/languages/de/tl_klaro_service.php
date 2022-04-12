@@ -39,6 +39,6 @@ $GLOBALS['TL_LANG']['tl_klaro_service'] = [
     'translations' => ['Übersetzungen', ''],
 
     'purposes' => ['Zwecke', 'Wählen Sie hier mindestens einen Zweck, dem dieser Dienst zugeordnet ist.'],
-    // 'purposes_reference' see default
-    //'purposes_translations' see default
+    //  'purposes_reference' see default
+    //  'purposes_translations' see default
 ];
