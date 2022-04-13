@@ -192,10 +192,12 @@ class GeneratePageHook
                 $ppu = '';
             }
 
-            $cn = "      consentNotice: '{$t['consentNotice']}',\n";
-            $cm = "      consentModal: '{$t['consentModal']}',\n";
+            $cn = "      consentNotice: { description: '{$t['consentNotice']}', },\n";
+            $cm = "      consentModal: { description: '{$t['consentModal']}', },\n";
 
-            $template .= "\n    {$t['lang_code']}: {\n    {$ppu}{$cn}{$cm}    },";
+            $pp = "      purposes: {analytics:{title:'Hier Purposes Analytics Title'}},";
+
+            $template .= "\n    {$t['lang_code']}: {\n    {$ppu}{$cn}{$cm}{$pp}    },";
         }
         dump($template);
 
@@ -265,7 +267,7 @@ class GeneratePageHook
             System::loadLanguageFile('tl_klaro_service');
             //dump($translationsTemplate);
 
-            $service['translations'] = '{}';
+            $service['translations'] = '';
 
             return $service;
         };
