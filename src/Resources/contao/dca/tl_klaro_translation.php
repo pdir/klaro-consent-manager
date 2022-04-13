@@ -80,7 +80,7 @@ $GLOBALS['TL_DCA'][$strTable] = [
     'palettes' => [
         '__selector__' => [],
         'default' => '{title_legend},title;'.
-            '{translation_legend},lang_code,privacyPolicyUrl,consentNotice,consentModal;',
+            '{translation_legend},lang_code,privacyPolicyUrl,consentNotice,consentModal,purposes;',
     ],
     // Subpalettes
     'subpalettes' => [],
@@ -141,7 +141,7 @@ $GLOBALS['TL_DCA'][$strTable] = [
         'consentModal' => [
             'exclude' => true,
             'inputType' => 'textarea',
-            'eval' => ['mandatory' => false, 'tl_class' => '', 'cols' => 3],
+            'eval' => ['mandatory' => false, 'tl_class' => '', 'rows' => 3],
             'sql' => [
                 'type' => 'text',
                 'length' => 4096,
@@ -150,6 +150,14 @@ $GLOBALS['TL_DCA'][$strTable] = [
             ],
         ],
 
-        'purposes' => [],
+        'purposes' => [
+            'exclude' => true,
+            'inputType' => 'keyValueWizard',
+            'eval' => [
+                'allowHtml' => false,
+                'tl_class' => '',
+            ],
+            'sql' => 'blob NULL',
+        ],
     ],
 ];

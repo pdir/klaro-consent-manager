@@ -28,8 +28,11 @@ use Contao\PageRegular;
 use Contao\StringUtil;
 use Contao\System;
 use Pdir\ContaoKlaroConsentManager\Model\KlaroConfigModel;
-use Pdir\ContaoKlaroConsentManager\Model\KlaroPurposeModel;
+use Pdir\ContaoKlaroConsentManager\Model\KlaroTranslationModel;
 use Twig\Environment as TwigEnvironment;
+use Twig\Error\LoaderError;
+use Twig\Error\RuntimeError;
+use Twig\Error\SyntaxError;
 
 /**
  * The generatePage hook is triggered before the main layout (fe_page) is compiled.
@@ -93,12 +96,148 @@ class GeneratePageHook
         $cssTemplate = new FrontendTemplate('fe_klaro_css');
         $cssTemplate->version = 'v0.7'; // ToDo: test the version string
 
-        // prepare the klaro services.js template
+        // prepare translations
+        $translationsTemplate = $this->buildConfigTranslations($klaroConfig);
+        //dump($translationsTemplate);
 
-        // get all services for the given config
-        if (null !== $klaroConfig->services) {
-            $services = KlaroPurposeModel::findMultipleByIds(StringUtil::deserialize($klaroConfig->services));
+        // prepare services
+        $servicesTemplate = $this->buildConfigServices($klaroConfig);
+        //dump($servicesTemplate);
+
+        // render the config.js as javascript
+        $configJsTemplate = $this->twig->render(
+            '@PdirContaoKlaroConsentManager/fe_klaro_config.js.twig',
+            [
+                'myConfigVariableName' => $klaroConfig->myConfigVariableName,
+                'config' => [
+                    'testing' => '1' === $klaroConfig->testing ? 'true' : 'false',
+                    'elementID' => $klaroConfig->elementID,
+                    'storageMethod' => $klaroConfig->storageMethod,
+                    'storageName' => $klaroConfig->storageName,
+                    'htmlTexts' => '1' === $klaroConfig->htmlTexts ? 'true' : 'false',
+                    'cookieDomain' => $klaroConfig->cookieDomain,
+                    'cookieExpiresAfterDays' => $klaroConfig->cookieExpiresAfterDays,
+                    'noticeAsModal' => '1' === $klaroConfig->noticeAsModal ? 'true' : 'false',
+                    'default' => '1' === $klaroConfig->default ? 'true' : 'false',
+                    'mustConsent' => '1' === $klaroConfig->mustConsent ? 'true' : 'false',
+                    'acceptAll' => '1' === $klaroConfig->acceptAll ? 'true' : 'false',
+                    'hideDeclineAll' => '1' === $klaroConfig->hideDeclineAll ? 'true' : 'false',
+                    'hideLearnMore' => '1' === $klaroConfig->hideLearnMore ? 'true' : 'false',
+
+                    'translations' => $translationsTemplate,
+
+                    'services' => $servicesTemplate,
+                ],
+            ]
+        );
+        dump($configJsTemplate);
+        // prepare the klaro script template
+        $scriptTemplate = new FrontendTemplate('fe_klaro_script');
+        // lock to version
+        $scriptTemplate->version = 'v0.7';
+        $mode = 'defer'; // '' = synchronous, 'async' = asyncronous see: https://heyklaro.com/docs/integration/overview
+        // a fallback config
+        //$configJsFallbackSrc = 'bundles/pdircontaoklaroconsentmanager/js/config.js';
+        //$config_plain = '';
+
+        //$scriptTemplate->klaro_config = "<script $mode type='application/javascript' src='$configJsFallbackSrc'></script>";
+        $scriptTemplate->klaro_config = "<script type='application/javascript'>$configJsTemplate</script>";
+        dump($scriptTemplate->klaro_config);
+        //$scriptTemplate->klaro_script = "<script $mode data-config='klaroConfig' type='application/javascript' src='https://cdn.kiprotect.com/klaro/{$scriptTemplate->version}/klaro.js'></script>";
+        $scriptTemplate->klaro_script = "<script $mode data-config='{$klaroConfig->myConfigVariableName}' type='application/javascript' src='bundles/pdircontaoklaroconsentmanager/js/klaro.js'></script>";
+
+        //$GLOBALS['TL_CSS']['klaro'] = $cssTemplate->parse();
+        $GLOBALS['TL_CSS']['klaro'] = "https://cdn.kiprotect.com/klaro/{$cssTemplate->version}/klaro.min.css";
+        $GLOBALS['TL_BODY']['klaro'] = $scriptTemplate->parse();
+    }
+
+    /**
+     * @param $value
+     */
+    private function bool($value): string
+    {
+        return '1' === $value ? 'true' : 'false';
+    }
+
+    /**
+     * builds the Klaro config.translations.
+     *
+     * @param $klaroConfigModel
+     *
+     * @return string
+     */
+    private function buildConfigTranslations(KlaroConfigModel $klaroConfigModel)
+    {
+        global $objPage;
+
+        $template = '';
+
+        // check for Klaro default translation zz
+        if (($translationZZ = KlaroTranslationModel::findByLang_code('zz')) === null) {
+            return '';
         }
+        // check for Klaro current page translation
+        if (($translationPage = KlaroTranslationModel::findByLang_code($objPage->language)) === null) {
+            return '';
+        }
+        $arrTranslations = array_merge($translationZZ->fetchAll(), $translationPage->fetchAll());
+        dump($arrTranslations);
+
+        foreach ($arrTranslations as $t) {
+            // prepare privacyPolicyUrl
+            if ('' !== $t['privacyPolicyUrl']) {
+                $alias = PageModel::findByPk($t['privacyPolicyUrl'])->alias;
+                $ppu = "  privacyPolicyUrl: '/$alias',\n";
+            } else {
+                $ppu = '';
+            }
+
+            $cn = "      consentNotice: '{$t['consentNotice']}',\n";
+            $cm = "      consentModal: '{$t['consentModal']}',\n";
+
+            $template .= "\n    {$t['lang_code']}: {\n    {$ppu}{$cn}{$cm}    },";
+        }
+        dump($template);
+
+        return "$template\n ";
+    }
+
+    /**
+     * builds the services section of the klaro config file.
+     *
+     * services: [
+     *  {
+     *      name: 'matomo',
+     *      default: true,
+     *      translations: {
+     *          zz: { title: 'Matomo/Piwik' },
+     *          en: { description: 'Matomo is a simple, self-hosted analytics service.' },
+     *          de: { description: 'Matomo ist ein einfacher, selbstgehosteter Analytics-Service.' },
+     *      },
+     *      purposes: ['analytics', 'pourpose2', ...],
+     *      cookies: [
+     *          [/^_pk_.*$/, '/', 'klaro.kiprotect.com'],
+     *          [/^_pk_.*$/, '/', 'localhost'],
+     *          'piwik_ignore',
+     *      ],
+     *      callback: function(consent, service) {},
+     *      required: false,
+     *      optOut: false,
+     *      onlyOnce: true,
+     *  },
+     * ]
+     *
+     * @throws LoaderError
+     * @throws RuntimeError
+     * @throws SyntaxError
+     */
+    private function buildConfigServices(KlaroConfigModel $klaroConfigModel): string
+    {
+        // get all services for the given config
+        if (null !== $klaroConfigModel->services) {
+            $services = $klaroConfigModel->getRelated('services');
+        }
+
         // adjust fields
         $serviceFieldsCallback = static function (&$value, $key, $c): void {
             switch ($key) {
@@ -136,102 +275,11 @@ class GeneratePageHook
         //dump($arrServices);
 
         // render the services.js section with the service data as javascript
-        $servicesPartial = $this->twig->render(
+        return $this->twig->render(
             '@PdirContaoKlaroConsentManager/fe_klaro_config_services.js.twig',
             [
                 'services' => $arrServices,
             ]
         );
-        //dump($servicesPartial);
-
-        // translations
-        $arrTranslations = StringUtil::deserialize($klaroConfig->translations);
-
-        $translationsTemplate = $this->buildConfigTranslations($arrTranslations);
-
-        dump($translationsTemplate);
-
-        // render the config.js as javascript
-        $configJsTemplate = $this->twig->render(
-            '@PdirContaoKlaroConsentManager/fe_klaro_config.js.twig',
-            [
-                'myConfigVariableName' => $klaroConfig->myConfigVariableName,
-                'config' => [
-                    'testing' => '1' === $klaroConfig->testing ? 'true' : 'false',
-                    'elementID' => $klaroConfig->elementID,
-                    'storageMethod' => $klaroConfig->storageMethod,
-                    'storageName' => $klaroConfig->storageName,
-                    'htmlTexts' => '1' === $klaroConfig->htmlTexts ? 'true' : 'false',
-                    'cookieDomain' => $klaroConfig->cookieDomain,
-                    'cookieExpiresAfterDays' => $klaroConfig->cookieExpiresAfterDays,
-                    'noticeAsModal' => '1' === $klaroConfig->noticeAsModal ? 'true' : 'false',
-                    'default' => '1' === $klaroConfig->default ? 'true' : 'false',
-                    'mustConsent' => '1' === $klaroConfig->mustConsent ? 'true' : 'false',
-                    'acceptAll' => '1' === $klaroConfig->acceptAll ? 'true' : 'false',
-                    'hideDeclineAll' => '1' === $klaroConfig->hideDeclineAll ? 'true' : 'false',
-                    'hideLearnMore' => '1' === $klaroConfig->hideLearnMore ? 'true' : 'false',
-
-                    'translations' => $translationsTemplate,
-
-                    'services' => $servicesPartial,
-                ],
-            ]
-        );
-        //dump($configJsTemplate);
-        // prepare the klaro script template
-        $scriptTemplate = new FrontendTemplate('fe_klaro_script');
-        // lock to version
-        $scriptTemplate->version = 'v0.7';
-        $mode = 'defer'; // '' = synchronous, 'async' = asyncronous see: https://heyklaro.com/docs/integration/overview
-        // a fallback config
-        //$configJsFallbackSrc = 'bundles/pdircontaoklaroconsentmanager/js/config.js';
-        //$config_plain = '';
-
-        //$scriptTemplate->klaro_config = "<script $mode type='application/javascript' src='$configJsFallbackSrc'></script>";
-        $scriptTemplate->klaro_config = "<script type='application/javascript'>$configJsTemplate</script>";
-        dump($scriptTemplate->klaro_config);
-        //$scriptTemplate->klaro_script = "<script $mode data-config='klaroConfig' type='application/javascript' src='https://cdn.kiprotect.com/klaro/{$scriptTemplate->version}/klaro.js'></script>";
-        $scriptTemplate->klaro_script = "<script $mode data-config='{$klaroConfig->myConfigVariableName}' type='application/javascript' src='bundles/pdircontaoklaroconsentmanager/js/klaro.js'></script>";
-
-        //$GLOBALS['TL_CSS']['klaro'] = $cssTemplate->parse();
-        $GLOBALS['TL_CSS']['klaro'] = "https://cdn.kiprotect.com/klaro/{$cssTemplate->version}/klaro.min.css";
-        $GLOBALS['TL_BODY']['klaro'] = $scriptTemplate->parse();
-    }
-
-    /**
-     * @param $value
-     */
-    private function bool($value): string
-    {
-        return '1' === $value ? 'true' : 'false';
-    }
-
-    /**
-     * builds the configurations.translations.
-     *
-     * @param $arrTranslations
-     *
-     * @return string
-     */
-    private function buildConfigTranslations($arrTranslations)
-    {
-        $template = '';
-
-        foreach ($arrTranslations as $t) {
-            // prepare privacyPolicyUrl
-            if ('' !== $t['privacyPolicyUrl']) {
-                $alias = PageModel::findByPk($t['privacyPolicyUrl'])->alias;
-                $ppu = "  privacyPolicyUrl: '/$alias',\n";
-            } else {
-                $ppu = '';
-            }
-
-            $cn = "  consentNotice: '{$t['consentNotice']}',\n";
-            $cm = "  consentModal: '{$t['consentModal']}',\n";
-
-            $template .= "{$t['langKey']}: {\n      {$ppu}{$cn}{$cm}            },\n";
-        }
-
-        return $template;
     }
 }

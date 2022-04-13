@@ -26,6 +26,7 @@ $GLOBALS['TL_LANG']['MOD']['pdir'] = 'Pdir';
 $GLOBALS['TL_LANG']['MOD']['klaro_config'] = ['Klaro Konfiguration', 'Klaro Consent Manager konfigurieren'];
 $GLOBALS['TL_LANG']['MOD']['klaro_service'] = ['Klaro Dienste', 'Klaro Dienste verwalten'];
 $GLOBALS['TL_LANG']['MOD']['klaro_translation'] = ['Klaro Übersetzungen', 'Klaro Übersetzungen verwalten'];
+$GLOBALS['TL_LANG']['MOD']['klaro_purpose'] = ['Klaro Zwecke', 'Klaro Zwecke verwalten'];
 
 /*
  * Frontend modules

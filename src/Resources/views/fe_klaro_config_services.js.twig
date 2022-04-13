@@ -2,16 +2,16 @@
     {
         name: '{{ service.name|raw }}',
         default: {{ service.default }},
-        /*
-        Translations belonging to this service go here. The key `zz` contains default
-        translations that will be used as a fallback if there are no translations
-        defined for a given language.
-        */
-        translations: {{ service.translations | raw }},
 
-        purposes: [{{ service.purposes | raw }}],
+        translations: {
+            {{ service.translations | raw }},
+        }
 
-      cookies: [
+        purposes: [
+            {{ service.purposes | raw }}
+        ],
+
+        cookies: [
         /*
         you an either only provide a cookie name or regular expression (regex) or a list
         consisting of a name or regex, a path and a cookie domain. Providing a path and
@@ -40,7 +40,7 @@
         '/' on the current domain
         */
         'piwik_ignore',
-      ],
+        ],
 
       /*
       You can define an optional callback function that will be called each time the

@@ -109,24 +109,6 @@ $GLOBALS['TL_DCA'][$strTable] = [
             'eval' => ['mandatory' => true, 'maxlength' => 255, 'tl_class' => 'w75'],
             'sql' => "varchar(255) NOT NULL default ''",
         ],
-        'translation' => [
-            'inputType' => 'select',
-            'exclude' => true,
-            'search' => true,
-            'filter' => true,
-            'sorting' => true,
-            'eval' => ['mandatory' => false, 'tl_class' => 'w25', 'includeBlankOption' => true],
-            'foreignKey' => 'tl_klaro_translation.title',
-            'relation' => ['type' => 'hasOne', 'load' => 'lazy'],
-            'sql' => [
-                'type' => 'integer',
-                'length' => 10,
-                'fixed' => true,
-                'notnull' => true,
-                'default' => '0',
-            ],
-        ],
-
         'hideModal' => [
             'exclude' => true,
             'inputType' => 'pageTree',
@@ -310,12 +292,33 @@ $GLOBALS['TL_DCA'][$strTable] = [
                 'default' => '',
             ],
         ],
+
+        /*
+        'translation' => [
+            'inputType' => 'select',
+            'exclude' => true,
+            'search' => true,
+            'filter' => true,
+            'sorting' => true,
+            #'eval' => ['mandatory' => false, 'tl_class' => 'w25', 'includeBlankOption' => true],
+            #'foreignKey' => 'tl_klaro_translation.title',
+            'relation' => ['type' => 'hasOne', 'load' => 'lazy'],
+            'sql' => [
+                'type' => 'integer',
+                'length' => 10,
+                'fixed' => true,
+                'notnull' => true,
+                'default' => '0',
+            ],
+        ],
+        */
         'services' => [
             'exclude' => true,
             'explanation' => 'klaro_services',
             'inputType' => 'checkboxWizard',
+            'foreignKey' => 'tl_klaro_service.title',
+            'relation' => ['type' => 'hasMany', 'load' => 'lazy'],
             'eval' => ['multiple' => true, 'helpwizard' => true],
-            //'reference' => &$GLOBALS['TL_LANG'][$strTable],
             'sql' => [
                 'type' => 'text',
                 'length' => 2048,

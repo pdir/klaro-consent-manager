@@ -47,11 +47,11 @@ class KlaroConfigListener
     }
 
     /**
-     * @Callback(
+     * Callback(
      *     table="tl_klaro_config",
      *     target="fields.services.options"
      * )
-     * builds the service options
+     * builds the service options.
      *
      * @return array
      */
