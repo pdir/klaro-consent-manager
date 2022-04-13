@@ -64,9 +64,11 @@ class GeneratePageHook
         }
 
         // check if current page is in exclude list
-        $excludePages = unserialize($root->klaroExclude);
+        if (null !== $root->klaroExclude) {
+            $excludePages = unserialize($root->klaroExclude);
+        }
 
-        if (\is_array($excludePages) && 0 !== $root->klaroConfig) {
+        if (null !== $root->klaroExclude && \is_array($excludePages) && 0 !== $root->klaroConfig) {
             if (\in_array($objPage->id, $excludePages, true)) {
                 return;
             }
