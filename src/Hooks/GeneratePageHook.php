@@ -28,6 +28,7 @@ use Contao\PageRegular;
 use Contao\StringUtil;
 use Contao\System;
 use Pdir\ContaoKlaroConsentManager\Model\KlaroConfigModel;
+use Pdir\ContaoKlaroConsentManager\Model\KlaroPurposeModel;
 use Pdir\ContaoKlaroConsentManager\Model\KlaroTranslationModel;
 use Twig\Environment as TwigEnvironment;
 use Twig\Error\LoaderError;
@@ -246,7 +247,7 @@ class GeneratePageHook
                 case 'default': $value = $c->bool($value); break;
 
                 case 'purposes':
-                    $purposes = StringUtil::deserialize($value);
+                    $purposes = KlaroPurposeModel::findMultipleByIds(StringUtil::deserialize($value))->fetchEach('klaro_key');
                     $value = \is_array($purposes) ? "'".implode("','", $purposes)."'" : '';
                     break;
 
