@@ -26,7 +26,6 @@ use Contao\LayoutModel;
 use Contao\PageModel;
 use Contao\PageRegular;
 use Contao\StringUtil;
-use Contao\System;
 use Pdir\ContaoKlaroConsentManager\Model\KlaroConfigModel;
 use Pdir\ContaoKlaroConsentManager\Model\KlaroPurposeModel;
 use Pdir\ContaoKlaroConsentManager\Model\KlaroTranslationModel;
@@ -46,6 +45,27 @@ class GeneratePageHook
 {
     private $twig;
 
+    /**
+     * the Klaro fallback language code zz:.
+     *
+     * @var
+     */
+    private $translationZZ;
+
+    /**
+     * the Contao page language code de, en ... etc.
+     *
+     * @var
+     */
+    private $translationPage;
+
+    /**
+     * array of current translations, usually it contains two keys zz: and the current page locale.
+     *
+     * @var array
+     */
+    private $arrTranslations = [];
+
     public function __construct(TwigEnvironment $twig)
     {
         $this->twig = $twig;
@@ -61,6 +81,18 @@ class GeneratePageHook
         global $objPage;
 
         $root = Frontend::getRootPageFromUrl();
+
+        // ToDo: Optimize the procurement of the language variables
+        // check for Klaro default translation zz
+        if (($this->translationZZ = KlaroTranslationModel::findByLang_code('zz')) === null) {
+            throw new \Exception();
+        }
+        // check for Klaro current page translation
+        if (($this->translationPage = KlaroTranslationModel::findByLang_code($objPage->language)) === null) {
+            throw new \Exception();
+        }
+
+        $this->arrTranslations = array_merge($this->translationZZ->fetchAll(), $this->translationPage->fetchAll());
 
         // Check if klaro must be loaded
         if (!$root->includeKlaro && 0 !== $root->klaroConfig) {
@@ -103,7 +135,7 @@ class GeneratePageHook
 
         // prepare services
         $servicesTemplate = $this->buildConfigServices($klaroConfig);
-        //dump($servicesTemplate);
+        dump($servicesTemplate);
 
         // render the config.js as javascript
         $configJsTemplate = $this->twig->render(
@@ -131,7 +163,7 @@ class GeneratePageHook
                 ],
             ]
         );
-        dump($configJsTemplate);
+        //dump($configJsTemplate);
         // prepare the klaro script template
         $scriptTemplate = new FrontendTemplate('fe_klaro_script');
         // lock to version
@@ -150,6 +182,45 @@ class GeneratePageHook
         //$GLOBALS['TL_CSS']['klaro'] = $cssTemplate->parse();
         $GLOBALS['TL_CSS']['klaro'] = "https://cdn.kiprotect.com/klaro/{$cssTemplate->version}/klaro.min.css";
         $GLOBALS['TL_BODY']['klaro'] = $scriptTemplate->parse();
+    }
+
+    /**
+     * builds a simple translation section for a single service
+     * the section looks like this:.
+     *
+     * translations: {
+     *      zz: {
+     *          title: '',
+     *      },
+     *      en: {
+     *          description: '',
+     *      },
+     *      ...
+     * },
+     */
+    public function buildConfigServicesTranslations($strServiceName): string
+    {
+        $translations = '';
+
+        foreach ($this->arrTranslations as $tr) {
+            // get all service translations
+            $services = StringUtil::deserialize($tr['services']);
+            // get the translation for the current service
+            $arrFound = array_filter($services ?? [], static function ($service) use ($strServiceName) { if ($service['key'] === $strServiceName) { return true; }});
+            // decode the translation string
+            $strTrService = \is_array($arrFound) && \count($arrFound) > 0 ? current(array_values($arrFound))['value'] : '';
+            $translations .= 'zz' === $tr['lang_code'] ?
+"{$tr['lang_code']}: {
+                title: '$strTrService',
+            },
+            " :
+"{$tr['lang_code']}: {
+                description: '$strTrService',
+            },
+";
+        }
+
+        return $translations;
     }
 
     /**
@@ -173,22 +244,10 @@ class GeneratePageHook
 
         $template = '';
 
-        // check for Klaro default translation zz
-        if (($translationZZ = KlaroTranslationModel::findByLang_code('zz')) === null) {
-            return '';
-        }
-        // check for Klaro current page translation
-        if (($translationPage = KlaroTranslationModel::findByLang_code($objPage->language)) === null) {
-            return '';
-        }
-        $arrTranslations = array_merge($translationZZ->fetchAll(), $translationPage->fetchAll());
-        dump($arrTranslations);
-
-        foreach ($arrTranslations as $t) {
-            // prepare privacyPolicyUrl
-            if ('' !== $t['privacyPolicyUrl']) {
-                $alias = PageModel::findByPk($t['privacyPolicyUrl'])->alias;
-                $ppu = "  privacyPolicyUrl: '/$alias',\n";
+        foreach ($this->arrTranslations as $t) {
+            if (null !== $t['privacyPolicyUrl']) {
+                $url = PageModel::findByPk($t['privacyPolicyUrl'])->getFrontendUrl();
+                $ppu = "  privacyPolicyUrl: '/$url',\n";
             } else {
                 $ppu = '';
             }
@@ -200,7 +259,7 @@ class GeneratePageHook
 
             $template .= "\n    {$t['lang_code']}: {\n    {$ppu}{$cn}{$cm}{$pp}    },";
         }
-        dump($template);
+        //dump($template);
 
         return "$template\n ";
     }
@@ -242,40 +301,38 @@ class GeneratePageHook
         }
 
         // adjust fields
-        $serviceFieldsCallback = static function (&$value, $key, $c): void {
+        $serviceFieldsCallback = static function (&$value, $key, $_this): void {
             switch ($key) {
-                case 'default': $value = $c->bool($value); break;
+                case 'default': $value = $_this->bool($value); break;
 
                 case 'purposes':
+                    // $value can never be NULL because the dca field mandatory => true
                     $purposes = KlaroPurposeModel::findMultipleByIds(StringUtil::deserialize($value))->fetchEach('klaro_key');
                     $value = \is_array($purposes) ? "'".implode("','", $purposes)."'" : '';
                     break;
 
-                case 'required': $value = $c->bool($value); break;
+                case 'required': $value = $_this->bool($value); break;
 
-                case 'optOut': $value = $c->bool($value); break;
+                case 'optOut': $value = $_this->bool($value); break;
 
-                case 'onlyOnce': $value = $c->bool($value); break;
+                case 'onlyOnce': $value = $_this->bool($value); break;
 
-                case 'contextualConsentOnly': $value = $c->bool($value); break;
+                case 'contextualConsentOnly': $value = $_this->bool($value); break;
             }
         };
 
-        $c = $this; // does the trick
-        $serviceCallback = static function ($service) use ($serviceFieldsCallback, $c) {
-            array_walk($service, $serviceFieldsCallback, $c);
-            // add the key for translations here
-            System::loadLanguageFile('tl_klaro_service');
-            //dump($translationsTemplate);
-
-            $service['translations'] = '';
+        $_this = $this;
+        $serviceCallback = static function ($service) use ($serviceFieldsCallback, $_this) {
+            // modify service parameters
+            array_walk($service, $serviceFieldsCallback, $_this);
+            // all other objects inside a service goes here
+            $service['translations'] = $_this->buildConfigServicesTranslations($service['name']);
 
             return $service;
         };
 
-        // prepare a array of service data
+        // prepare an array of service data
         $arrServices = null !== $services ? array_map($serviceCallback, $services->fetchAll()) : [];
-        //dump($arrServices);
 
         // render the services.js section with the service data as javascript
         return $this->twig->render(

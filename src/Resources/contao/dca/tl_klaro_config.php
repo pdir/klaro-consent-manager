@@ -293,25 +293,6 @@ $GLOBALS['TL_DCA'][$strTable] = [
             ],
         ],
 
-        /*
-        'translation' => [
-            'inputType' => 'select',
-            'exclude' => true,
-            'search' => true,
-            'filter' => true,
-            'sorting' => true,
-            #'eval' => ['mandatory' => false, 'tl_class' => 'w25', 'includeBlankOption' => true],
-            #'foreignKey' => 'tl_klaro_translation.title',
-            'relation' => ['type' => 'hasOne', 'load' => 'lazy'],
-            'sql' => [
-                'type' => 'integer',
-                'length' => 10,
-                'fixed' => true,
-                'notnull' => true,
-                'default' => '0',
-            ],
-        ],
-        */
         'services' => [
             'exclude' => true,
             'explanation' => 'klaro_services',

@@ -25,6 +25,7 @@ use Contao\DataContainer;
 use Contao\Message;
 use Contao\StringUtil;
 use Pdir\ContaoKlaroConsentManager\Model\KlaroPurposeModel;
+use Pdir\ContaoKlaroConsentManager\Model\KlaroServiceModel;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
@@ -56,41 +57,17 @@ class KlaroTranslationListener
      */
     public function purposesLoad($value, DataContainer $dc)
     {
-        dump("value: $value");
         $storedPurposes = StringUtil::deserialize($value ?? []);
-        dump(\count($storedPurposes));
         $availablePurposes = KlaroPurposeModel::findAll();
 
         $arr = [];
 
         if (0 === \count($storedPurposes)) {
-            dump('init');
-
             foreach ($availablePurposes as $i => $ap) {
                 $arr[$i] = ['key' => $ap->klaro_key, 'value' => '?'];
             }
             $value = serialize($arr);
-        } else {
-            dump('schon Daten vorhanden');
         }
-
-        /*
-                $r = array_map(function($value) { return $value['key']; }, $storedPurposes);
-
-        dump($r);
-
-                foreach ($availablePurposes as $ap)
-                {
-        dump("in_array($ap->klaro_key, [". implode(',', $r) ."])");
-                    if($ap->klaro_key === $r['key']) {
-        dump("found $ap->id $ap->klaro_key  $ap->title");
-                        $b[] = ['key' => $storedPurposes['key'], 'value' => $storedPurposes['value']];
-                    } else {
-                        $b[] = ['key' => $ap->klaro_key, 'value' => ''];
-                    }
-                }
-        */
-        dump("return $value");
 
         return $value;
     }
@@ -114,9 +91,61 @@ class KlaroTranslationListener
         if (0 !== \count($arrDifferences)) {
             $strDifferences = implode(', ', $arrDifferences);
             $strPurposes = implode(', ', $availablePurposes);
-            Message::addError("Die Übersetzungsschlüssel $strDifferences sind unbekannt. Sie können nur folgende Schlüssel übersetzen: $strPurposes.");
+            [$a,$b] = 1 === \count($arrDifferences) ? ['Der', 'ist'] : ['Die', 'sind'];
+            Message::addError("$a Übersetzungsschlüssel [<b>$strDifferences</b>] $b unbekannt. Sie können nur folgende Schlüssel übersetzen: [<b>$strPurposes</b>].");
 
-            throw new \InvalidArgumentException('Es befindet sich ein fehlerhafter Schlüssel in der Liste!');
+            throw new \Exception();
+        }
+
+        return $value;
+    }
+
+    /**
+     * @Callback(
+     *     table="tl_klaro_translation",
+     *     target="fields.services.load"
+     * )
+     */
+    public function servicesLoad($value, DataContainer $dc)
+    {
+        $storedServices = StringUtil::deserialize($value ?? []);
+        $availableServices = KlaroServiceModel::findAll();
+
+        $arr = [];
+
+        if (0 === \count($storedServices)) {
+            foreach ($availableServices as $i => $as) {
+                $arr[$i] = ['key' => $as->name, 'value' => '?'];
+            }
+            $value = serialize($arr);
+        }
+
+        return $value;
+    }
+
+    /**
+     * @Callback(
+     *     table="tl_klaro_translation",
+     *     target="fields.services.save"
+     * )
+     * checks if all available services keys are specified,
+     * invalid keys are not stored, if an invalid key is present
+     * an exception is thrown
+     */
+    public function servicesSave($value, DataContainer $dc)
+    {
+        $savedServices = StringUtil::deserialize($value ?? []);
+        $availableServices = KlaroServiceModel::findAll()->fetchEach('name');
+        $savedServicesValues = array_map(static function ($value) { return $value['key']; }, $savedServices);
+        $arrDifferences = array_diff($savedServicesValues, $availableServices);
+
+        if (0 !== \count($arrDifferences)) {
+            $strDifferences = implode(', ', $arrDifferences);
+            $strServices = implode(', ', $availableServices);
+            [$a,$b] = 1 === \count($arrDifferences) ? ['Der', 'ist'] : ['Die', 'sind'];
+            Message::addError("$a Übersetzungsschlüssel [<b>$strDifferences</b>] $b unbekannt. Sie können nur folgende Schlüssel übersetzen: [<b>$strServices</b>].");
+
+            throw new \Exception();
         }
 
         return $value;

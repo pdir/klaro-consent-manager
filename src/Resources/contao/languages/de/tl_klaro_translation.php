@@ -39,6 +39,5 @@ $GLOBALS['TL_LANG']['tl_klaro_translation'] = [
     'translations' => ['Übersetzungen', "$klaro"],
 
     'purposes' => ['Übersetzungstabelle für registrierte Zwecke', "Hier können Sie die $sgl für alle registrierten Zwecke definieren. Möchten Sie die Liste der Schlüssel neu aufbauen, so löschen Sie alle Einträge und entfernen Sie dann die Werte aus dem letzen verbleibenden Schlüssel-Wert-Paar. Klicken Sie dann auf &raquo;Speichern&laquo; Die Liste wird dann den bereits registrierten Zwecken erstellt."],
-    //  'purposes_reference' see default
-    //  'purposes_translations' see default
+    'services' => ['Übersetzungstabelle für registrierte Dienste', "Hier können Sie die $sgl für alle registrierten Dienste definieren. Möchten Sie die Liste der Schlüssel neu aufbauen, so löschen Sie alle Einträge und entfernen Sie dann die Werte aus dem letzen verbleibenden Schlüssel-Wert-Paar. Klicken Sie dann auf &raquo;Speichern&laquo; Die Liste wird dann den bereits registrierten Zwecken erstellt."],
 ];

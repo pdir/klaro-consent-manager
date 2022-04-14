@@ -42,26 +42,4 @@ $GLOBALS['TL_LANG']['klaro'] = [
             'localStorage' => 'Browser Local Storage',
         ],
     ],
-    // this section contains the klaro-config translations for the current language of this default file
-    /*
-    'service' => [
-        'purposes_reference' => [
-            'security' => 'Sicherheit',
-            'analytics' => 'Analyse',
-            'lifechat' => 'Lifechat',
-            'advertising' => 'Werbung',
-            'styling' => 'Stylesheets',
-        ],
-        'purposes_translations' => [
-            'matomo' => [
-                'zz' => ['title' => 'Übersetzung Fallback für Matomo'],
-                'de' => ['description' => 'Deutsch für Matomo'],
-            ],
-            'google-analytics' => [
-                'zz' => ['title' => 'Übersetzung Fallback für google-analytics'],
-                'de' => ['description' => 'Deutsch für google-analytics'],
-            ],
-        ],
-    ],
-    */
 ];

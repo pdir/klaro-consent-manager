@@ -169,7 +169,7 @@ $GLOBALS['TL_DCA'][$strTable] = [
          * cookies that were set on a third-party domain, or cookies that have the HTTPOnly
          * attribute: https://developer.mozilla.org/en-US/docs/Web/API/Document/cookie#new-cookie_domain
          */
-        'cookies' => [],
+        'cookies' => [], // ToDo:
 
         /*
          * You can define an optional callback function that will be called each time the
@@ -177,7 +177,7 @@ $GLOBALS['TL_DCA'][$strTable] = [
          * the first parameter to the function (true=consented). The `service` config will
          * be passed as the second parameter.
          */
-        'callback' => [],
+        'callback' => [], // ToDo:
 
         /*
          * If 'required' is set to 'true', Klaro will not allow this service to be disabled

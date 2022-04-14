@@ -80,7 +80,7 @@ $GLOBALS['TL_DCA'][$strTable] = [
     'palettes' => [
         '__selector__' => [],
         'default' => '{title_legend},title;'.
-            '{translation_legend},lang_code,privacyPolicyUrl,consentNotice,consentModal,purposes;',
+            '{translation_legend},lang_code,privacyPolicyUrl,consentNotice,consentModal,purposes,services;',
     ],
     // Subpalettes
     'subpalettes' => [],
@@ -155,7 +155,16 @@ $GLOBALS['TL_DCA'][$strTable] = [
             'inputType' => 'keyValueWizard',
             'eval' => [
                 'allowHtml' => false,
-                'tl_class' => '',
+                'tl_class' => 'w50',
+            ],
+            'sql' => 'blob NULL',
+        ],
+        'services' => [
+            'exclude' => true,
+            'inputType' => 'keyValueWizard',
+            'eval' => [
+                'allowHtml' => false,
+                'tl_class' => 'w50',
             ],
             'sql' => 'blob NULL',
         ],
