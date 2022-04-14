@@ -20,3 +20,8 @@ services:
     # InsertTags
     Pdir\ContaoKlaroConsentManager\EventListener\KlaroButtonInsertTagListener:
         public: true
+
+    # Migration
+    Pdir\ContaoKlaroConsentManager\Migrations\InitialMigration:
+        tags:
+            - { name: contao.migration, priority: 0 }
