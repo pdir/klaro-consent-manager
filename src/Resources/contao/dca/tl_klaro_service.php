@@ -80,7 +80,9 @@ $GLOBALS['TL_DCA'][$strTable] = [
     'palettes' => [
         '__selector__' => [],
         'default' => '{title_legend},title;'.
-            '{service_legend},name,purposes;default,required,optOut,onlyOnce,contextualConsentOnly;',
+            '{service_legend},name,purposes;'.
+            '{standard_legend},default,required,optOut,onlyOnce,contextualConsentOnly;'.
+            '{callback_legend},callback;',
     ],
     // Subpalettes
     'subpalettes' => [
@@ -177,7 +179,17 @@ $GLOBALS['TL_DCA'][$strTable] = [
          * the first parameter to the function (true=consented). The `service` config will
          * be passed as the second parameter.
          */
-        'callback' => [], // ToDo:
+        'callback' => [
+            'exclude' => true,
+            'inputType' => 'textarea',
+            'eval' => ['style' => 'height:120px', 'preserveTags' => true, 'class' => 'monospace', 'rte' => 'ace|html', 'tl_class' => 'clr'],
+            'sql' => [
+                'type' => 'text',
+                'length' => 4096,
+                'fixed' => true,
+                'notnull' => false,
+            ],
+        ],
 
         /*
          * If 'required' is set to 'true', Klaro will not allow this service to be disabled

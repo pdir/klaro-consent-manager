@@ -1,29 +1,27 @@
 var {{ myConfigVariableName }} = {
-  testing: {{ config.testing }},
-  elementID: '{{ config.elementID }}',
-  storageMethod: '{{ config.storageMethod }}',
-  cookieName: '{{ config.storageName }}',
-  htmlTexts: {{ config.htmlTexts }},
-  cookieDomain: '{{ config.cookieDomain }}',
-  cookieExpiresAfterDays: {{ config.cookieExpiresAfterDays }},
-  noticeAsModal: {{ config.noticeAsModal }},
-  default: {{ config.default }},
-  mustConsent: {{ config.mustConsent }},
-  acceptAll: {{ config.acceptAll }},
-  hideDeclineAll: {{ config.hideDeclineAll }},
-  hideLearnMore: {{ config.hideLearnMore }},
-  //
-  translations: { {{ config.translations | raw }} },
-  //  Here you specify the third-party services that Klaro will manage for you.
-  services: [
+    testing: {{ config.testing }},
+    elementID: '{{ config.elementID }}',
+    storageMethod: '{{ config.storageMethod }}',
+    cookieName: '{{ config.storageName }}',
+    htmlTexts: {{ config.htmlTexts }},
+    cookieDomain: '{{ config.cookieDomain }}',
+    cookieExpiresAfterDays: {{ config.cookieExpiresAfterDays }},
+    noticeAsModal: {{ config.noticeAsModal }},
+    default: {{ config.default }},
+    mustConsent: {{ config.mustConsent }},
+    acceptAll: {{ config.acceptAll }},
+    hideDeclineAll: {{ config.hideDeclineAll }},
+    hideLearnMore: {{ config.hideLearnMore }},
+    //
+    translations: { {{ config.translations | raw }} },
+    //  Here you specify the third-party services that Klaro will manage for you.
+    services: [
     {{ config.services | raw }}
-  ],
-  //
-  callback: function (consent, service) {
-    console.log(
-      'User consent for service ' + service.name + ': consent=' + consent
-    );
-  },
-  //
-  poweredBy: 'https://pdir.de/consent/'
+    ],
+    //
+    callback: function (consent, service) {
+        {{ config.callback | raw }}
+    },
+    //
+    poweredBy: 'https://pdir.de/consent/'
 };

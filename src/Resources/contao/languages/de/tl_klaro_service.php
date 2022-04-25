@@ -30,15 +30,18 @@ $GLOBALS['TL_LANG']['tl_klaro_service'] = [
 
     // Naming
     'title_legend' => 'Name',
-    'title' => ['Name des Konfiguration', "Geben Sie einen Namen für die $sgl ein."],
+    'title' => ['Name der Konfiguration', 'Geben Sie einen Namen für diese Konfiguration ein.'],
 
     // Services
-    'service_legend' => "{$sgl}konfiguration",
+    'service_legend' => "Der {$sgl} und seine Zwecke",
     'name' => ["Name des {$sgl}es", "Geben Sie den Namen für den $sgl ein, den $klaro intern als Symbol für diesen Dienst verwendet."],
-    'default' => ['Standard: zugestimmt', 'Wenn Sie diese Option aktivieren, wird die Zustimmung für diesen Dienst beim Laden voreingestellt.'],
-    'translations' => ['Übersetzungen', ''],
+    'purposes' => ['Zwecke', "Wählen Sie hier mindestens einen Zweck, dem dieser Dienst zugeordnet ist. Ist die Liste leer, so müssen Sie zuerst unter dem Menüpunkt &raquo;$klaro-Zwecke&laquo; mindestens einen Zweck definieren."],
 
-    'purposes' => ['Zwecke', 'Wählen Sie hier mindestens einen Zweck, dem dieser Dienst zugeordnet ist.'],
-    //  'purposes_reference' see default
-    //  'purposes_translations' see default
+    // standard legend
+    'standard_legend' => 'Voreinstellungen dieses Dienstes',
+    'default' => ['zugestimmt', 'Wenn diese Option aktiviert ist, wird die Zustimmung für diesen Dienst beim Laden voreingestellt.'],
+    'required' => ['erforderlich', "Wenn diese Option aktiviert ist, lässt $klaro nicht zu, dass dieser Dienst vom Benutzer deaktiviert wird. Verwenden Sie diese Option für Dienste, die nötig sind, damit Ihre Website gundsätzlich funktioniert (z.B. Einkaufswagen-Cookies)."],
+    'optOut' => ['erzwingen', "  Wenn diese Option aktiviert ist, lädt $klaro diesen Dienst auch dann, wenn der Nutzer nicht ausdrücklich zugestimmt hat. Wir raten dringend davon ab!"],
+    'onlyOnce' => ['einmalig', " Wenn diese Option aktiviert ist, wird der Dienst nur einmal ausgeführt, unabhängig davon, wie oft der Benutzer ihn ein- und ausschaltet. Dies ist z.B. wichtig für Tracking-Skripte, die jedes Mal neue Seitenaufruf-Ereignisse erzeugen würden, wenn $klaro eine Änderung der Zustimmung des Benutzers bemerkt."],
+    'contextualConsentOnly' => ['kontextabhängig', "Wenn diese Option aktiviert ist, wird der Dienst von $klaro als &raquo;kontextabhängig&laquo; betrachtet. Das bedeutet, dass an den entsprechenden Positionen im Layout, eine gesonderte Zustimmung erfragt wird, bevor das Element an dieser Position für diesen Dienst aktiviert wird."],
 ];

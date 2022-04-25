@@ -159,6 +159,7 @@ $GLOBALS['TL_DCA'][$strTable] = [
             ],
             'sql' => 'blob NULL',
         ],
+
         'services' => [
             'exclude' => true,
             'inputType' => 'keyValueWizard',

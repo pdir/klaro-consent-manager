@@ -131,11 +131,9 @@ class GeneratePageHook
 
         // prepare translations
         $translationsTemplate = $this->buildConfigTranslations($klaroConfig);
-        //dump($translationsTemplate);
 
         // prepare services
         $servicesTemplate = $this->buildConfigServices($klaroConfig);
-        dump($servicesTemplate);
 
         // render the config.js as javascript
         $configJsTemplate = $this->twig->render(
@@ -156,14 +154,12 @@ class GeneratePageHook
                     'acceptAll' => '1' === $klaroConfig->acceptAll ? 'true' : 'false',
                     'hideDeclineAll' => '1' === $klaroConfig->hideDeclineAll ? 'true' : 'false',
                     'hideLearnMore' => '1' === $klaroConfig->hideLearnMore ? 'true' : 'false',
-
                     'translations' => $translationsTemplate,
-
                     'services' => $servicesTemplate,
+                    'callback' => $klaroConfig->callback,
                 ],
             ]
         );
-        //dump($configJsTemplate);
         // prepare the klaro script template
         $scriptTemplate = new FrontendTemplate('fe_klaro_script');
         // lock to version
@@ -175,7 +171,7 @@ class GeneratePageHook
 
         //$scriptTemplate->klaro_config = "<script $mode type='application/javascript' src='$configJsFallbackSrc'></script>";
         $scriptTemplate->klaro_config = "<script type='application/javascript'>$configJsTemplate</script>";
-        dump($scriptTemplate->klaro_config);
+
         //$scriptTemplate->klaro_script = "<script $mode data-config='klaroConfig' type='application/javascript' src='https://cdn.kiprotect.com/klaro/{$scriptTemplate->version}/klaro.js'></script>";
         $scriptTemplate->klaro_script = "<script $mode data-config='{$klaroConfig->myConfigVariableName}' type='application/javascript' src='bundles/pdircontaoklaroconsentmanager/js/klaro.js'></script>";
 
@@ -185,7 +181,7 @@ class GeneratePageHook
     }
 
     /**
-     * builds a simple translation section for a single service
+     * builds a translation section for a single service
      * the section looks like this:.
      *
      * translations: {
@@ -195,7 +191,6 @@ class GeneratePageHook
      *      en: {
      *          description: '',
      *      },
-     *      ...
      * },
      */
     public function buildConfigServicesTranslations($strServiceName): string
@@ -206,7 +201,7 @@ class GeneratePageHook
             // get all service translations
             $services = StringUtil::deserialize($tr['services']);
             // get the translation for the current service
-            $arrFound = array_filter($services ?? [], static function ($service) use ($strServiceName) { if ($service['key'] === $strServiceName) { return true; }});
+            $arrFound = array_filter($services ?? [], static function ($service) use ($strServiceName) { if ($service['key'] === $strServiceName) { return true; } return false; });
             // decode the translation string
             $strTrService = \is_array($arrFound) && \count($arrFound) > 0 ? current(array_values($arrFound))['value'] : '';
             $translations .= 'zz' === $tr['lang_code'] ?
@@ -247,21 +242,49 @@ class GeneratePageHook
         foreach ($this->arrTranslations as $t) {
             if (null !== $t['privacyPolicyUrl']) {
                 $url = PageModel::findByPk($t['privacyPolicyUrl'])->getFrontendUrl();
-                $ppu = "  privacyPolicyUrl: '/$url',\n";
+                $ppu = "            privacyPolicyUrl: '/$url',\n";
             } else {
                 $ppu = '';
             }
 
-            $cn = "      consentNotice: { description: '{$t['consentNotice']}', },\n";
-            $cm = "      consentModal: { description: '{$t['consentModal']}', },\n";
+            $cn = "            consentNotice: { description: '{$t['consentNotice']}', },\n";
+            $cm = "            consentModal: { description: '{$t['consentModal']}', },\n";
 
-            $pp = "      purposes: {analytics:{title:'Hier Purposes Analytics Title'}},";
+            $purposes = $this->buildConfigTranslationPurposes();
+            $pp = "            purposes: {{$purposes}},";
 
-            $template .= "\n    {$t['lang_code']}: {\n    {$ppu}{$cn}{$cm}{$pp}    },";
+            $template .= "\n        {$t['lang_code']}: {\n{$ppu}{$cn}{$cm}{$pp}\n        },";
         }
-        //dump($template);
 
-        return "$template\n ";
+        return "$template\n   ";
+    }
+
+    /**
+     * builds purposes from a translation model.
+     *
+     * @return string
+     */
+    private function buildConfigTranslationPurposes()
+    {
+        // checking the given translations - by default two translations should be available
+        // standard page language given?
+        if ($this->translationPage) {
+            $arrPurposes = StringUtil::deserialize($this->translationPage->purposes);
+        }
+        // fallback page language given?
+        elseif ($this->translationZZ) {
+            $arrPurposes = StringUtil::deserialize($this->translationZZ->purposes);
+        }
+        // ToDo: no translation is given
+        else {
+            $arrPurposes = [];
+        }
+        // assemble
+        foreach ($arrPurposes as $translation) {
+            $strPurposes .= "\n                {$translation['key']}: { title: '{$translation['value']}', },";
+        }
+
+        return $strPurposes;
     }
 
     /**

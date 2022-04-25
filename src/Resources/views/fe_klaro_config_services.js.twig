@@ -47,9 +47,7 @@
       be passed as the second parameter.
       */
       callback: function (consent, service) {
-        console.log(
-          'User consent for service ' + service.name + ': consent=' + consent
-        );
+        {{ service.callback | raw }}
       },
 
       /*
@@ -57,13 +55,13 @@
       by the user. Use this for services that are always required for your website to
       function (e.g. shopping cart cookies).
       */
-      required: false,
+      required: {{ service.required }},
 
       /*
       If 'optOut' is set to 'true', Klaro will load this service even before the user
       has given explicit consent. We strongly advise against this.
       */
-      optOut: false,
+      optOut: {{ service.optOut }},
 
       /*
       If 'onlyOnce' is set to 'true', the service will only be executed once
@@ -71,6 +69,11 @@
       tracking scripts that would generate new page view events every time Klaro
       disables and re-enables them due to a consent change by the user.
       */
-      onlyOnce: true,
+      onlyOnce: {{ service.onlyOnce }},
+
+      /*
+
+       */
+      contextualConsentOnly: {{ service.contextualConsentOnly }},
     },
 {% endfor %}

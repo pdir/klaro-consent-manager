@@ -84,13 +84,12 @@ $GLOBALS['TL_DCA'][$strTable] = [
             '{script_legend},scriptLoadingMode,myConfigVariableName;'.
             '{consent_legend},noticeAsModal,default,mustConsent,acceptAll,hideDeclineAll,hideLearnMore,hideModal;'.
             '{cookie_legend},elementID,storageName,storageMethod,cookieDomain,cookieExpiresAfterDays;'.
+            '{callback_legend},callback;'.
             '{translations_legend},translations;'.
             '{expert_legend},htmlTexts,testing;',
     ],
     // Subpalettes
-    'subpalettes' => [
-        'addSubpalette' => 'textareaField',
-    ],
+    'subpalettes' => [],
     // Fields
     'fields' => [
         'id' => [
@@ -307,7 +306,17 @@ $GLOBALS['TL_DCA'][$strTable] = [
                 'notnull' => false,
             ],
         ],
+
         'callback' => [
+            'exclude' => true,
+            'inputType' => 'textarea',
+            'eval' => ['style' => 'height:120px', 'preserveTags' => true, 'class' => 'monospace', 'rte' => 'ace|html', 'tl_class' => 'clr'],
+            'sql' => [
+                'type' => 'text',
+                'length' => 4096,
+                'fixed' => true,
+                'notnull' => false,
+            ],
         ],
     ],
 ];
