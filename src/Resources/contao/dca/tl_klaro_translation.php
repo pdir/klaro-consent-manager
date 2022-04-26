@@ -129,10 +129,16 @@ $GLOBALS['TL_DCA'][$strTable] = [
         'consentNotice' => [
             'exclude' => true,
             'inputType' => 'text',
-            'eval' => ['mandatory' => false, 'tl_class' => ''],
+            'eval' => [
+                'mandatory' => false,
+                'decodeEntities' => true,
+                'maxlength' => 4096,
+                'tl_class' => '',
+                'rte' => 'tinyMCE',
+            ],
             'sql' => [
                 'type' => 'string',
-                'length' => 1024,
+                'length' => 4096,
                 'fixed' => false,
                 'default' => '',
             ],
@@ -140,8 +146,14 @@ $GLOBALS['TL_DCA'][$strTable] = [
 
         'consentModal' => [
             'exclude' => true,
-            'inputType' => 'textarea',
-            'eval' => ['mandatory' => false, 'tl_class' => '', 'rows' => 3],
+            'inputType' => 'text',
+            'eval' => [
+                'mandatory' => false,
+                'decodeEntities' => true,
+                'maxlength' => 4096,
+                'tl_class' => '',
+                'rte' => 'tinyMCE',
+            ],
             'sql' => [
                 'type' => 'text',
                 'length' => 4096,

@@ -168,7 +168,7 @@ class GeneratePageHook
         // a fallback config
         //$configJsFallbackSrc = 'bundles/pdircontaoklaroconsentmanager/js/config.js';
         //$config_plain = '';
-
+        dump($configJsTemplate);
         //$scriptTemplate->klaro_config = "<script $mode type='application/javascript' src='$configJsFallbackSrc'></script>";
         $scriptTemplate->klaro_config = "<script type='application/javascript'>$configJsTemplate</script>";
 
@@ -193,7 +193,7 @@ class GeneratePageHook
      *      },
      * },
      */
-    public function buildConfigServicesTranslations($strServiceName): string
+    public function buildConfigServiceTranslations($strServiceName): string
     {
         $translations = '';
 
@@ -201,21 +201,48 @@ class GeneratePageHook
             // get all service translations
             $services = StringUtil::deserialize($tr['services']);
             // get the translation for the current service
-            $arrFound = array_filter($services ?? [], static function ($service) use ($strServiceName) { if ($service['key'] === $strServiceName) { return true; } return false; });
+            $arrFound = array_filter(
+                $services ?? [],
+                static function ($service) use ($strServiceName) {
+                    if ($service['key'] === $strServiceName) {
+                        return true;
+                    }
+
+                    return false;
+                }
+            );
             // decode the translation string
             $strTrService = \is_array($arrFound) && \count($arrFound) > 0 ? current(array_values($arrFound))['value'] : '';
             $translations .= 'zz' === $tr['lang_code'] ?
-"{$tr['lang_code']}: {
+                "{$tr['lang_code']}: {
                 title: '$strTrService',
             },
             " :
-"{$tr['lang_code']}: {
+                "{$tr['lang_code']}: {
                 description: '$strTrService',
             },
 ";
         }
 
         return $translations;
+    }
+
+    /**
+     * @param $service
+     */
+    public function buildConfigServiceCookies($service)
+    {
+        $arrCookies = StringUtil::deserialize($service['cookies']);
+
+        if (null !== $arrCookies) {
+            $arrResult = [];
+            array_walk($arrCookies, static function ($cookie) use (&$arrResult): void { $arrResult[] = str_replace('&#39;', "'", $cookie['key']); });
+            $result = implode(",\n          ", $arrResult);
+        } else {
+            $result = '';
+        }
+
+        return "\n          $result\n        ";
     }
 
     /**
@@ -227,7 +254,7 @@ class GeneratePageHook
     }
 
     /**
-     * builds the Klaro config.translations.
+     * builds the Klaro config.translations section.
      *
      * @param $klaroConfigModel
      *
@@ -247,11 +274,12 @@ class GeneratePageHook
                 $ppu = '';
             }
 
-            $cn = "            consentNotice: { description: '{$t['consentNotice']}', },\n";
-            $cm = "            consentModal: { description: '{$t['consentModal']}', },\n";
+            $strCN = '' === $klaroConfigModel->htmlTexts ? strip_tags($t['consentNotice']) : $t['consentNotice'];
+            $strCM = '' === $klaroConfigModel->htmlTexts ? strip_tags($t['consentModal']) : $t['consentModal'];
 
-            $purposes = $this->buildConfigTranslationPurposes();
-            $pp = "            purposes: {{$purposes}},";
+            $cn = "            consentNotice: { description: '$strCN', },\n";
+            $cm = "            consentModal: { description: '$strCM', },\n";
+            $pp = "            purposes: {{$this->buildConfigTranslationPurposes()}},";
 
             $template .= "\n        {$t['lang_code']}: {\n{$ppu}{$cn}{$cm}{$pp}\n        },";
         }
@@ -299,7 +327,7 @@ class GeneratePageHook
      *          en: { description: 'Matomo is a simple, self-hosted analytics service.' },
      *          de: { description: 'Matomo ist ein einfacher, selbstgehosteter Analytics-Service.' },
      *      },
-     *      purposes: ['analytics', 'pourpose2', ...],
+     *      purposes: ['analytics', 'purpose2', ...],
      *      cookies: [
      *          [/^_pk_.*$/, '/', 'klaro.kiprotect.com'],
      *          [/^_pk_.*$/, '/', 'localhost'],
@@ -349,7 +377,10 @@ class GeneratePageHook
             // modify service parameters
             array_walk($service, $serviceFieldsCallback, $_this);
             // all other objects inside a service goes here
-            $service['translations'] = $_this->buildConfigServicesTranslations($service['name']);
+            $service['translations'] = $_this->buildConfigServiceTranslations($service['name']);
+            // purposes?
+            // cookies - must be an js array
+            $service['cookies'] = $_this->buildConfigServiceCookies($service);
 
             return $service;
         };

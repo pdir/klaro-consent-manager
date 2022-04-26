@@ -79,13 +79,12 @@ $GLOBALS['TL_DCA'][$strTable] = [
     // Palettes
     'palettes' => [
         '__selector__' => ['addSubpalette'],
-        'default' => '{title_legend},title,translation;'.
+        'default' => '{title_legend},title;'.
             '{services_legend},services;'.
             '{script_legend},scriptLoadingMode,myConfigVariableName;'.
             '{consent_legend},noticeAsModal,default,mustConsent,acceptAll,hideDeclineAll,hideLearnMore,hideModal;'.
             '{cookie_legend},elementID,storageName,storageMethod,cookieDomain,cookieExpiresAfterDays;'.
             '{callback_legend},callback;'.
-            '{translations_legend},translations;'.
             '{expert_legend},htmlTexts,testing;',
     ],
     // Subpalettes

@@ -89,10 +89,13 @@ class KlaroTranslationListener
         $arrDifferences = array_diff($savedPurposesValues, $availablePurposes);
 
         if (0 !== \count($arrDifferences)) {
+            $strMsg = $GLOBALS['TL_LANG']['tl_klaro_translation']['purposesSaveError'];
+            $arrPns = $GLOBALS['TL_LANG']['tl_klaro_translation']['purposesSavePronouns'];
             $strDifferences = implode(', ', $arrDifferences);
             $strPurposes = implode(', ', $availablePurposes);
-            [$a,$b] = 1 === \count($arrDifferences) ? ['Der', 'ist'] : ['Die', 'sind'];
-            Message::addError("$a Übersetzungsschlüssel [<b>$strDifferences</b>] $b unbekannt. Sie können nur folgende Schlüssel übersetzen: [<b>$strPurposes</b>].");
+            [$a,$b] = 1 === \count($arrDifferences) ? $arrPns['sgl'] : $arrPns['pl'];
+
+            Message::addError(sprintf($strMsg, $a, $strDifferences, $b, $strPurposes));
 
             throw new \Exception();
         }
@@ -140,10 +143,13 @@ class KlaroTranslationListener
         $arrDifferences = array_diff($savedServicesValues, $availableServices);
 
         if (0 !== \count($arrDifferences)) {
+            $strMsg = $GLOBALS['TL_LANG']['tl_klaro_translation']['servicesSaveError'];
+            $arrPns = $GLOBALS['TL_LANG']['tl_klaro_translation']['servicesSavePronouns'];
             $strDifferences = implode(', ', $arrDifferences);
             $strServices = implode(', ', $availableServices);
-            [$a,$b] = 1 === \count($arrDifferences) ? ['Der', 'ist'] : ['Die', 'sind'];
-            Message::addError("$a Übersetzungsschlüssel [<b>$strDifferences</b>] $b unbekannt. Sie können nur folgende Schlüssel übersetzen: [<b>$strServices</b>].");
+            [$a,$b] = 1 === \count($arrDifferences) ? $arrPns['sgl'] : $arrPns['pl'];
+
+            Message::addError(sprintf($strMsg, $a, $strDifferences, $b, $strServices));
 
             throw new \Exception();
         }

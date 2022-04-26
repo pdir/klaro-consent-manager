@@ -80,13 +80,9 @@ $GLOBALS['TL_DCA'][$strTable] = [
     'palettes' => [
         '__selector__' => [],
         'default' => '{title_legend},title;'.
-            '{service_legend},name,purposes;'.
+            '{service_legend},name,purposes,cookies;'.
             '{standard_legend},default,required,optOut,onlyOnce,contextualConsentOnly;'.
             '{callback_legend},callback;',
-    ],
-    // Subpalettes
-    'subpalettes' => [
-        'addSubpalette' => 'textareaField',
     ],
     // Fields
     'fields' => [
@@ -171,7 +167,15 @@ $GLOBALS['TL_DCA'][$strTable] = [
          * cookies that were set on a third-party domain, or cookies that have the HTTPOnly
          * attribute: https://developer.mozilla.org/en-US/docs/Web/API/Document/cookie#new-cookie_domain
          */
-        'cookies' => [], // ToDo:
+        'cookies' => [
+            'exclude' => true,
+            'inputType' => 'keyValueWizard',
+            'eval' => [
+                'allowHtml' => false,
+                'tl_class' => 'w50',
+            ],
+            'sql' => 'blob NULL',
+        ],
 
         /*
          * You can define an optional callback function that will be called each time the

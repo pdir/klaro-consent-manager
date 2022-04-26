@@ -17,29 +17,25 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-$sgl = 'Konfiguration';
-//$pl = 'Konfigurationen';
+$sgl = 'configuration';
+//$pl = 'Configurations';
 $klaro = 'Klaro';
 
 $GLOBALS['TL_LANG']['tl_klaro_config'] = [
     // Operations
-    'edit' => ["$sgl mit ID: %s bearbeiten", 'Datensatz mit ID: %s bearbeiten'],
-    'copy' => ["$sgl mit ID: %s kopieren", 'Datensatz mit ID: %s kopieren'],
-    'delete' => ["$sgl mit ID: %s löschen", 'Datensatz mit ID: %s löschen'],
-    'show' => ["$sgl mit ID: %s ansehen", 'Datensatz mit ID: %s ansehen'],
+    //'edit' => ["$sgl with ID: %s edit", 'Datensatz mit ID: %s bearbeiten'],
+    //'copy' => ["$sgl mit ID: %s kopieren", 'Datensatz mit ID: %s kopieren'],
+    //'delete' => ["$sgl mit ID: %s löschen", 'Datensatz mit ID: %s löschen'],
+    //'show' => ["$sgl mit ID: %s ansehen", 'Datensatz mit ID: %s ansehen'],
 
-    // Naming
-    'title_legend' => 'Basis Einstellungen',
-    'title' => ["Name der $sgl", "Geben Sie einen Namen für die $sgl ein."],
-    'translation' => ['Übersetzung', "Wählen Sie hier eine Übersetzung. Ist keine Übersetzung zur Auswahl vorhanden, so legen Sie bitte eine neue unter &raquo;$klaro Übersetzungen&laquo; an. Sie können das Feld auch leer lassen. Dann verwendet $klaro die Übersetzung aus der $klaro-Config."],
-
-    // Pages legend
+    // title legend
+    'title_legend' => 'Base Settings',
+    'title' => ["Name of the $sgl", "Enter a name for the $sgl."],
+    // services legend
+    'services_legend' => 'Configure services',
+    'services' => ['Services', 'Services'],
+    // pages legend
     'pages_legend' => 'Seiten konfigurieren',
-
-    // Services legend
-    'services_legend' => 'Dienste konfigurieren',
-    'services' => ['Dienste', 'Dienste'],
-
     // config legend
     'script_legend' => 'Skript konfigurieren',
     'scriptLoadingMode' => ['Lademodus', 'Wählen Sie hier aus, wie das script geladen werden soll. Der Modus &raquo;defer&laquo; sollte bevorzugt werden!'],
