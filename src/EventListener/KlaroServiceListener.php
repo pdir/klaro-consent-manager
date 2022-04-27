@@ -23,6 +23,7 @@ use Contao\BackendUser;
 use Contao\CoreBundle\ServiceAnnotation\Callback;
 use Contao\DataContainer;
 use Pdir\ContaoKlaroConsentManager\Model\KlaroPurposeModel;
+use Pdir\ContaoKlaroConsentManager\Model\KlaroTranslationModel;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
@@ -58,12 +59,20 @@ class KlaroServiceListener
     public function buildPurposesOptions(DataContainer $dc)
     {
         $options = [];
-
+        // get the translation for the current user language
+        $translation = KlaroTranslationModel::findOneByLang_code(BackendUser::getInstance()->language);
+        // flatten the purposes array
+        $arrPurposeTranslation = null !== $translation ? $translation->getPurposeTranslations() : [];
+        // get all defined purposes
         $purposes = KlaroPurposeModel::findAll();
 
         if (null !== $purposes) {
             foreach ($purposes as $purpose) {
-                $options[$purpose->id] = "$purpose->title";
+                $options[$purpose->id] = null === $arrPurposeTranslation[$purpose->klaro_key] ||
+                    '' === $arrPurposeTranslation[$purpose->klaro_key] ||
+                    '?' === $arrPurposeTranslation[$purpose->klaro_key] ?
+                    "[$purpose->klaro_key] translation missing" :
+                    $arrPurposeTranslation[$purpose->klaro_key];
             }
         }
 

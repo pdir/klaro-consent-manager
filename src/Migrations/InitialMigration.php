@@ -38,41 +38,36 @@ class InitialMigration extends AbstractMigration
     public function shouldRun(): bool
     {
         $schemaManager = $this->connection->getSchemaManager();
-
         // If the database table itself does not exist we should do nothing
-        if (!$schemaManager->tablesExist(['tl_klaro_purposes'])) {
+        if (!$schemaManager->tablesExist(['tl_klaro_purpose'])) {
             return false;
         }
 
-        $columns = $schemaManager->listTableColumns('tl_klaro_purposes');
+        $stmt = $this->connection->prepare('SELECT COUNT(*) FROM `tl_klaro_purpose`;');
+        $stmt->execute();
+        $count = $stmt->fetchColumn();
 
-        return
-            isset($columns['firstname']) &&
-            isset($columns['lastname']) &&
-            !isset($columns['name']);
+        if ($count > 0) {
+            return false;
+        }
+
+        return true;
     }
 
     public function run(): MigrationResult
     {
-        $this->connection->executeQuery("
-            ALTER TABLE
-                tl_customers
-            ADD
-                name varchar(255) NOT NULL DEFAULT ''
-        ");
-
-        $stmt = $this->connection->prepare("
-            UPDATE
-                tl_customers
-            SET
-                name = CONCAT(firstName, ' ', lastName)
-        ");
+        $stmt = $this->connection->prepare("INSERT INTO `tl_klaro_purpose` (`id`, `title`, `klaro_key`) VALUES
+    (1, 'Analyse', 'analytics'),
+	(2, 'Sicherheit', 'security'),
+	(3, 'Chat', 'livechat'),
+	(4, 'Werbung', 'advertising'),
+	(5, 'CSS und Styles', 'styling'),
+	(6, 'Video und Streaming', 'videostream');
+");
 
         $stmt->execute();
 
-        return $this->createResult(
-            true,
-            'Combined '.$stmt->rowCount().' customer names.'
+        return $this->createResult(true, ''.$stmt->rowCount().' Purposes added.'
         );
     }
 }

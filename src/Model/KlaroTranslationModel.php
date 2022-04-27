@@ -20,6 +20,7 @@ declare(strict_types=1);
 namespace Pdir\ContaoKlaroConsentManager\Model;
 
 use Contao\Model;
+use Contao\StringUtil;
 
 /**
  * Class KlaroServiceModel.
@@ -27,4 +28,16 @@ use Contao\Model;
 class KlaroTranslationModel extends Model
 {
     protected static $strTable = 'tl_klaro_translation';
+
+    /**
+     * @return array
+     */
+    public function getPurposeTranslations()
+    {
+        $result = [];
+        $arrPurposes = StringUtil::deserialize($this->purposes);
+        array_walk($arrPurposes, static function ($purpose) use (&$result): void { $result[$purpose['key']] = $purpose['value']; });
+
+        return $result;
+    }
 }

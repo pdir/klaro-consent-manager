@@ -28,18 +28,13 @@ $GLOBALS['TL_LANG']['tl_klaro_config'] = [
     'delete' => ["$sgl mit ID: %s löschen", 'Datensatz mit ID: %s löschen'],
     'show' => ["$sgl mit ID: %s ansehen", 'Datensatz mit ID: %s ansehen'],
 
-    // Naming
+    // title legend
     'title_legend' => 'Basis Einstellungen',
     'title' => ["Name der $sgl", "Geben Sie einen Namen für die $sgl ein."],
     'translation' => ['Übersetzung', "Wählen Sie hier eine Übersetzung. Ist keine Übersetzung zur Auswahl vorhanden, so legen Sie bitte eine neue unter &raquo;$klaro Übersetzungen&laquo; an. Sie können das Feld auch leer lassen. Dann verwendet $klaro die Übersetzung aus der $klaro-Config."],
-
-    // Pages legend
-    'pages_legend' => 'Seiten konfigurieren',
-
-    // Services legend
+    // services legend
     'services_legend' => 'Dienste konfigurieren',
     'services' => ['Dienste', 'Dienste'],
-
     // config legend
     'script_legend' => 'Skript konfigurieren',
     'scriptLoadingMode' => ['Lademodus', 'Wählen Sie hier aus, wie das script geladen werden soll. Der Modus &raquo;defer&laquo; sollte bevorzugt werden!'],

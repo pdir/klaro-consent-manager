@@ -17,35 +17,33 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-$sgl = 'Übersetzung';
-//$pl = 'Dienste';
+$sgl = 'Translation';
+$pl = 'Translations';
 $klaro = 'Klaro';
 
 $GLOBALS['TL_LANG']['tl_klaro_translation'] = [
     // Operations
-    'edit' => ["$sgl mit ID: %s bearbeiten", 'Datensatz mit ID: %s bearbeiten'],
-    'copy' => ["$sgl mit ID: %s kopieren", 'Datensatz mit ID: %s kopieren'],
-    'delete' => ["$sgl mit ID: %s löschen", 'Datensatz mit ID: %s löschen'],
-    'show' => ["$sgl mit ID: %s ansehen", 'Datensatz mit ID: %s ansehen'],
+    //'edit' => ["$sgl mit ID: %s bearbeiten", 'Datensatz mit ID: %s bearbeiten'],
+    //'copy' => ["$sgl mit ID: %s kopieren", 'Datensatz mit ID: %s kopieren'],
+    //'delete' => ["$sgl mit ID: %s löschen", 'Datensatz mit ID: %s löschen'],
+    //'show' => ["$sgl mit ID: %s ansehen", 'Datensatz mit ID: %s ansehen'],
 
     // title legend
-    'title_legend' => "Name der $sgl",
-    'title' => ["Name der $sgl", "Geben Sie einen Namen für die $sgl ein."],
+    'title_legend' => "Name of the $sgl",
+    'title' => ["Name of the $sgl", "Enter a name for the $sgl here."],
     // translation legend
-    'translation_legend' => 'Übersetzung',
-    'lang_code' => ['Sprach-Kennzeichen', 'Geben Sie hier das Sprach-Kennzeichen gemäß ISO 639-1 (auch &raquo;Ländercoode&laquo; genannt, z.B. de oder de-ch) ein.'],
-    'privacyPolicyUrl' => ['Link zur Datenschutzerklärung', 'Wählen Sie hier die Seite mit Ihrer Datenschutzerklärung.'],
-    'consentNotice' => ['Text in der &raquo;Einwilligungsbox&laquo; (max. 4096 Zeichen)', "Dieser Text erscheint in der Box des $klaro-Consent-Managers."],
-    'consentModal' => ['Text im &raquo;Modal-Dialog&laquo; (max. 4096 Zeichen)', "Dieser Text erscheint im Modal-Dialog des $klaro-Consent-Managers."],
-    'default' => ['Standard: zugestimmt', 'Wenn Sie diese Option aktivieren, wird die Zustimmung für diesen Dienst beim Laden voreingestellt.'],
-    'translations' => ['Übersetzungen', "$klaro"],
-    'purposes' => ['Übersetzungstabelle für registrierte Zwecke', "Hier können Sie die $sgl für alle registrierten Zwecke definieren. Möchten Sie die Liste der Schlüssel neu aufbauen, so löschen Sie alle Einträge und entfernen Sie dann die Werte aus dem letzen verbleibenden Schlüssel-Wert-Paar. Klicken Sie dann auf &raquo;Speichern&laquo; Die Liste wird dann den bereits registrierten Zwecken erstellt."],
-    'services' => ['Übersetzungstabelle für registrierte Dienste', "Hier können Sie die $sgl für alle registrierten Dienste definieren. Möchten Sie die Liste der Schlüssel neu aufbauen, so löschen Sie alle Einträge und entfernen Sie dann die Werte aus dem letzen verbleibenden Schlüssel-Wert-Paar. Klicken Sie dann auf &raquo;Speichern&laquo; Die Liste wird dann den bereits registrierten Zwecken erstellt."],
-
+    'translation_legend' => $pl,
+    'lang_code' => ['Language code', 'Enter here the language code according to ISO 639-1 (also called &raquo;country code&laquo;, e.g. de or de-ch).'],
+    'privacyPolicyUrl' => ['Link to privacy policy', 'Select here the page with the privacy policy in the corresponding national language.'],
+    'consentNotice' => ['Text for the &raquo;consent notice&laquo; (max. 4096 characters)', "This text appears in the $klaro consent manager box."],
+    'consentModal' => ['Text for the &raquo;modal dialog&laquo; (max. 4096 characters)', "This text appears in the modal dialog of the $klaro consent manager."],
+    'default' => ['agreed by default', 'If you enable this option, the consent for this service will be preset on loading.'],
+    'translations' => [$pl, "$pl for purposes and services"],
+    'purposes' => ['Translation table for registered purposes', "Here you can define the $sgl for all registered purposes. If you want to rebuild the list of keys, delete all entries and then remove the values from the last remaining key-value pair. Then click &raquo;Save&laquo; The list will then be rebuilt from the already registered purposes."],
+    'services' => ['Translation table for registered services', "Here you can define the $sgl for all registered purposes. If you want to rebuild the list of keys, delete all entries and then remove the values from the last remaining key-value pair. Then click &raquo;Save&laquo; The list will then be rebuilt from the already registered services."],
     // KlaroTranslationListerner messages
-    'purposesSavePronouns' => ['sgl' => ['Der', 'ist'], 'pl' => ['Die', 'sind']],
-    'purposesSaveError' => '%s Übersetzungsschlüssel [<b>%s</b>] %s unbekannt. Sie können nur folgende Schlüssel übersetzen: [<b>%s</b>].',
-
-    'servicesSavePronouns' => ['sgl' => ['Der', 'ist'], 'pl' => ['Die', 'sind']],
-    'servicesSaveError' => '%s Übersetzungsschlüssel [<b>%s</b>] %s unbekannt. Sie können nur folgende Schlüssel übersetzen: [<b>%s</b>].',
+    'purposesSavePronouns' => ['sgl' => ['The', 'is'], 'pl' => ['The', 'are']],
+    'purposesSaveError' => '%s  translation key [<b>%s</b>] %s unknown. You can only translate the following keys: [<b>%s</b>].',
+    'servicesSavePronouns' => ['sgl' => ['The', 'is'], 'pl' => ['The', 'are']],
+    'servicesSaveError' => '%s translation key [<b>%s</b>] %s unknown. You can only translate the following keys: [<b>%s</b>].',
 ];

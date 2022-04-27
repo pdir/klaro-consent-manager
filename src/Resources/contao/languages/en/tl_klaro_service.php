@@ -17,33 +17,33 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-$sgl = 'Dienst';
-//$pl = 'Dienste';
+$sgl = 'Service';
+//$pl = 'Services';
 $klaro = 'Klaro';
 
 $GLOBALS['TL_LANG']['tl_klaro_service'] = [
     // Operations
-    'edit' => ["$sgl mit ID: %s bearbeiten", 'Datensatz mit ID: %s bearbeiten'],
-    'copy' => ["$sgl mit ID: %s kopieren", 'Datensatz mit ID: %s kopieren'],
-    'delete' => ["$sgl mit ID: %s löschen", 'Datensatz mit ID: %s löschen'],
-    'show' => ["$sgl mit ID: %s ansehen", 'Datensatz mit ID: %s ansehen'],
+    //'edit' => ["$sgl mit ID: %s bearbeiten", 'Datensatz mit ID: %s bearbeiten'],
+    //'copy' => ["$sgl mit ID: %s kopieren", 'Datensatz mit ID: %s kopieren'],
+    //'delete' => ["$sgl mit ID: %s löschen", 'Datensatz mit ID: %s löschen'],
+    //'show' => ["$sgl mit ID: %s ansehen", 'Datensatz mit ID: %s ansehen'],
 
     // title legend
-    'title_legend' => 'Name',
-    'title' => ['Name der Konfiguration', 'Geben Sie einen Namen für diese Konfiguration ein.'],
+    'title_legend' => 'Configuration name',
+    'title' => ["Name of the $sgl configuration", 'Enter here a name for this service that contao uses.'],
     // service legend
-    'service_legend' => "$sgl-Name und Zwecke",
-    'name' => ["Name des {$sgl}es", "Geben Sie den Namen für den $sgl ein, den $klaro intern als Symbol für diesen Dienst verwendet."],
-    'purposes' => ['Zwecke', "Wählen Sie hier mindestens einen Zweck, dem dieser Dienst zugeordnet ist. Ist die Liste leer, so müssen Sie zuerst unter dem Menüpunkt &raquo;$klaro-Zwecke&laquo; mindestens einen Zweck definieren."],
-    'cookies' => ['Cookie-Regeln', "Die Cookie-Regeln sind etwas kompliziert. <a style='color:green;' href='https://heyklaro.com/docs/integration/annotated-configuration'>Hier finden Sie nähere Informationen zu den $klaro-Cookie-Regeln.</a>"],
+    'service_legend' => "$klaro $sgl name und purposes",
+    'name' => ["Name of the {$sgl}", "Enter the name for the $sgl that $klaro uses internally as the symbol for this service."],
+    'purposes' => ['Purposes', "Select here at least one purpose to which this service is assigned. If the list is empty, you must first define at least one purpose under the menu item &raquo;$klaro-purposes&laquo;."],
+    'cookies' => ['Cookie rules', "The cookie rules are a bit complicated. <a style='color:green;' href='https://heyklaro.com/docs/integration/annotated-configuration'>Here you can find more information about the $klaro cookie rules.</a>"],
     // standard legend
-    'standard_legend' => 'Voreinstellungen dieses Dienstes',
-    'default' => ['zugestimmt', 'Wenn diese Option aktiviert ist, wird die Zustimmung für diesen Dienst beim Laden voreingestellt.'],
-    'required' => ['erforderlich', "Wenn diese Option aktiviert ist, lässt $klaro nicht zu, dass dieser Dienst vom Benutzer deaktiviert wird. Verwenden Sie diese Option für Dienste, die nötig sind, damit Ihre Website gundsätzlich funktioniert (z.B. Einkaufswagen-Cookies)."],
-    'optOut' => ['erzwingen', "  Wenn diese Option aktiviert ist, lädt $klaro diesen Dienst auch dann, wenn der Nutzer nicht ausdrücklich zugestimmt hat. Wir raten dringend davon ab!"],
-    'onlyOnce' => ['einmalig', " Wenn diese Option aktiviert ist, wird der Dienst nur einmal ausgeführt, unabhängig davon, wie oft der Benutzer ihn ein- und ausschaltet. Dies ist z.B. wichtig für Tracking-Skripte, die jedes Mal neue Seitenaufruf-Ereignisse erzeugen würden, wenn $klaro eine Änderung der Zustimmung des Benutzers bemerkt."],
-    'contextualConsentOnly' => ['kontextabhängig', "Wenn diese Option aktiviert ist, wird der Dienst von $klaro als &raquo;kontextabhängig&laquo; betrachtet. Das bedeutet, dass an den entsprechenden Positionen im Layout, eine gesonderte Zustimmung erfragt wird, bevor das Element an dieser Position für diesen Dienst aktiviert wird."],
+    'standard_legend' => 'Preferences for this service',
+    'default' => ['agreed', 'If this option is enabled, consent for this service is preset when loading.'],
+    'required' => ['required', "When this option is enabled, $klaro does not allow this service to be disabled by the user. Use this option for services that are necessary for your website to basically work (e.g. shopping cart cookies)."],
+    'optOut' => ['opt out', "If this option is enabled, $klaro will load this service even if the user has not explicitly agreed to it. We strongly advise against this!"],
+    'onlyOnce' => ['only once', "If this option is enabled, the service is executed only once, regardless of how often the user turns it on and off. This is important, for example, for tracking scripts that would generate new pageview events every time $klaro notices a change in the user's consent."],
+    'contextualConsentOnly' => ['Contextual consent only', "If this option is enabled, $klaro will consider the service as &raquo;context-dependent&laquo;. This means that at the corresponding positions in the layout, a separate consent is requested before the element at that position is activated for this service."],
     // callback legend
-    'callback_legend' => 'Callback-Definition',
-    'callback' => ['<b style="color:green">callback</b>: <b style="color:blue">function</b>(consent, service) {', "<b>}</b>\nSie können hier den Funktionskörper für eine optionale Callback-Funktion definieren, die jedes Mal aufgerufen wird, wenn sich der Zustimmungsstatus für einen bestimmten Dienst ändert. Der Zustimmungswert wird als als erster Parameter &raquo;consent&laquo; an die Funktion übergeben (true=einverstanden). Die &raquo;Service-Konfiguration&laquo; wird als zweiter Parameter &raquo;service&laquo; übergeben."],
+    'callback_legend' => 'Callback',
+    'callback' => ['<b style="color:green">callback</b>: <b style="color:blue">function</b>(consent, service) {', "<b>}</b>\nYou can define here the function body for an optional callback function that will be called each time the consent status for a given service changes. The consent value is passed as the first parameter &raquo;consent&laquo; to the function (true=agree). The &raquo;service configuration&laquo; is passed as the second parameter &raquo;service&laquo;."],
 ];

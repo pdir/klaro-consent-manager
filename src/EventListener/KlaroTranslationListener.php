@@ -131,7 +131,7 @@ class KlaroTranslationListener
      *     table="tl_klaro_translation",
      *     target="fields.services.save"
      * )
-     * checks if all available services keys are specified,
+     * checks whether all available services keys are specified,
      * invalid keys are not stored, if an invalid key is present
      * an exception is thrown
      */

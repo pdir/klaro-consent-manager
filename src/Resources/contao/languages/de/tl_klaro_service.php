@@ -39,9 +39,9 @@ $GLOBALS['TL_LANG']['tl_klaro_service'] = [
     // standard legend
     'standard_legend' => 'Voreinstellungen dieses Dienstes',
     'default' => ['zugestimmt', 'Wenn diese Option aktiviert ist, wird die Zustimmung für diesen Dienst beim Laden voreingestellt.'],
-    'required' => ['erforderlich', "Wenn diese Option aktiviert ist, lässt $klaro nicht zu, dass dieser Dienst vom Benutzer deaktiviert wird. Verwenden Sie diese Option für Dienste, die nötig sind, damit Ihre Website gundsätzlich funktioniert (z.B. Einkaufswagen-Cookies)."],
-    'optOut' => ['erzwingen', "  Wenn diese Option aktiviert ist, lädt $klaro diesen Dienst auch dann, wenn der Nutzer nicht ausdrücklich zugestimmt hat. Wir raten dringend davon ab!"],
-    'onlyOnce' => ['einmalig', " Wenn diese Option aktiviert ist, wird der Dienst nur einmal ausgeführt, unabhängig davon, wie oft der Benutzer ihn ein- und ausschaltet. Dies ist z.B. wichtig für Tracking-Skripte, die jedes Mal neue Seitenaufruf-Ereignisse erzeugen würden, wenn $klaro eine Änderung der Zustimmung des Benutzers bemerkt."],
+    'required' => ['erforderlich', "Wenn diese Option aktiviert ist, lässt $klaro nicht zu, dass dieser Dienst vom Benutzer deaktiviert wird. Verwenden Sie diese Option für Dienste, die nötig sind, damit Ihre Website grundsätzlich funktioniert (z.B. Einkaufswagen-Cookies)."],
+    'optOut' => ['erzwingen', "Wenn diese Option aktiviert ist, lädt $klaro diesen Dienst auch dann, wenn der Nutzer nicht ausdrücklich zugestimmt hat. Wir raten dringend davon ab!"],
+    'onlyOnce' => ['einmalig', "Wenn diese Option aktiviert ist, wird der Dienst nur einmal ausgeführt, unabhängig davon, wie oft der Benutzer ihn ein- und ausschaltet. Dies ist z.B. wichtig für Tracking-Skripte, die jedes Mal neue Seitenaufruf-Ereignisse erzeugen würden, wenn $klaro eine Änderung der Zustimmung des Benutzers bemerkt."],
     'contextualConsentOnly' => ['kontextabhängig', "Wenn diese Option aktiviert ist, wird der Dienst von $klaro als &raquo;kontextabhängig&laquo; betrachtet. Das bedeutet, dass an den entsprechenden Positionen im Layout, eine gesonderte Zustimmung erfragt wird, bevor das Element an dieser Position für diesen Dienst aktiviert wird."],
     // callback legend
     'callback_legend' => 'Callback-Definition',

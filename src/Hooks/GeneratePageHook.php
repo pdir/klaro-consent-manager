@@ -168,7 +168,6 @@ class GeneratePageHook
         // a fallback config
         //$configJsFallbackSrc = 'bundles/pdircontaoklaroconsentmanager/js/config.js';
         //$config_plain = '';
-        dump($configJsTemplate);
         //$scriptTemplate->klaro_config = "<script $mode type='application/javascript' src='$configJsFallbackSrc'></script>";
         $scriptTemplate->klaro_config = "<script type='application/javascript'>$configJsTemplate</script>";
 

@@ -4,6 +4,11 @@
     float: left;
     min-height: 80px;
 }
+.w20 {
+    width: calc(20% - 30px);
+    float: left;
+    min-height: 80px;
+}
 .w25 {
     width: calc(25% - 30px);
     float: left;
