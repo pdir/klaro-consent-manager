@@ -43,9 +43,7 @@ class InitialMigration extends AbstractMigration
             return false;
         }
 
-        $stmt = $this->connection->prepare('SELECT COUNT(*) FROM `tl_klaro_purpose`;');
-        $stmt->execute();
-        $count = $stmt->fetchOne();
+        $count = $this->connection->fetchOne('SELECT COUNT(*) FROM tl_klaro_purpose');
 
         if ($count > 0) {
             return false;
@@ -67,7 +65,8 @@ class InitialMigration extends AbstractMigration
 
         $stmt->execute();
 
-        return $this->createResult(true, ''.$stmt->rowCount().' Purposes added.'
-        );
+        $count = $this->connection->fetchOne('SELECT COUNT(*) FROM tl_klaro_purpose');
+
+        return $this->createResult(true, "$count Purposes added.");
     }
 }
