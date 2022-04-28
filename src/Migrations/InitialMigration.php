@@ -45,7 +45,7 @@ class InitialMigration extends AbstractMigration
 
         $stmt = $this->connection->prepare('SELECT COUNT(*) FROM `tl_klaro_purpose`;');
         $stmt->execute();
-        $count = $stmt->fetchColumn();
+        $count = $stmt->fetchOne();
 
         if ($count > 0) {
             return false;
