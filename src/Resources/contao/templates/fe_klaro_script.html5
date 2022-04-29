@@ -1,2 +1,3 @@
 <?= $this->klaro_config ?>
+
 <?= $this->klaro_script ?>

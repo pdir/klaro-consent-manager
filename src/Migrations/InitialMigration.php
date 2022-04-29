@@ -43,7 +43,7 @@ class InitialMigration extends AbstractMigration
             return false;
         }
 
-        $count = $this->connection->fetchOne('SELECT COUNT(*) FROM tl_klaro_purpose');
+        $count = $this->connection->fetchOne('SELECT COUNT(*) FROM `tl_klaro_purpose`');
 
         if ($count > 0) {
             return false;

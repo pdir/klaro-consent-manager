@@ -1,1 +1,0 @@
-<link rel="stylesheet" href="https://cdn.kiprotect.com/klaro/<?= $this->version ?>/klaro.min.css" />

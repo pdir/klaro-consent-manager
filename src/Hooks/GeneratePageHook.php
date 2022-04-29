@@ -126,7 +126,7 @@ class GeneratePageHook
 
         // prepare the css template
         $cssTemplate = new FrontendTemplate('fe_klaro_css');
-        $cssTemplate->version = 'v0.7'; // ToDo: test the version string
+        $cssTemplate->version = 'v0.7'; // only for CDN
 
         // prepare translations
         $translationsTemplate = $this->buildConfigTranslations($klaroConfig);
@@ -159,21 +159,17 @@ class GeneratePageHook
                 ],
             ]
         );
-        // prepare the klaro script template
+        // prepare the klaro script template: HTML5 not Twig!
         $scriptTemplate = new FrontendTemplate('fe_klaro_script');
         // lock to version
-        $scriptTemplate->version = 'v0.7';
-        $mode = 'defer'; // '' = synchronous, 'async' = asyncronous see: https://heyklaro.com/docs/integration/overview
+        $scriptTemplate->version = 'v0.7'; // only for CDN
         // a fallback config
         //$configJsFallbackSrc = 'bundles/pdircontaoklaroconsentmanager/js/config.js';
-        //$config_plain = '';
-        //$scriptTemplate->klaro_config = "<script $mode type='application/javascript' src='$configJsFallbackSrc'></script>";
         $scriptTemplate->klaro_config = "<script type='application/javascript'>$configJsTemplate</script>";
         //$scriptTemplate->klaro_script = "<script $mode data-config='klaroConfig' type='application/javascript' src='https://cdn.kiprotect.com/klaro/{$scriptTemplate->version}/klaro.js'></script>";
-        $scriptTemplate->klaro_script = "<script $mode data-config='{$klaroConfig->myConfigVariableName}' type='application/javascript' src='bundles/pdircontaoklaroconsentmanager/js/klaro.js'></script>";
-
-        //$GLOBALS['TL_CSS']['klaro'] = $cssTemplate->parse();
-        $GLOBALS['TL_CSS']['klaro'] = "https://cdn.kiprotect.com/klaro/{$cssTemplate->version}/klaro.min.css";
+        $scriptTemplate->klaro_script = "<script {$klaroConfig->scriptLoadingMode} data-config='{$klaroConfig->myConfigVariableName}' type='application/javascript' src='bundles/pdircontaoklaroconsentmanager/js/klaro.js'></script>";
+        //$GLOBALS['TL_CSS']['klaro'] = "https://cdn.kiprotect.com/klaro/{$cssTemplate->version}/klaro.min.css";
+        $GLOBALS['TL_CSS']['klaro'] = 'bundles/pdircontaoklaroconsentmanager/css/klaro.css';
         $GLOBALS['TL_BODY']['klaro'] = $scriptTemplate->parse();
     }
 
