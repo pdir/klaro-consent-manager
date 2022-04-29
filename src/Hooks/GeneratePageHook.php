@@ -82,7 +82,6 @@ class GeneratePageHook
 
         $root = Frontend::getRootPageFromUrl();
 
-        // ToDo: Optimize the procurement of the language variables
         // check for Klaro default translation zz
         if (($this->translationZZ = KlaroTranslationModel::findByLang_code('zz')) === null) {
             throw new \Exception();
@@ -170,7 +169,6 @@ class GeneratePageHook
         //$config_plain = '';
         //$scriptTemplate->klaro_config = "<script $mode type='application/javascript' src='$configJsFallbackSrc'></script>";
         $scriptTemplate->klaro_config = "<script type='application/javascript'>$configJsTemplate</script>";
-
         //$scriptTemplate->klaro_script = "<script $mode data-config='klaroConfig' type='application/javascript' src='https://cdn.kiprotect.com/klaro/{$scriptTemplate->version}/klaro.js'></script>";
         $scriptTemplate->klaro_script = "<script $mode data-config='{$klaroConfig->myConfigVariableName}' type='application/javascript' src='bundles/pdircontaoklaroconsentmanager/js/klaro.js'></script>";
 
@@ -227,6 +225,8 @@ class GeneratePageHook
     }
 
     /**
+     * creates a javascript array for service.cookies as string.
+     *
      * @param $service
      */
     public function buildConfigServiceCookies($service)
@@ -253,7 +253,7 @@ class GeneratePageHook
     }
 
     /**
-     * builds the Klaro config.translations section.
+     * creates config.translation section as string.
      *
      * @param $klaroConfigModel
      *
@@ -287,7 +287,7 @@ class GeneratePageHook
     }
 
     /**
-     * builds purposes from a translation model.
+     * creates config.translation.purposes section as string.
      *
      * @return string
      */
@@ -307,6 +307,8 @@ class GeneratePageHook
             $arrPurposes = [];
         }
         // assemble
+        $strPurposes = '';
+
         foreach ($arrPurposes as $translation) {
             $strPurposes .= "\n                {$translation['key']}: { title: '{$translation['value']}', },";
         }
@@ -315,7 +317,7 @@ class GeneratePageHook
     }
 
     /**
-     * builds the services section of the klaro config file.
+     * creates the services section of the klaro config file.
      *
      * services: [
      *  {
@@ -353,21 +355,13 @@ class GeneratePageHook
         // adjust fields
         $serviceFieldsCallback = static function (&$value, $key, $_this): void {
             switch ($key) {
-                case 'default': $value = $_this->bool($value); break;
-
-                case 'purposes':
-                    // $value can never be NULL because the dca field mandatory => true
-                    $purposes = KlaroPurposeModel::findMultipleByIds(StringUtil::deserialize($value))->fetchEach('klaro_key');
-                    $value = \is_array($purposes) ? "'".implode("','", $purposes)."'" : '';
+                case 'default':
+                case 'required':
+                case 'optOut':
+                case 'onlyOnce':
+                case 'contextualConsentOnly':
+                    $value = $_this->bool($value);
                     break;
-
-                case 'required': $value = $_this->bool($value); break;
-
-                case 'optOut': $value = $_this->bool($value); break;
-
-                case 'onlyOnce': $value = $_this->bool($value); break;
-
-                case 'contextualConsentOnly': $value = $_this->bool($value); break;
             }
         };
 
@@ -378,6 +372,7 @@ class GeneratePageHook
             // all other objects inside a service goes here
             $service['translations'] = $_this->buildConfigServiceTranslations($service['name']);
             // purposes?
+            $service['purposes'] = $_this->buildConfigServicePurposes($service);
             // cookies - must be an js array
             $service['cookies'] = $_this->buildConfigServiceCookies($service);
 
@@ -394,5 +389,19 @@ class GeneratePageHook
                 'services' => $arrServices,
             ]
         );
+    }
+
+    /**
+     * creates a javascript array for service.purposes as string.
+     *
+     * @param $service
+     *
+     * @return mixed
+     */
+    private function buildConfigServicePurposes($service)
+    {
+        $purposes = KlaroPurposeModel::findMultipleByIds(StringUtil::deserialize($service['purposes']));
+
+        return null !== $purposes ? "'".implode("','", $purposes->fetchEach('klaro_key'))."'" : '';
     }
 }

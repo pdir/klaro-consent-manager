@@ -54,13 +54,13 @@ class InitialMigration extends AbstractMigration
 
     public function run(): MigrationResult
     {
-        $stmt = $this->connection->prepare("INSERT INTO `tl_klaro_purpose` (`id`, `title`, `klaro_key`) VALUES
-    (1, 'Analyse', 'analytics'),
-	(2, 'Sicherheit', 'security'),
-	(3, 'Chat', 'livechat'),
-	(4, 'Werbung', 'advertising'),
-	(5, 'CSS und Styles', 'styling'),
-	(6, 'Video und Streaming', 'videostream');
+        $stmt = $this->connection->prepare("INSERT INTO `tl_klaro_purpose` (`id`, `tstamp`, `title`, `klaro_key`) VALUES
+    (1, UNIX_TIMESTAMP(), 'Analyse', 'analytics'),
+	(2, UNIX_TIMESTAMP(), 'Sicherheit', 'security'),
+	(3, UNIX_TIMESTAMP(), 'Chat', 'livechat'),
+	(4, UNIX_TIMESTAMP(), 'Werbung', 'advertising'),
+	(5, UNIX_TIMESTAMP(), 'CSS und Styles', 'styling'),
+	(6, UNIX_TIMESTAMP(), 'Video und Streaming', 'videostream');
 ");
 
         $stmt->execute();
