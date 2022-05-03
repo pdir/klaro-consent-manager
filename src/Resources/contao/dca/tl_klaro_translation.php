@@ -80,7 +80,12 @@ $GLOBALS['TL_DCA'][$strTable] = [
     'palettes' => [
         '__selector__' => [],
         'default' => '{title_legend},title;'.
-            '{translation_legend},lang_code,privacyPolicyUrl,consentNotice,consentModal,purposes,services;',
+            '{translation_legend},lang_code,privacyPolicyUrl;'.
+            '{consent_notice_legend},consentNotice;'.
+            '{consent_modal_legend},consentModal;'.
+            '{purposes_legend},purposes;'.
+            '{services_legend},services;'.
+            '{contextual_consent_legend},ccAcceptAlways,ccAcceptOnce,ccDescription;',
     ],
     // Subpalettes
     'subpalettes' => [],
@@ -180,6 +185,43 @@ $GLOBALS['TL_DCA'][$strTable] = [
                 'tl_class' => 'w50',
             ],
             'sql' => 'blob NULL',
+        ],
+
+        // some undocumented srings to customize the translations of the contextualConsent messages
+        'ccAcceptAlways' => [
+            'exclude' => true,
+            'inputType' => 'text',
+            'eval' => ['mandatory' => false, 'tl_class' => 'w25'],
+            'sql' => [
+                'type' => 'string',
+                'length' => 30,
+                'fixed' => true,
+                'default' => '',
+            ],
+        ],
+
+        'ccAcceptOnce' => [
+            'exclude' => true,
+            'inputType' => 'text',
+            'eval' => ['mandatory' => false, 'tl_class' => 'w25'],
+            'sql' => [
+                'type' => 'string',
+                'length' => 30,
+                'fixed' => true,
+                'default' => '',
+            ],
+        ],
+
+        'ccDescription' => [
+            'exclude' => true,
+            'inputType' => 'text',
+            'eval' => ['mandatory' => false, 'tl_class' => 'w50'],
+            'sql' => [
+                'type' => 'text',
+                'length' => 1024,
+                'fixed' => true,
+                'notnull' => false,
+            ],
         ],
     ],
 ];

@@ -268,18 +268,35 @@ class GeneratePageHook
             } else {
                 $ppu = '';
             }
+            // consentNotice
+            $cn = $this->keyToObject('consentNotice', $this->keyToString('description', $t['consentNotice'], $klaroConfigModel, 16), 12);
+            // consentModal
+            $cm = $this->keyToObject('consentModal', $this->keyToString('description', $t['consentModal'], $klaroConfigModel, 16), 12);
+            // contextualConsent - not documented, see klaro.js line 1904 ff
+            $cc = $this->buildContextualConsentTranslation($t, $klaroConfigModel);
 
-            $strCN = '' === $klaroConfigModel->htmlTexts ? strip_tags($t['consentNotice']) : $t['consentNotice'];
-            $strCM = '' === $klaroConfigModel->htmlTexts ? strip_tags($t['consentModal']) : $t['consentModal'];
+            $pp = "            purposes: {{$this->buildConfigTranslationPurposes()}\n           },";
 
-            $cn = "            consentNotice: { description: '$strCN', },\n";
-            $cm = "            consentModal: { description: '$strCM', },\n";
-            $pp = "            purposes: {{$this->buildConfigTranslationPurposes()}},";
-
-            $template .= "\n        {$t['lang_code']}: {\n{$ppu}{$cn}{$cm}{$pp}\n        },";
+            $template .= "\n        {$t['lang_code']}: {\n{$ppu}{$cn}{$cm}{$cc}{$pp}\n        },";
         }
 
         return "$template\n   ";
+    }
+
+    /**
+     * @param $translation
+     *
+     * @return string
+     */
+    private function buildContextualConsentTranslation($translation, $klaroConfigModel)
+    {
+        return $this->keyToObject(
+            'contextualConsent',
+            $this->keyToString('acceptAlways', $translation['ccAcceptAlways'], $klaroConfigModel, 16).
+            $this->keyToString('acceptOnce', $translation['ccAcceptOnce'], $klaroConfigModel, 16).
+            $this->keyToString('description', $translation['ccDescription'], $klaroConfigModel, 16),
+            12
+        );
     }
 
     /**
@@ -399,5 +416,33 @@ class GeneratePageHook
         $purposes = KlaroPurposeModel::findMultipleByIds(StringUtil::deserialize($service['purposes']));
 
         return null !== $purposes ? "'".implode("','", $purposes->fetchEach('klaro_key'))."'" : '';
+    }
+
+    /**
+     * @param $key
+     * @param $value
+     *
+     * @return string
+     */
+    private function keyToString($key, $value, $klaroConfig, $pos = 0)
+    {
+        return empty($value) || null === $value ?
+            '' :
+            '1' === $klaroConfig->htmlTexts ?
+                str_repeat(' ', $pos)."$key: '$value',\n" :
+                strip_tags(str_repeat(' ', $pos)."$key: '$value',\n")
+            ;
+    }
+
+    /**
+     * @param $key
+     * @param $value
+     * @param $pos
+     *
+     * @return string
+     */
+    private function keyToObject($key, $value, $pos = 0)
+    {
+        return empty($value) || null === $value ? '' : str_repeat(' ', $pos)."$key: {\n$value".str_repeat(' ', $pos)."},\n";
     }
 }
