@@ -18,7 +18,7 @@ declare(strict_types=1);
  */
 
 $sgl = 'Translation';
-$pl = 'Translations';
+//$pl = 'Translations';
 $klaro = 'Klaro';
 
 $GLOBALS['TL_LANG']['tl_klaro_translation'] = [
@@ -32,18 +32,31 @@ $GLOBALS['TL_LANG']['tl_klaro_translation'] = [
     'title_legend' => "Name of the $sgl",
     'title' => ["Name of the $sgl", "Enter a name for the $sgl here."],
     // translation legend
-    'translation_legend' => $pl,
+    'translation_legend' => 'Language code and Link to your privacy policy page',
     'lang_code' => ['Language code', 'Enter here the language code according to ISO 639-1 (also called &raquo;country code&laquo;, e.g. de or de-ch).'],
     'privacyPolicyUrl' => ['Link to privacy policy', 'Select here the page with the privacy policy in the corresponding national language.'],
+    // consent notice legend
+    'consent_notice_legend' => 'Text for the &raquo;consent notice&laquo;',
     'consentNotice' => ['Text for the &raquo;consent notice&laquo; (max. 4096 characters)', "This text appears in the $klaro consent manager box."],
+    // consent modal legend
+    'consent_modal_legend' => 'Text for the &raquo;modal dialog&laquo;',
     'consentModal' => ['Text for the &raquo;modal dialog&laquo; (max. 4096 characters)', "This text appears in the modal dialog of the $klaro consent manager."],
-    'default' => ['agreed by default', 'If you enable this option, the consent for this service will be preset on loading.'],
-    'translations' => [$pl, "$pl for purposes and services"],
+    // purposes legend
+    'purposes_legend' => 'Translations for purposes',
     'purposes' => ['Translation table for registered purposes', "Here you can define the $sgl for all registered purposes. If you want to rebuild the list of keys, delete all entries and then remove the values from the last remaining key-value pair. Then click &raquo;Save&laquo; The list will then be rebuilt from the already registered purposes."],
+    // services legend
+    'services_legend' => 'Translation for services',
     'services' => ['Translation table for registered services', "Here you can define the $sgl for all registered purposes. If you want to rebuild the list of keys, delete all entries and then remove the values from the last remaining key-value pair. Then click &raquo;Save&laquo; The list will then be rebuilt from the already registered services."],
+    // contextual consent legend
+    'contextual_consent_legend' => 'Translations for contextual consent',
+    'ccAcceptAlways' => ['Button &raquo;accept always&laquo;', 'Enter your translation here.'],
+    'ccAcceptOnce' => ['Button &raquo;accept once&laquo;', 'Enter your translation here.'],
+    'ccDescription' => ['Description', 'Enter the hint text here. You can use the {title} variable in this string. This contains the name of the service to be agreed to.'],
+
     // KlaroTranslationListerner messages
     'purposesSavePronouns' => ['sgl' => ['The', 'is'], 'pl' => ['The', 'are']],
     'purposesSaveError' => '%s  translation key [<b>%s</b>] %s unknown. You can only translate the following keys: [<b>%s</b>].',
+
     'servicesSavePronouns' => ['sgl' => ['The', 'is'], 'pl' => ['The', 'are']],
     'servicesSaveError' => '%s translation key [<b>%s</b>] %s unknown. You can only translate the following keys: [<b>%s</b>].',
 ];
