@@ -241,14 +241,6 @@ class GeneratePageHook
     }
 
     /**
-     * @param $value
-     */
-    private function bool($value): string
-    {
-        return '1' === $value ? 'true' : 'false';
-    }
-
-    /**
      * creates config.translation section as string.
      *
      * @param $klaroConfigModel
@@ -261,23 +253,21 @@ class GeneratePageHook
 
         $template = '';
 
-        foreach ($this->arrTranslations as $t) {
-            if (null !== $t['privacyPolicyUrl']) {
-                $url = PageModel::findByPk($t['privacyPolicyUrl'])->getFrontendUrl();
-                $ppu = "            privacyPolicyUrl: '/$url',\n";
-            } else {
-                $ppu = '';
-            }
-            // consentNotice
-            $cn = $this->keyToObject('consentNotice', $this->keyToString('description', $t['consentNotice'], $klaroConfigModel, 16), 12);
-            // consentModal
-            $cm = $this->keyToObject('consentModal', $this->keyToString('description', $t['consentModal'], $klaroConfigModel, 16), 12);
-            // contextualConsent - not documented, see klaro.js line 1904 ff
-            $cc = $this->buildContextualConsentTranslation($t, $klaroConfigModel);
+        foreach ($this->arrTranslations as $translation) {
+            $pm = PageModel::findByPk($translation['privacyPolicyUrl']);
 
-            $pp = "            purposes: {{$this->buildConfigTranslationPurposes()}\n           },";
-
-            $template .= "\n        {$t['lang_code']}: {\n{$ppu}{$cn}{$cm}{$cc}{$pp}\n        },";
+            $template .= $this->keyToObject(
+                $translation['lang_code'],
+                // privacyPolicy
+                $this->keyToString('privacyPolicyUrl', null === $pm ? '' : $pm->getFrontendUrl(), $klaroConfigModel, 12).
+                // consentNotice
+                $this->keyToObject('consentNotice', $this->keyToString('description', $translation['consentNotice'], $klaroConfigModel, 16), 12).
+                // consentModal
+                $this->keyToObject('consentModal', $this->keyToString('description', $translation['consentModal'], $klaroConfigModel, 16), 12).
+                // contextualConsent - not documented, see klaro.js line 1904 ff
+                $this->buildContextualConsentTranslation($translation, $klaroConfigModel).
+                // purposes
+                $this->keyToObject('purposes', $this->buildConfigTranslationPurposes($klaroConfigModel), 12), 8);
         }
 
         return "$template\n   ";
@@ -304,7 +294,7 @@ class GeneratePageHook
      *
      * @return string
      */
-    private function buildConfigTranslationPurposes()
+    private function buildConfigTranslationPurposes($klaroConfigModel)
     {
         // checking the given translations - by default two translations should be available
         // standard page language given?
@@ -323,7 +313,10 @@ class GeneratePageHook
         $strPurposes = '';
 
         foreach ($arrPurposes as $translation) {
-            $strPurposes .= "\n                {$translation['key']}: { title: '{$translation['value']}', },";
+            $strPurposes .= $this->keyToObject(
+                $translation['key'],
+                $this->keyToString('title', $translation['value'], $klaroConfigModel, 20), 16
+            );
         }
 
         return $strPurposes;
@@ -419,6 +412,14 @@ class GeneratePageHook
     }
 
     /**
+     * @param $value
+     */
+    private function bool($value): string
+    {
+        return '1' === $value ? 'true' : 'false';
+    }
+
+    /**
      * @param $key
      * @param $value
      *
@@ -426,12 +427,13 @@ class GeneratePageHook
      */
     private function keyToString($key, $value, $klaroConfig, $pos = 0)
     {
-        return empty($value) || null === $value ?
+        return '' === $value || empty($value) || null === $value ?
             '' :
-            '1' === $klaroConfig->htmlTexts ?
+            ('1' === $klaroConfig->htmlTexts ?
                 str_repeat(' ', $pos)."$key: '$value',\n" :
                 strip_tags(str_repeat(' ', $pos)."$key: '$value',\n")
-            ;
+            )
+        ;
     }
 
     /**
