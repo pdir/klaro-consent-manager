@@ -35,7 +35,13 @@ $GLOBALS['BE_MOD']['pdir']['klaro_service'] = [
 ];
 $GLOBALS['BE_MOD']['pdir']['klaro_translation'] = [
     'tables' => ['tl_klaro_translation'],
-    'stylesheet' => 'bundles/pdircontaoklaroconsentmanager/css/be.css',
+    'stylesheet' => [
+        'bundles/pdircontaoklaroconsentmanager/css/be.css',
+        'bundles/pdircontaoklaroconsentmanager/css/klaro.css',
+    ],
+    'javascript' => [
+        'bundles/pdircontaoklaroconsentmanager/js/be.js',
+    ],
 ];
 $GLOBALS['BE_MOD']['pdir']['klaro_purpose'] = [
     'tables' => ['tl_klaro_purpose'],

@@ -52,6 +52,7 @@ $GLOBALS['TL_LANG']['tl_klaro_translation'] = [
     'ccAcceptAlways' => ['Button &raquo;accept always&laquo;', 'Enter your translation here.'],
     'ccAcceptOnce' => ['Button &raquo;accept once&laquo;', 'Enter your translation here.'],
     'ccDescription' => ['Description', 'Enter the hint text here. You can use the {title} variable in this string. This contains the name of the service to be agreed to.'],
+    'ccMonitor' => ['Preview', ''],
 
     // KlaroTranslationListerner messages
     'purposesSavePronouns' => ['sgl' => ['The', 'is'], 'pl' => ['The', 'are']],

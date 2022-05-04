@@ -85,7 +85,7 @@ $GLOBALS['TL_DCA'][$strTable] = [
             '{consent_modal_legend},consentModal;'.
             '{purposes_legend},purposes;'.
             '{services_legend},services;'.
-            '{contextual_consent_legend},ccAcceptAlways,ccAcceptOnce,ccDescription;',
+            '{contextual_consent_legend},ccDescription,ccAcceptOnce,ccAcceptAlways,ccMonitor;',
     ],
     // Subpalettes
     'subpalettes' => [],
@@ -187,7 +187,9 @@ $GLOBALS['TL_DCA'][$strTable] = [
             'sql' => 'blob NULL',
         ],
 
-        // some undocumented srings to customize the translations of the contextualConsent messages
+        'ccMonitor' => [],
+
+        // some undocumented strings to customize the translations of the contextualConsent messages
         'ccAcceptAlways' => [
             'exclude' => true,
             'inputType' => 'text',

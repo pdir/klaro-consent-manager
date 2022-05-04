@@ -51,7 +51,8 @@ $GLOBALS['TL_LANG']['tl_klaro_translation'] = [
     'contextual_consent_legend' => 'Übersetzungen für kontextbezogene Zustimmung',
     'ccAcceptAlways' => ['Schaltfläche &raquo;immer zustimmen&laquo;', 'Geben Sie hier ihre Übersetzung ein.'],
     'ccAcceptOnce' => ['Schaltfläche &raquo;einmalig zustimmen&laquo;', 'Geben Sie hier ihre Übersetzung ein.'],
-    'ccDescription' => ['Hinweistext', 'Geben Sie hier den Hinweistext ein. Sie können in dieser Zeichenkette die Variable {title} verwenden. Diese enthält den Namen des Dienstes, dem zugestimmt werden soll.'],
+    'ccDescription' => ['Fragetext', 'Geben Sie hier den Fragetext ein. Sie können in dieser Zeichenkette die Variable {title} verwenden. Diese enthält den Namen des Dienstes, dem zugestimmt werden soll.'],
+    'ccMonitor' => ['Vorschau', ''],
 
     // KlaroTranslationListerner messages
     'purposesSavePronouns' => ['sgl' => ['Der', 'ist'], 'pl' => ['Die', 'sind']],
