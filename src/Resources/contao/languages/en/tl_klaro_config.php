@@ -33,7 +33,7 @@ $GLOBALS['TL_LANG']['tl_klaro_config'] = [
     'title' => ["Name of the $sgl", "Enter a name for the $sgl."],
     // services legend
     'services_legend' => 'Configure services',
-    'services' => ['Services', 'Select at least one service that should use this configuration.'],
+    'services' => ['Services used', "Select the services to be used by $klaro here."],
     // config legend
     'script_legend' => 'Configure scripts',
     'scriptLoadingMode' => ['Loading-Mode', 'Select here how the script should be loaded. The mode &raquo;defer&laquo; should be preferred!'],

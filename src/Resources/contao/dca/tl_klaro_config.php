@@ -82,7 +82,7 @@ $GLOBALS['TL_DCA'][$strTable] = [
         'default' => '{title_legend},title;'.
             '{services_legend},services;'.
             '{script_legend},scriptLoadingMode,myConfigVariableName;'.
-            '{consent_legend},noticeAsModal,default,mustConsent,acceptAll,hideDeclineAll,hideLearnMore,hideModal;'.
+            '{consent_legend},noticeAsModal,mustConsent,default,acceptAll,hideDeclineAll,hideLearnMore,hideModal;'.
             '{cookie_legend},elementID,storageName,storageMethod,cookieDomain,cookieExpiresAfterDays;'.
             '{callback_legend},callback;'.
             '{expert_legend},htmlTexts,testing;',
@@ -296,7 +296,7 @@ $GLOBALS['TL_DCA'][$strTable] = [
             'inputType' => 'checkboxWizard',
             'foreignKey' => 'tl_klaro_service.title',
             'relation' => ['type' => 'hasMany', 'load' => 'lazy'],
-            'eval' => ['multiple' => true, 'helpwizard' => true],
+            'eval' => ['multiple' => true, 'helpwizard' => false],
             'sql' => [
                 'type' => 'text',
                 'length' => 2048,

@@ -34,7 +34,7 @@ $GLOBALS['TL_LANG']['tl_klaro_config'] = [
     'translation' => ['Übersetzung', "Wählen Sie hier eine Übersetzung. Ist keine Übersetzung zur Auswahl vorhanden, so legen Sie bitte eine neue unter &raquo;$klaro Übersetzungen&laquo; an. Sie können das Feld auch leer lassen. Dann verwendet $klaro die Übersetzung aus der $klaro-Config."],
     // services legend
     'services_legend' => 'Dienste konfigurieren',
-    'services' => ['Dienste', 'Dienste'],
+    'services' => ['verwendete Dienste', "Wählen Sie hier die Dienste aus, die von $klaro verwendet werden sollen."],
     // config legend
     'script_legend' => 'Skript konfigurieren',
     'scriptLoadingMode' => ['Lademodus', 'Wählen Sie hier aus, wie das script geladen werden soll. Der Modus &raquo;defer&laquo; sollte bevorzugt werden!'],
