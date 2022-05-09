@@ -19,7 +19,7 @@ declare(strict_types=1);
 
 use Contao\CoreBundle\DataContainer\PaletteManipulator;
 
-foreach ($GLOBALS['TL_DCA']['tl_content']['palettes'] as $palette) {
+foreach (array_keys($GLOBALS['TL_DCA']['tl_content']['palettes']) as $palette) {
     if ('__selector__' !== $palette) {
         PaletteManipulator::create()
             ->addField('klaro_state', 'type', PaletteManipulator::POSITION_AFTER)
@@ -34,8 +34,7 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['klaro_service'] = [
     'exclude' => true,
     'search' => true,
     'inputType' => 'select',
-    'options' => ['none' => 'nicht verknüpfen', 's1' => 'Dienst 1', 's2_true' => 'Dienst 2'],
-    'eval' => ['tl_class' => 'clr w50'],
+    'eval' => ['includeBlankOption' => true, 'tl_class' => 'clr w50'],
     'sql' => "varchar(20) NOT NULL default ''",
 ];
 
@@ -43,7 +42,7 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['klaro_consent'] = [
     'exclude' => true,
     'search' => true,
     'inputType' => 'select',
-    'options' => ['' => 'zugestimmt', '1' => 'abgelehnt'],
+    'options' => $GLOBALS['TL_LANG']['klaro']['klaro_consent']['options'],
     'eval' => ['maxlength' => 200, 'tl_class' => 'w25'],
     'sql' => "char(1) NOT NULL default ''",
 ];
@@ -52,7 +51,7 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['klaro_state'] = [
     'exclude' => true,
     'search' => true,
     'inputType' => 'select',
-    'options' => ['1' => 'einblenden', '2' => 'ausblenden'],
+    'options' => $GLOBALS['TL_LANG']['klaro']['klaro_state']['options'],
     'eval' => ['tl_class' => 'w25'],
     'sql' => "varchar(20) NOT NULL default ''",
 ];

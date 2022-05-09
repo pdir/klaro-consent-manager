@@ -40,4 +40,16 @@ class KlaroTranslationModel extends Model
 
         return $result;
     }
+
+    /**
+     * @return array
+     */
+    public function getServiceTranslations()
+    {
+        $result = [];
+        $arrServices = StringUtil::deserialize($this->services);
+        array_walk($arrServices, static function ($service) use (&$result): void { $result[$service['key']] = $service['value']; });
+
+        return $result;
+    }
 }
