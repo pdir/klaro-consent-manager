@@ -171,6 +171,7 @@ class GeneratePageHook
         //$GLOBALS['TL_CSS']['klaro'] = "https://cdn.kiprotect.com/klaro/{$cssTemplate->version}/klaro.min.css";
         $GLOBALS['TL_CSS']['klaro'] = 'bundles/pdircontaoklaroconsentmanager/css/klaro.css';
         $GLOBALS['TL_BODY']['klaro'] = $scriptTemplate->parse();
+        $GLOBALS['TL_BODY'][] = "<script {$klaroConfig->scriptLoadingMode} type='application/javascript' src='bundles/pdircontaoklaroconsentmanager/js/fe.js'></script>";
     }
 
     /**

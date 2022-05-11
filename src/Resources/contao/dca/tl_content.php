@@ -19,8 +19,15 @@ declare(strict_types=1);
 
 use Contao\CoreBundle\DataContainer\PaletteManipulator;
 
+/*
+ * define here the content elements for which a binding to Klaro
+ * should be possible. note that for each element further code
+ * must be provided in the hooks
+ */
+$arrAllowedCTEs = ['headline', 'text'];
+
 foreach (array_keys($GLOBALS['TL_DCA']['tl_content']['palettes']) as $palette) {
-    if ('__selector__' !== $palette) {
+    if (in_array($palette, $arrAllowedCTEs, true)) {
         PaletteManipulator::create()
             ->addField('klaro_state', 'type', PaletteManipulator::POSITION_AFTER)
             ->addField('klaro_consent', 'type', PaletteManipulator::POSITION_AFTER)
@@ -35,7 +42,13 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['klaro_service'] = [
     'search' => true,
     'inputType' => 'select',
     'eval' => ['includeBlankOption' => true, 'tl_class' => 'clr w50'],
-    'sql' => "varchar(20) NOT NULL default ''",
+    'relation' => ['type' => 'hasOne', 'load' => 'lazy', 'table' => 'tl_klaro_service'],
+    'sql' => [
+        'type' => 'integer',
+        'unsigned' => false,
+        'default' => 0,
+        'comment' => '',
+    ],
 ];
 
 $GLOBALS['TL_DCA']['tl_content']['fields']['klaro_consent'] = [

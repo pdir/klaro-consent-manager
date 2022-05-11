@@ -24,3 +24,7 @@
 #ctrl_cookies thead tr th:nth-child(2) {
     display: none;
 }
+
+[data-name=servicesall-accept-show] {
+    display: none;
+}

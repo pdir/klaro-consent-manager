@@ -58,7 +58,7 @@ class KlaroContentListener
      */
     public function buildKlaroServiceOptions(DataContainer $dc)
     {
-        $options = ['all' => 'alle'];
+        $options = $GLOBALS['TL_LANG']['klaro']['klaro_services']['options'];
         // get the translation for the current user language
         $translation = KlaroTranslationModel::findOneByLang_code(BackendUser::getInstance()->language);
         // flatten the purposes array

@@ -44,7 +44,9 @@ $GLOBALS['BE_MOD']['pdir']['klaro_purpose'] = [
     'tables' => ['tl_klaro_purpose'],
 ];
 
-$GLOBALS['TL_CSS'][] = 'bundles/pdircontaoklaroconsentmanager/css/be.css';
+if (TL_MODE === 'BE') {
+    $GLOBALS['TL_CSS'][] = 'bundles/pdircontaoklaroconsentmanager/css/be.css';
+}
 
 /*
  * Models
