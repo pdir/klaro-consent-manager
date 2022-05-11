@@ -80,11 +80,9 @@ $GLOBALS['TL_DCA'][$strTable] = [
     'palettes' => [
         '__selector__' => [],
         'default' => '{title_legend},title;'.
-            '{service_legend},name,purposes;default,required,optOut,onlyOnce,contextualConsentOnly;',
-    ],
-    // Subpalettes
-    'subpalettes' => [
-        'addSubpalette' => 'textareaField',
+            '{service_legend},name,purposes,cookies;'.
+            '{standard_legend},default,required,optOut,onlyOnce,contextualConsentOnly;'.
+            '{callback_legend},callback;',
     ],
     // Fields
     'fields' => [
@@ -150,9 +148,7 @@ $GLOBALS['TL_DCA'][$strTable] = [
         'purposes' => [
             'exclude' => true,
             'inputType' => 'checkboxWizard',
-            'reference' => &$GLOBALS['TL_LANG']['klaro']['service']['purposes_reference'],
-            'options' => &$GLOBALS['TL_LANG']['klaro']['service']['purposes_reference'],
-            'eval' => ['mandatory' => true, 'multiple' => true, 'helpwizard' => true, 'tl_class' => 'w25'],
+            'eval' => ['mandatory' => true, 'multiple' => true, 'tl_class' => 'w25'],
             'sql' => [
                 'type' => 'text',
                 'length' => 2048,
@@ -171,7 +167,15 @@ $GLOBALS['TL_DCA'][$strTable] = [
          * cookies that were set on a third-party domain, or cookies that have the HTTPOnly
          * attribute: https://developer.mozilla.org/en-US/docs/Web/API/Document/cookie#new-cookie_domain
          */
-        'cookies' => [],
+        'cookies' => [
+            'exclude' => true,
+            'inputType' => 'keyValueWizard',
+            'eval' => [
+                'allowHtml' => false,
+                'tl_class' => 'w50',
+            ],
+            'sql' => 'blob NULL',
+        ],
 
         /*
          * You can define an optional callback function that will be called each time the
@@ -179,7 +183,17 @@ $GLOBALS['TL_DCA'][$strTable] = [
          * the first parameter to the function (true=consented). The `service` config will
          * be passed as the second parameter.
          */
-        'callback' => [],
+        'callback' => [
+            'exclude' => true,
+            'inputType' => 'textarea',
+            'eval' => ['style' => 'height:120px', 'preserveTags' => true, 'class' => 'monospace', 'rte' => 'ace|html', 'tl_class' => 'clr'],
+            'sql' => [
+                'type' => 'text',
+                'length' => 4096,
+                'fixed' => true,
+                'notnull' => false,
+            ],
+        ],
 
         /*
          * If 'required' is set to 'true', Klaro will not allow this service to be disabled

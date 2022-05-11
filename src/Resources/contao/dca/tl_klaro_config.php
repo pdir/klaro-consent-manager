@@ -79,19 +79,16 @@ $GLOBALS['TL_DCA'][$strTable] = [
     // Palettes
     'palettes' => [
         '__selector__' => ['addSubpalette'],
-        'default' => '{first_legend},title;'.
-            '{pages_legend},scope;'.
+        'default' => '{title_legend},title;'.
             '{services_legend},services;'.
             '{script_legend},scriptLoadingMode,myConfigVariableName;'.
-            '{consent_legend},noticeAsModal,default,mustConsent,acceptAll,hideDeclineAll,hideLearnMore,hideModal;'.
+            '{consent_legend},noticeAsModal,mustConsent,default,acceptAll,hideDeclineAll,hideLearnMore,hideModal;'.
             '{cookie_legend},elementID,storageName,storageMethod,cookieDomain,cookieExpiresAfterDays;'.
+            '{callback_legend},callback;'.
             '{expert_legend},htmlTexts,testing;',
-        //'{expert_legend},addSubpalette, ',
     ],
     // Subpalettes
-    'subpalettes' => [
-        'addSubpalette' => 'textareaField',
-    ],
+    'subpalettes' => [],
     // Fields
     'fields' => [
         'id' => [
@@ -107,28 +104,8 @@ $GLOBALS['TL_DCA'][$strTable] = [
             'filter' => true,
             'sorting' => true,
             'flag' => 1,
-            'eval' => ['mandatory' => true, 'maxlength' => 255, 'tl_class' => 'w50'],
+            'eval' => ['mandatory' => true, 'maxlength' => 255, 'tl_class' => 'w75'],
             'sql' => "varchar(255) NOT NULL default ''",
-        ],
-        'hideModal' => [
-            'exclude' => true,
-            'inputType' => 'pageTree',
-            'foreignKey' => 'tl_page.title',
-            'eval' => ['fieldType' => 'checkbox', 'tl_class' => 'clr', 'multiple' => true],
-            'sql' => 'blob NULL',
-        ],
-        'services' => [
-            'exclude' => true,
-            'explanation' => 'klaro_services',
-            'inputType' => 'checkboxWizard',
-            'eval' => ['multiple' => true, 'helpwizard' => true],
-            //'reference' => &$GLOBALS['TL_LANG'][$strTable],
-            'sql' => [
-                'type' => 'text',
-                'length' => 2048,
-                'fixed' => true,
-                'notnull' => false,
-            ],
         ],
         'scriptLoadingMode' => [
             'inputType' => 'select',
@@ -157,7 +134,6 @@ $GLOBALS['TL_DCA'][$strTable] = [
                 'default' => 'klaroConfig',
             ],
         ],
-
         'testing' => [
             'exclude' => true,
             'inputType' => 'checkbox',
@@ -172,7 +148,18 @@ $GLOBALS['TL_DCA'][$strTable] = [
         'elementID' => [
             'exclude' => true,
             'inputType' => 'text',
-            'eval' => ['tl_class' => 'w25 clr'],
+            'eval' => ['tl_class' => 'w20 clr'],
+            'sql' => [
+                'type' => 'string',
+                'length' => 50,
+                'fixed' => true,
+                'default' => 'klaro',
+            ],
+        ],
+        'storageName' => [
+            'exclude' => true,
+            'inputType' => 'text',
+            'eval' => ['tl_class' => 'w20'],
             'sql' => [
                 'type' => 'string',
                 'length' => 50,
@@ -188,7 +175,7 @@ $GLOBALS['TL_DCA'][$strTable] = [
             'sorting' => true,
             'reference' => &$GLOBALS['TL_LANG']['klaro']['config']['storage_method_options'],
             'options' => &$GLOBALS['TL_LANG']['klaro']['config']['storage_method_options'],
-            'eval' => ['tl_class' => 'w25'],
+            'eval' => ['tl_class' => 'w20'],
             'sql' => [
                 'type' => 'string',
                 'length' => 50,
@@ -196,15 +183,27 @@ $GLOBALS['TL_DCA'][$strTable] = [
                 'default' => 'cookie',
             ],
         ],
-        'storageName' => [
+        'cookieDomain' => [
             'exclude' => true,
             'inputType' => 'text',
-            'eval' => ['tl_class' => 'w25'],
+            'eval' => ['tl_class' => 'w20'],
             'sql' => [
                 'type' => 'string',
                 'length' => 50,
                 'fixed' => true,
-                'default' => 'klaro',
+                'default' => '.example.com',
+            ],
+        ],
+        'cookieExpiresAfterDays' => [
+            'exclude' => true,
+            'inputType' => 'text',
+            'eval' => ['tl_class' => 'w20'],
+            'sql' => [
+                'type' => 'integer',
+                'unsigned' => false,
+                'notnull' => true,
+                'default' => 30,
+                'comment' => '',
             ],
         ],
         'htmlTexts' => [
@@ -216,29 +215,6 @@ $GLOBALS['TL_DCA'][$strTable] = [
                 'length' => 1,
                 'fixed' => true,
                 'default' => '',
-            ],
-        ],
-        'cookieDomain' => [
-            'exclude' => true,
-            'inputType' => 'text',
-            'eval' => ['tl_class' => 'w25'],
-            'sql' => [
-                'type' => 'string',
-                'length' => 50,
-                'fixed' => true,
-                'default' => '.example.com',
-            ],
-        ],
-        'cookieExpiresAfterDays' => [
-            'exclude' => true,
-            'inputType' => 'text',
-            'eval' => ['tl_class' => 'w125'],
-            'sql' => [
-                'type' => 'integer',
-                'unsigned' => false,
-                'notnull' => true,
-                'default' => 30,
-                'comment' => '',
             ],
         ],
         'noticeAsModal' => [
@@ -305,6 +281,39 @@ $GLOBALS['TL_DCA'][$strTable] = [
                 'length' => 1,
                 'fixed' => true,
                 'default' => '',
+            ],
+        ],
+        'hideModal' => [
+            'exclude' => true,
+            'inputType' => 'pageTree',
+            'foreignKey' => 'tl_page.title',
+            'eval' => ['fieldType' => 'checkbox', 'tl_class' => 'clr', 'multiple' => true],
+            'sql' => 'blob NULL',
+        ],
+        'services' => [
+            'exclude' => true,
+            'explanation' => 'klaro_services',
+            'inputType' => 'checkboxWizard',
+            'foreignKey' => 'tl_klaro_service.title',
+            'relation' => ['type' => 'hasMany', 'load' => 'lazy'],
+            'eval' => ['multiple' => true, 'helpwizard' => false],
+            'sql' => [
+                'type' => 'text',
+                'length' => 2048,
+                'fixed' => true,
+                'notnull' => false,
+            ],
+        ],
+
+        'callback' => [
+            'exclude' => true,
+            'inputType' => 'textarea',
+            'eval' => ['style' => 'height:120px', 'preserveTags' => true, 'class' => 'monospace', 'rte' => 'ace|html', 'tl_class' => 'clr'],
+            'sql' => [
+                'type' => 'text',
+                'length' => 4096,
+                'fixed' => true,
+                'notnull' => false,
             ],
         ],
     ],

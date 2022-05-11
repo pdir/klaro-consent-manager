@@ -1,6 +1,11 @@
-/** Still empty stylesheet **/
+/* some new widget classes for eval.tl_class */
 .w125 {
     width: calc(12.5% - 30px);
+    float: left;
+    min-height: 80px;
+}
+.w20 {
+    width: calc(20% - 30px);
     float: left;
     min-height: 80px;
 }
@@ -8,4 +13,14 @@
     width: calc(25% - 30px);
     float: left;
     min-height: 80px;
+}
+.w75 {
+    width: calc(75% - 30px);
+    float: left;
+    min-height: 80px;
+}
+/* hide the second column inside the key-value-Wizard */
+#ctrl_cookies tbody tr td:nth-child(2),
+#ctrl_cookies thead tr th:nth-child(2) {
+    display: none;
 }

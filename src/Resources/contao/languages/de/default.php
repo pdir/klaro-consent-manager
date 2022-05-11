@@ -42,27 +42,4 @@ $GLOBALS['TL_LANG']['klaro'] = [
             'localStorage' => 'Browser Local Storage',
         ],
     ],
-    'service' => [
-        'purposes_reference' => [
-            'security' => 'Sicherheit',
-            'analytics' => 'Analyse',
-            'lifechat' => 'Lifechat',
-            'advertising' => 'Werbung',
-            'styling' => 'Stylesheets',
-        ],
-        'purposes_translations' => [
-            'youtube' => [
-                'zz' => ['title' => 'Übersetzung Fallback für YouTube'],
-                'de' => ['description' => 'Deutsch für YouTube'],
-            ],
-            'matomo' => [
-                'zz' => ['title' => 'Übersetzung Fallback für Matomo'],
-                'de' => ['description' => 'Deutsch für Matomo'],
-            ],
-            'google-analytics' => [
-                'zz' => ['title' => 'Übersetzung Fallback für google-analytics'],
-                'de' => ['description' => 'Deutsch für google-analytics'],
-            ],
-        ],
-    ],
 ];

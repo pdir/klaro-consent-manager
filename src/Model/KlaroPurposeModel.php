@@ -17,7 +17,14 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-$GLOBALS['TL_LANG']['tl_page']['klaro_legend'] = 'Klaro settings';
-$GLOBALS['TL_LANG']['tl_page']['includeKlaro'] = ['Assign a Klaro configuration', 'Assign a Klaro configuration to the page and its subpages.'];
-$GLOBALS['TL_LANG']['tl_page']['klaroConfig'] = ['Klaro configuration', 'Klaro configurations can be managed in the Klaro Configurations module.'];
-$GLOBALS['TL_LANG']['tl_page']['klaroExclude'] = ['Pages to exclude', 'The Klaro pop-up is not displayed on the specified pages.'];
+namespace Pdir\ContaoKlaroConsentManager\Model;
+
+use Contao\Model;
+
+/**
+ * Class KlaroServiceModel.
+ */
+class KlaroPurposeModel extends Model
+{
+    protected static $strTable = 'tl_klaro_purpose';
+}

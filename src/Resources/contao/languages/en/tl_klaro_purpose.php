@@ -17,7 +17,15 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-$GLOBALS['TL_LANG']['tl_page']['klaro_legend'] = 'Klaro settings';
-$GLOBALS['TL_LANG']['tl_page']['includeKlaro'] = ['Assign a Klaro configuration', 'Assign a Klaro configuration to the page and its subpages.'];
-$GLOBALS['TL_LANG']['tl_page']['klaroConfig'] = ['Klaro configuration', 'Klaro configurations can be managed in the Klaro Configurations module.'];
-$GLOBALS['TL_LANG']['tl_page']['klaroExclude'] = ['Pages to exclude', 'The Klaro pop-up is not displayed on the specified pages.'];
+$sgl = 'purpose';
+//$pl = 'Dienste';
+$klaro = 'Klaro';
+
+$GLOBALS['TL_LANG']['tl_klaro_purpose'] = [
+    // title legend
+    'title_legend' => 'Name',
+    'title' => ["Name of the $sgl", "Enter a name for this $sgl."],
+    // purpose legend
+    'purpose_legend' => 'Purpose',
+    'klaro_key' => ["$klaro purpose-key", "Enter here the string that $klaro uses internally as a unified key for this purpose."],
+];

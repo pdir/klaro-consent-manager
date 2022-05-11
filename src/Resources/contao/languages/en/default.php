@@ -20,7 +20,7 @@ declare(strict_types=1);
 /*
  * Miscelaneous
  */
-$GLOBALS['TL_LANG']['MSC']['klaroConsentDefaultButtonText'] = 'Change consent settings';
+$GLOBALS['TL_LANG']['MSC']['klaroConsentDefaultButtonText'] = 'Change your consent settings';
 
 /*
  * Errors
@@ -40,25 +40,6 @@ $GLOBALS['TL_LANG']['klaro'] = [
         'storage_method_options' => [
             'cookie' => 'Cookie Storage',
             'localStorage' => 'Browser Local Storage',
-        ],
-    ],
-    'service' => [
-        'purposes_reference' => [
-            'security' => 'Security',
-            'analytics' => 'Analyse',
-            'lifechat' => 'Lifechat',
-            'advertising' => 'Werbung',
-            'styling' => 'Stylesheets',
-        ],
-        'purposes_translations' => [
-            'youtube' => [
-                'zz' => ['title' => 'Übersetzung Fallback für Lifechat'],
-                'self' => ['description' => 'Deutsch für Lifechat'],
-            ],
-            'matomo' => [
-                'zz' => ['title' => 'Übersetzung Fallback für Matomo'],
-                'de' => ['description' => 'Deutsch für Matomo'],
-            ],
         ],
     ],
 ];

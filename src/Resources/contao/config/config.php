@@ -20,6 +20,7 @@ declare(strict_types=1);
 use Pdir\ContaoKlaroConsentManager\Model\KlaroConfigModel;
 use Pdir\ContaoKlaroConsentManager\Model\KlaroPurposeModel;
 use Pdir\ContaoKlaroConsentManager\Model\KlaroServiceModel;
+use Pdir\ContaoKlaroConsentManager\Model\KlaroTranslationModel;
 
 /*
  * Backend modules
@@ -32,10 +33,25 @@ $GLOBALS['BE_MOD']['pdir']['klaro_service'] = [
     'tables' => ['tl_klaro_service'],
     'stylesheet' => 'bundles/pdircontaoklaroconsentmanager/css/be.css',
 ];
+$GLOBALS['BE_MOD']['pdir']['klaro_translation'] = [
+    'tables' => ['tl_klaro_translation'],
+    'stylesheet' => [
+        'bundles/pdircontaoklaroconsentmanager/css/be.css',
+        'bundles/pdircontaoklaroconsentmanager/css/klaro.css',
+    ],
+    'javascript' => [
+        'bundles/pdircontaoklaroconsentmanager/js/be.js',
+    ],
+];
+$GLOBALS['BE_MOD']['pdir']['klaro_purpose'] = [
+    'tables' => ['tl_klaro_purpose'],
+    'stylesheet' => 'bundles/pdircontaoklaroconsentmanager/css/be.css',
+];
 
 /*
  * Models
  */
 $GLOBALS['TL_MODELS']['tl_klaro_config'] = KlaroConfigModel::class;
 $GLOBALS['TL_MODELS']['tl_klaro_service'] = KlaroServiceModel::class;
+$GLOBALS['TL_MODELS']['tl_klaro_translation'] = KlaroTranslationModel::class;
 $GLOBALS['TL_MODELS']['tl_klaro_purpose'] = KlaroPurposeModel::class;

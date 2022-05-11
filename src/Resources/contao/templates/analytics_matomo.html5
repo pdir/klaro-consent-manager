@@ -1,11 +1,11 @@
 <?php
 
 // To use this script, please fill in your Matomo site ID and Matomo URL below
-$MatomoSite = 0;
-$MatomoPath = '//www.example.com/matomo/';
+$MatomoSite = 40;
+$MatomoPath = '//meissen.online/piwik/';
 
 // DO NOT EDIT ANYTHING BELOW THIS LINE UNLESS YOU KNOW WHAT YOU ARE DOING!
-if ($MatomoSite > 0 && '//www.example.com/matomo/' != $MatomoPath && !BE_USER_LOGGED_IN && !$this->hasAuthenticatedBackendUser()): ?>
+if ($MatomoSite > 0 && '//www.example.com/matomo/' != $MatomoPath && !$this->hasAuthenticatedBackendUser()): ?>
 
 <script type="text/plain" data-type="application/javascript" data-name="matomo">
   var _paq = window._paq = window._paq || [];

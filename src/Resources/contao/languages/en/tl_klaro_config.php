@@ -17,55 +17,50 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-$sgl = 'Konfiguration';
-//$pl = 'Konfigurationen';
-$klaro = 'Klaro&copy;';
+$sgl = 'configuration';
+//$pl = 'Configurations';
+$klaro = 'Klaro';
 
 $GLOBALS['TL_LANG']['tl_klaro_config'] = [
     // Operations
-    'edit' => ["$sgl mit ID: %s bearbeiten", 'Datensatz mit ID: %s bearbeiten'],
-    'copy' => ["$sgl mit ID: %s kopieren", 'Datensatz mit ID: %s kopieren'],
-    'delete' => ["$sgl mit ID: %s löschen", 'Datensatz mit ID: %s löschen'],
-    'show' => ["$sgl mit ID: %s ansehen", 'Datensatz mit ID: %s ansehen'],
+    //'edit' => ["$sgl with ID: %s edit", 'Datensatz mit ID: %s bearbeiten'],
+    //'copy' => ["$sgl mit ID: %s kopieren", 'Datensatz mit ID: %s kopieren'],
+    //'delete' => ["$sgl mit ID: %s löschen", 'Datensatz mit ID: %s löschen'],
+    //'show' => ["$sgl mit ID: %s ansehen", 'Datensatz mit ID: %s ansehen'],
 
-    // Naming
-    'first_legend' => 'Basis Einstellungen',
-    'title' => ["Name der $sgl", "Geben Sie einen Namen für die $sgl ein."],
-
-    // Pages legend
-    'pages_legend' => 'Seiten konfigurieren',
-
-    // Services legend
-    'services_legend' => 'Dienste konfigurieren',
-    'services' => ['Dienste', 'Dienste'],
-
-    // Config legend
-    'script_legend' => 'Skript konfigurieren',
-    'scriptLoadingMode' => ['Lademodus', 'Wählen Sie hier aus, wie das script geladen werden soll. Der Modus &raquo;defer&laquo; sollte bevorzugt werden!'],
+    // title legend
+    'title_legend' => 'Base Settings',
+    'title' => ["Name of the $sgl", "Enter a name for the $sgl."],
+    // services legend
+    'services_legend' => 'Configure services',
+    'services' => ['Services used', "Select the services to be used by $klaro here."],
+    // config legend
+    'script_legend' => 'Configure scripts',
+    'scriptLoadingMode' => ['Loading-Mode', 'Select here how the script should be loaded. The mode &raquo;defer&laquo; should be preferred!'],
     //'loding_mode_options' see default
-    'myConfigVariableName' => ['Name of the configuration variable' => 'By default, Klaro will load the config from a global "klaroConfig" variable. You can change this by specifying a new variable name.'],
-
-    // Consent legend
-    'consent_legend' => 'Einwilligungserklärung konfigurieren',
-    'noticeAsModal' => ['Cookie-Hinweis als Modal anzeigen', 'Öffnet das Overlay beim Laden als Modal.'],
-    'default' => ['Default status for services', 'Sets the default status for services (enabled by default). You can override this setting in any service.'],
-    'mustConsent' => ['Zustimmung erzwingen', 'Wenn Sie diese Option aktivieren, wird das Zustimmungs-Fenster als Modal angezeigt. Es ist dann nicht möglich, dass der Benutzer es schließt, bevor er nicht aktiv zugestimmt oder abgelehnt hat.'],
-    'acceptAll' => ['&raquo;Alle akzeptieren&laquo;', 'Wenn Sie diese Option aktivieren, wird im Hinweis und im Overlay die Schaltfläche &raquo;Alle akzeptieren&laquo; angezeigt, über die Sie allen Diensten von Drittanbietern mit einem Klick zustimmen können. Wenn Sie diese Option deaktivieren, können Sie jedem Dienst einzeln zustimmen.'],
-    'hideDeclineAll' => ['&raquo;Alle ablehnen&laquo; ausblenden', 'Wenn Sie diese Option aktivieren, wird die Schaltfläche &raquo;Ablehnen&laquo; im Overlay ausgeblendet und der Nutzer gezwungen, das Overlay gesondert zu öffnen, um seine Zustimmung zu ändern oder alle Drittanbieterdienste zu deaktivieren. Wir raten Ihnen dringend davon ab, diese Funktion zu verwenden, da sie den Grundsätzen &raquo;privacy by default&laquo; und &raquo;privacy by design&laquo; der Datenschutz-Grundverordnung zuwiderläuft.'],
-    'hideModal' => ['Disable modal on certain pages', 'Here you can define on which subpages the modal should not be opened.'],
-    'hideLearnMore' => ['&raquo;Mehr erfahren&laquo; ausblenden', 'Wenn Sie diese Option aktivieren, wird der Link &raquo;mehr erfahren / anpassen&laquo; in der Einwilligungserklärung ausgeblendet. Wir raten dringend davon ab, dies zu tun, da es den Benutzer daran hindert, seine Einwilligungsentscheidungen anzupassen.'],
-
-    // Cookie legend
-    'cookie_legend' => 'Cookies konfigurieren',
-    'elementID' => ['DIV-Id', "Sie können hier die Id des DIV-Elements anpassen, das $klaro beim Start erstellt. Standardmäßig wird $klaro &raquo;klaro&laquo; verwenden."],
-    'storageMethod' => ['Speichermethode', "Hier können Sie festlegen, wie $klaro die Zustimmungsinformationen speichert. Wählen Sie &raquo;Cookie Storage&laquo; (Voreinstellung) oder &raquo;Browser Local Storage&laquo;."],
+    'myConfigVariableName' => ['Name of the configuration variable', "By default, $klaro loads the configuration from a global variable &raquo;klaroConfig&laquo;. You can change this by specifying your own variable name."],
+    // consent legend
+    'consent_legend' => 'Configure consent form',
+    'noticeAsModal' => ["Start $klaro as modal", "Opens $klaro on load &raquo;modal&laquo; (a modal window or dialog or similar is an object that is displayed on top of the web page and that cannot be bypassed. The user must react in some way to this object)."],
+    'default' => ['Standard consent for all services', "Sets the default consent for all services (disabled by default). You can configure this setting under &raquo;$klaro services&laquo; for each service separately."],
+    'mustConsent' => ['Force modal', 'If you activate this option, the consent window is displayed as a modal dialog. It is then not possible for the user to close it until they have actively agreed or declined.'],
+    'acceptAll' => ['&raquo;Accept all&laquo;', 'If you enable this option, the &raquo;Accept All&laquo; button will appear in the notice and overlay, allowing you to agree to all third-party services with one click. If you disable this option, you can agree to each service individually.'],
+    'hideDeclineAll' => ['Hide &raquo;reject all&laquo;', 'If you enable this option, the &raquo;decline&laquo; button in the overlay will be hidden and the user will be forced to open the overlay separately to change their consent or disable all third-party services. We strongly discourage you from using this feature as it is contrary to the &raquo;privacy by default&laquo; and &raquo;privacy by design&laquo; principles of the General Data Protection Regulation.'],
+    'hideLearnMore' => ['Hide &raquo;learn more&laquo;', 'If you enable this option, the link &raquo;learn more/customize&laquo; in the consent form will be hidden. We strongly advise against doing this, as it prevents the user from customizing their consent decisions.'],
+    'hideModal' => ['Disable modal on certain pages', 'Here you can define on which subpages the modal should not be displayed.'],
+    // cookie legend
+    'cookie_legend' => 'Configure cookies',
+    'elementID' => ['DIV-Id', "You can customize here the id of the DIV element that $klaro will create at startup. By default $klaro will use &raquo;klaro&laquo;."],
+    'storageName' => ['Storage key', "You can customize the key of the cookie or localStorage entry that $klaro uses to store the consent information. By default, $klaro uses &raquo;klaro&laquo;."],
+    'storageMethod' => ['Storage method', "Here you can specify how $klaro stores the consent information. Select &raquo;Cookie Storage&laquo; (default) or &raquo;Browser Local Storage&laquo;."],
     //'storage_method_options' see default
-    'storageName' => ['Speicherschlüssel', "Sie können den Key (Schlüssel) des Cookies oder des localStorage-Eintrags anpassen, den $klaro für die Speicherung der Zustimmungsinformationen verwendet. Standardmäßig verwendet $klaro &raquo;klaro&laquo;."],
-    'cookieDomain' => ['Cookie Domain', "Sie können die Cookie-Domain für den Zustimmungsmanager anpassen. Tun Sie dies, wenn Sie die Zustimmung für mehrere übereinstimmende Domänen nur einmal erhalten möchten. Standardmäßig verwendet $klaro die aktuelle Domain. Diese Einstellung ist nur relevant, wenn &raquo;Speichermethode&laquo; auf &raquo;Cookie Storage&laquo; eingestellt ist."],
-    'cookieExpiresAfterDays' => ['Cookie Verfallszeit', "Hier können Sie Verfallszeit für das $klaro-Cookie festlegen. Voreinstellung ist 30 Tage (nur relevant, wenn &raquo;Speichermethode&laquo; auf &raquo;Cookie Storage&laquo; eingestellt ist)."],
-
-    // Expert legend
-    'expert_legend' => 'Test und Wartung',
-    'testing' => ['Test-Modus aktivieren', "Wenn Sie testing aktivieren, so zeigt $klaro standardmäßig weder den Einwilligungshinweis noch das modal-Window an, es sei denn, sie fügen den spezielle Hashtag #klaro-testing an die URL an. Dann ist es möglich, $klaro auf Ihrer Live-Website zu testen, ohne den normalen Betrieb zu beeinträchtigen."],
-    'htmlTexts' => ['HTML-Modus', "Wenn diese Option aktiviert ist, rendert $klaro die Texte, die in den Feldern `consentModal.description` und `consentNotice.description` angegebenen sind als HTML. Das ermöglicht es Ihnen, z.B. benutzerdefinierte Links oder interaktive Inhalte hinzuzufügen."],
+    'cookieDomain' => ['Cookie domain', "You can customize the cookie domain for the consent manager. Do this if you want to get consent for multiple matching domains only once. By default, $klaro uses the current domain. This setting is relevant only if &raquo;Storage Method&laquo; is set to &raquo;Cookie Storage&laquo;."],
+    'cookieExpiresAfterDays' => ['Cookie expiration time', "Here you can set expiration time for the $klaro cookie. Default is 30 days (only relevant if &raquo;Storage method&laquo; is set to &raquo;Cookie Storage&laquo;)."],
+    // callback legend
+    'callback_legend' => 'Callback',
+    'callback' => ['<b style="color:green">callback</b>: <b style="color:blue">function</b>(consent, service) {', "<b>}</b>\nYou can define here the function body for an optional callback function that will be called each time the consent status for a given service changes. The consent value is passed as the first parameter &raquo;consent&laquo; to the function (true=agree). The &raquo;service configuration&laquo; is passed as the second parameter &raquo;service&laquo;."],
+    // expert legend
+    'expert_legend' => 'Test and maintenance',
+    'htmlTexts' => ['HTML mode', "When this option is enabled, $klaro renders the texts specified in the &raquo;Text in consent box&laquo; and &raquo;Text in modal dialog&laquo; fields as HTML. This allows you to add custom links or interactive content, for example. You can find these fields in the $klaro translations."],
+    'testing' => ['Testing mode', "If you enable testing, $klaro will not display the consent notice or the modal window by default, unless you add the special hashtag #klaro-testing to the URL. Then it is possible to test $klaro on your live website without affecting normal operation."],
 ];

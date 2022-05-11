@@ -17,4 +17,4 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-$GLOBALS['TL_LANG']['XPL']['klaro_services'] = 'Dienste Erläuterung';
+$GLOBALS['TL_LANG']['XPL']['klaro_services'] = 'Services Explanation';
