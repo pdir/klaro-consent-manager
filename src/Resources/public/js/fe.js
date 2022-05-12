@@ -30,17 +30,55 @@ let c = m.defaultConsents;
  *
  * @returns {boolean}
  */
-function consentAll()
+function agreedAll()
 {
     for (let prop in c) if (Object.prototype.hasOwnProperty.call(c, prop)) if(!m.getConsent(prop)) return false;
+    return true;
+}
 
+/**
+ *
+ * @returns {boolean}
+ */
+function rejectedAll()
+{
+    for (let prop in c) if (Object.prototype.hasOwnProperty.call(c, prop)) if(m.getConsent(prop)) return false;
     return true;
 }
 
 /**
  * handle servicesall
  */
-if(consentAll())
+if(agreedAll())
 {
-    document.querySelectorAll('[data-namep=servicesall-hide]').forEach(el => { el.dataset.namep = "servicesall-accept-show"; });
+    document.querySelectorAll('[data-namep=servicesall-agreed-show]').forEach(
+        el => {
+            el.style.display = "block";
+        });
 }
+
+/**
+ *
+ */
+if(rejectedAll())
+{
+    document.querySelectorAll('[data-namep=servicesall-rejected-show]').forEach(
+        el => {
+            el.style.display = "block";
+        });
+}
+
+document.querySelectorAll('[data-namep$=agreed-show]:not([data-namep^=servicesall])').forEach(
+    el => {
+        service = el.dataset.namep.substring(0, el.dataset.namep.length - 'agreed-show'.length - 1);
+        if(m.getConsent(service)) {
+            el.style.display = 'block';
+        }  else {
+            el.style.display = 'none';
+        }
+    }
+)
+
+console.log('agreedAll: ', agreedAll());
+
+console.log('rejectdedAll: ', rejectedAll());

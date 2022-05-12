@@ -30,6 +30,9 @@ class GetContentElementHook
 {
     public function __invoke(ContentModel $contentModel, string $buffer, ContentElement $element)
     {
+        $arrConsentValues = ['1' => 'agreed', '2' => 'rejected'];
+        $arrStateValues = ['1' => 'show', '2' => 'hide'];
+
         $serviceId = (int) $element->klaro_service;
         // Check if element is bound to Klaro
         if (0 === $serviceId) {
@@ -41,16 +44,19 @@ class GetContentElementHook
 
         if ($serviceId < 0) {
             // special services ToDo: handle services
-            $dataName = 'servicesall-hide';
-            dump("element $element->id [$element->type] gebunden an speziellen Service $serviceId [$dataName] zugestimmt?: $element->klaro_consent, status: $element->klaro_state");
+            $serviceName = 'servicesall';
+            dump("element $element->id [$element->type] gebunden an speziellen Service $serviceId [$serviceName] zugestimmt?: $element->klaro_consent, status: $element->klaro_state");
         } else {
             // klaro services
             $service = $contentModel->getRelated('klaro_service');
-            $dataName = $service->name;
-            dump("element $element->id [$element->type] gebunden an Service $serviceId [$dataName] zugestimmt?: $element->klaro_consent, status: $element->klaro_state");
+            $serviceName = $service->name;
+            dump("element $element->id [$element->type] gebunden an Service $serviceId [$serviceName] zugestimmt?: $element->klaro_consent, status: $element->klaro_state");
         }
 
         // get consent and state
+        $consent = $arrConsentValues[$element->klaro_consent];
+        $state = $arrStateValues[$element->klaro_state];
+        $dataName = "{$serviceName}-{$consent}-{$state}";
 
         switch ($element->type) {
             case 'text':
