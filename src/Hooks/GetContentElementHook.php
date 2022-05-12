@@ -41,7 +41,7 @@ class GetContentElementHook
 
         if ($serviceId < 0) {
             // special services ToDo: handle services
-            $dataName = 'servicesall-accept-show';
+            $dataName = 'servicesall-hide';
             dump("element $element->id [$element->type] gebunden an speziellen Service $serviceId [$dataName] zugestimmt?: $element->klaro_consent, status: $element->klaro_state");
         } else {
             // klaro services
@@ -56,7 +56,7 @@ class GetContentElementHook
             case 'text':
             case 'headline':
                 $buffer = $element->Template->parse();
-                $buffer = preg_replace('/(class=\".+\")/', 'data-name="'.$dataName.'" \1', $buffer);
+                $buffer = preg_replace('/(class=\".+\")/', 'data-namep="'.$dataName.'" \1', $buffer);
                 break;
 
             default:

@@ -45,8 +45,13 @@ $GLOBALS['BE_MOD']['pdir']['klaro_purpose'] = [
 ];
 
 if (TL_MODE === 'BE') {
+    // only BE
     $GLOBALS['TL_CSS'][] = 'bundles/pdircontaoklaroconsentmanager/css/be.css';
+} elseif (TL_MODE === 'FE') {
+    // only FE
+    $GLOBALS['TL_CSS'][] = 'bundles/pdircontaoklaroconsentmanager/css/fe.css';
 }
+    // both
 
 /*
  * Models

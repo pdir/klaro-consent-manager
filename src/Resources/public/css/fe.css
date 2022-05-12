@@ -1,0 +1,12 @@
+/*
+    note the p after data-name to indicate an extension by pdir
+ */
+
+/*  initial state for all services */
+[data-namep=servicesall-hide] {
+    display: none;
+}
+/*  servicesall show on accept */
+[data-namep=servicesall-accept-show] {
+    background-color: chocolate;
+}

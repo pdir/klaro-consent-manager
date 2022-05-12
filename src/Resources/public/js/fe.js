@@ -13,27 +13,34 @@
  * file that was distributed with this source code.
  */
 
-
+/**
+ *  get a ConsentManager instance
+ */
 let m = klaro.getManager();
-console.log('manager geladen: ', m);
 
+/**
+ * get the default static! consent configuration - note! in most cases the
+ * static configuration will differ from the current consent configuration
+ * in the client storage!
+ */
 let c = m.defaultConsents;
-console.log('default consents geladen: ', c);
 
 /**
  * returns true, if all services are accepted, otherwise false
  *
  * @returns {boolean}
  */
-function consentAll() {
-    for (let prop in c) {
-        if (Object.prototype.hasOwnProperty.call(c, prop)) {
-            if(!m.getConsent(prop)) return false;
-        }
-    }
+function consentAll()
+{
+    for (let prop in c) if (Object.prototype.hasOwnProperty.call(c, prop)) if(!m.getConsent(prop)) return false;
+
     return true;
 }
 
-console.log('consentAll: ', consentAll());
-
-console.log('getConsent(matomo): ',m.getConsent('matomo'));
+/**
+ * handle servicesall
+ */
+if(consentAll())
+{
+    document.querySelectorAll('[data-namep=servicesall-hide]').forEach(el => { el.dataset.namep = "servicesall-accept-show"; });
+}
