@@ -6,11 +6,15 @@
 [data-namep^=servicesall] {
     display: none;
 }
-/*  servicesall show on accept */
+/*  servicesall show on agreed */
 [data-namep=servicesall-agreed-show] {
     background-color: chocolate;
 }
-/*  servicesall show on decline */
+/*  servicesall show on rejected */
 [data-namep=servicesall-rejected-show] {
     background-color: crimson;
 }
+
+/*  services */
+[data-namep=youtube-video-agreed-show] { background-color: darkseagreen; }
+[data-namep=youtube-video-agreed-hide] { background-color: darkorange; }
