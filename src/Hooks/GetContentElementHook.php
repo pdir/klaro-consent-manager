@@ -37,19 +37,15 @@ class GetContentElementHook
         // Check if element is bound to Klaro
         if (0 === $serviceId) {
             // unbound
-            //dump("element $element->id [$element->type] nicht gebunden");
-
             return $buffer;
         }
 
         if ($serviceId < 0) {
             // special services ToDo: handle services
             $serviceName = 'servicesall';
-        //dump("element $element->id [$element->type] gebunden an speziellen Service $serviceId [$serviceName] zugestimmt?: $element->klaro_consent, status: $element->klaro_state");
         } else {
             // klaro services
             $serviceName = $contentModel->getRelated('klaro_service')->name;
-            //dump("element $element->id [$element->type] gebunden an Service $serviceId [$serviceName] zugestimmt?: $element->klaro_consent, status: $element->klaro_state");
         }
 
         // get consent and state
