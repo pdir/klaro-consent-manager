@@ -23,7 +23,7 @@ use Contao\Model;
 use Contao\StringUtil;
 
 /**
- * Class KlaroServiceModel.
+ * Class KlaroTranslationModel.
  */
 class KlaroTranslationModel extends Model
 {

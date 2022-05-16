@@ -22,7 +22,7 @@ namespace Pdir\ContaoKlaroConsentManager\Model;
 use Contao\Model;
 
 /**
- * Class KlaroServiceModel.
+ * Class KlaroPurposeModel.
  */
 class KlaroPurposeModel extends Model
 {
