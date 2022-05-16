@@ -17,7 +17,7 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-$GLOBALS['TL_LANG']['tl_content']['klaro_legend'] = 'Klaro Einstellungen';
+$GLOBALS['TL_LANG']['tl_content']['klaro_legend'] = 'Klaro-Einstellungen';
 $GLOBALS['TL_LANG']['tl_content']['klaro_service'] = ['Element mit einem Klaro Dienst verknüpfen', 'Hier können Sie dem Inhaltselement einen Anzeigestatus in Abhängigkeit von der Zustimmung zu einem Klaro-Dienst zuweisen.'];
 $GLOBALS['TL_LANG']['tl_content']['klaro_consent'] = ['wenn', 'Zugestimmt oder abgelehnt?'];
 $GLOBALS['TL_LANG']['tl_content']['klaro_state'] = ['dann', 'Hier können Sie dem Inhaltselement einen Anzeigestatus in Abhängigkeit von der Zustimmung zu einem Klaro-Dienst zuweisen.'];
