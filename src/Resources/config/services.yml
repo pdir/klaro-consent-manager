@@ -21,10 +21,3 @@ services:
     # InsertTags
     Pdir\ContaoKlaroConsentManager\EventListener\KlaroButtonInsertTagListener:
         public: true
-
-    # Migration
-    Pdir\ContaoKlaroConsentManager\Migrations\InitialMigration:
-        arguments:
-            - "@database_connection"
-        tags:
-            - { name: contao.migration, priority: 0 }
