@@ -29,9 +29,10 @@ $arrAllowedCTEs = ['headline', 'text'];
 foreach (array_keys($GLOBALS['TL_DCA']['tl_content']['palettes']) as $palette) {
     if (in_array($palette, $arrAllowedCTEs, true)) {
         PaletteManipulator::create()
-            ->addField('klaro_state', 'type', PaletteManipulator::POSITION_AFTER)
-            ->addField('klaro_consent', 'type', PaletteManipulator::POSITION_AFTER)
-            ->addField('klaro_service', 'type', PaletteManipulator::POSITION_AFTER)
+            ->addLegend('klaro_legend', 'protected_legend', PaletteManipulator::POSITION_BEFORE)
+            ->addField('klaro_state', 'klaro_legend', PaletteManipulator::POSITION_AFTER)
+            ->addField('klaro_consent', 'klaro_legend', PaletteManipulator::POSITION_AFTER)
+            ->addField('klaro_service', 'tyklaro_legendpe', PaletteManipulator::POSITION_AFTER)
             ->applyToPalette($palette, 'tl_content')
         ;
     }
