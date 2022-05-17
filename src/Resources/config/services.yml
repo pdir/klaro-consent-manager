@@ -14,16 +14,10 @@ services:
     # Hooks
     pdir.klaro.hooks.generatepage:
         class: Pdir\ContaoKlaroConsentManager\Hooks\GeneratePageHook
-        arguments:
-            - "@twig"
+
+    pdir.klaro.hooks.getcontentelement:
+        class: Pdir\ContaoKlaroConsentManager\Hooks\GetContentElementHook
 
     # InsertTags
     Pdir\ContaoKlaroConsentManager\EventListener\KlaroButtonInsertTagListener:
         public: true
-
-    # Migration
-    Pdir\ContaoKlaroConsentManager\Migrations\InitialMigration:
-        arguments:
-            - "@database_connection"
-        tags:
-            - { name: contao.migration, priority: 0 }

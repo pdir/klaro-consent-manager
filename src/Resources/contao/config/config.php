@@ -27,16 +27,13 @@ use Pdir\ContaoKlaroConsentManager\Model\KlaroTranslationModel;
  */
 $GLOBALS['BE_MOD']['pdir']['klaro_config'] = [
     'tables' => ['tl_klaro_config'],
-    'stylesheet' => 'bundles/pdircontaoklaroconsentmanager/css/be.css',
 ];
 $GLOBALS['BE_MOD']['pdir']['klaro_service'] = [
     'tables' => ['tl_klaro_service'],
-    'stylesheet' => 'bundles/pdircontaoklaroconsentmanager/css/be.css',
 ];
 $GLOBALS['BE_MOD']['pdir']['klaro_translation'] = [
     'tables' => ['tl_klaro_translation'],
     'stylesheet' => [
-        'bundles/pdircontaoklaroconsentmanager/css/be.css',
         'bundles/pdircontaoklaroconsentmanager/css/klaro.css',
     ],
     'javascript' => [
@@ -45,8 +42,16 @@ $GLOBALS['BE_MOD']['pdir']['klaro_translation'] = [
 ];
 $GLOBALS['BE_MOD']['pdir']['klaro_purpose'] = [
     'tables' => ['tl_klaro_purpose'],
-    'stylesheet' => 'bundles/pdircontaoklaroconsentmanager/css/be.css',
 ];
+
+if (TL_MODE === 'BE') {
+    // only BE
+    $GLOBALS['TL_CSS'][] = 'bundles/pdircontaoklaroconsentmanager/css/be.css';
+} elseif (TL_MODE === 'FE') {
+    // only FE
+    $GLOBALS['TL_CSS'][] = 'bundles/pdircontaoklaroconsentmanager/css/fe.css';
+}
+    // both
 
 /*
  * Models

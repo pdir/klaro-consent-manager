@@ -43,3 +43,10 @@ $GLOBALS['TL_LANG']['klaro'] = [
         ],
     ],
 ];
+
+// options for tl_content
+$GLOBALS['TL_LANG']['klaro']['klaro_services']['options'] = [
+    '-1' => 'Alle Dienste',
+];
+$GLOBALS['TL_LANG']['klaro']['klaro_consent']['options'] = ['1' => 'zugestimmt', '2' => 'abgelehnt'];
+$GLOBALS['TL_LANG']['klaro']['klaro_state']['options'] = ['1' => 'Element einblenden', '2' => 'Element ausblenden'];

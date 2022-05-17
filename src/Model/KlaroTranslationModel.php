@@ -23,7 +23,7 @@ use Contao\Model;
 use Contao\StringUtil;
 
 /**
- * Class KlaroServiceModel.
+ * Class KlaroTranslationModel.
  */
 class KlaroTranslationModel extends Model
 {
@@ -37,6 +37,18 @@ class KlaroTranslationModel extends Model
         $result = [];
         $arrPurposes = StringUtil::deserialize($this->purposes);
         array_walk($arrPurposes, static function ($purpose) use (&$result): void { $result[$purpose['key']] = $purpose['value']; });
+
+        return $result;
+    }
+
+    /**
+     * @return array
+     */
+    public function getServiceTranslations()
+    {
+        $result = [];
+        $arrServices = StringUtil::deserialize($this->services);
+        array_walk($arrServices, static function ($service) use (&$result): void { $result[$service['key']] = $service['value']; });
 
         return $result;
     }

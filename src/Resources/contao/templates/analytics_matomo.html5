@@ -1,8 +1,8 @@
 <?php
 
 // To use this script, please fill in your Matomo site ID and Matomo URL below
-$MatomoSite = 40;
-$MatomoPath = '//meissen.online/piwik/';
+$MatomoSite = 0;
+$MatomoPath = '//www.example.com/matomo/';
 
 // DO NOT EDIT ANYTHING BELOW THIS LINE UNLESS YOU KNOW WHAT YOU ARE DOING!
 if ($MatomoSite > 0 && '//www.example.com/matomo/' != $MatomoPath && !$this->hasAuthenticatedBackendUser()): ?>

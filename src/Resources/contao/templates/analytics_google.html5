@@ -1,7 +1,7 @@
 <?php
 
 // To use this script, please fill in your Google Analytics ID below
-$GoogleAnalyticsId = 'G-BSKN3B3HHR';
+$GoogleAnalyticsId = 'UA-XXXXX-X';
 
 // DO NOT EDIT ANYTHING BELOW THIS LINE UNLESS YOU KNOW WHAT YOU ARE DOING!
 if ('UA-XXXXX-X' != $GoogleAnalyticsId && !$this->hasAuthenticatedBackendUser()): ?>

@@ -7,7 +7,15 @@
     "cookie",
     "cookiebar",
     "gdpr",
-    "dsgvo"
+    "dsgvo",
+    "manager",
+    "cookiebanner",
+    "bar",
+    "privacy",
+    "settings",
+    "klaro",
+    "popup",
+    "cookies"
   ],
   "license": "LGPL-3.0-or-later",
   "homepage": "https://pdir.de/consent/",
@@ -63,5 +71,12 @@
       "contao/manager-plugin": true,
       "composer/package-versions-deprecated": true
     }
+  },
+  "suggest": {
+    "contao-themes-net/mate-theme-bundle": "Contains an extensive configuration file with over 20 services for the Klaro Consent Manager. You can find out more by clicking on the \"Project website\" button. | Enthält eine umfangreiche Konfigurationsdatei mit über 20 Diensten für den Klaro Consent Manager. Mehr erfährst du über den Button \"Projektwebseite\".",
+    "contao-themes-net/odd-theme-bundle": "Contains an extensive configuration file with over 20 services for the Klaro Consent Manager. You can find out more by clicking on the \"Project website\" button. | Enthält eine umfangreiche Konfigurationsdatei mit über 20 Diensten für den Klaro Consent Manager. Mehr erfährst du über den Button \"Projektwebseite\".",
+    "contao-themes-net/nature-theme-bundle": "Contains an extensive configuration file with over 20 services for the Klaro Consent Manager. You can find out more by clicking on the \"Project website\" button. | Enthält eine umfangreiche Konfigurationsdatei mit über 20 Diensten für den Klaro Consent Manager. Mehr erfährst du über den Button \"Projektwebseite\".",
+    "contao-themes-net/zero-one-theme-bundle": "Contains an extensive configuration file with over 20 services for the Klaro Consent Manager. You can find out more by clicking on the \"Project website\" button. | Enthält eine umfangreiche Konfigurationsdatei mit über 20 Diensten für den Klaro Consent Manager. Mehr erfährst du über den Button \"Projektwebseite\".",
+    "contao-themes-net/convert-theme-bundle": "Contains an extensive configuration file with over 20 services for the Klaro Consent Manager. You can find out more by clicking on the \"Project website\" button. | Enthält eine umfangreiche Konfigurationsdatei mit über 20 Diensten für den Klaro Consent Manager. Mehr erfährst du über den Button \"Projektwebseite\"."
   }
 }

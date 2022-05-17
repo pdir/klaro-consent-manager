@@ -30,7 +30,7 @@ $GLOBALS['TL_LANG']['tl_klaro_service'] = [
 
     // title legend
     'title_legend' => 'Name',
-    'title' => ['Name der Konfiguration', 'Geben Sie einen Namen für diese Konfiguration ein.'],
+    'title' => ["Name der $sgl-Konfiguration", 'Geben Sie einen Namen für diese Konfiguration ein.'],
     // service legend
     'service_legend' => "$sgl-Name und Zwecke",
     'name' => ["Name des {$sgl}es", "Geben Sie den Namen für den $sgl ein, den $klaro intern als Symbol für diesen Dienst verwendet."],

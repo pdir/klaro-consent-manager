@@ -30,22 +30,10 @@ use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 class PdirContaoKlaroConsentManagerExtension extends Extension
 {
     /**
-     * {@inheritdoc}
-     */
-    public function getAlias()
-    {
-        return Configuration::ROOT_KEY;
-    }
-
-    /**
      * @throws \Exception
      */
     public function load(array $configs, ContainerBuilder $container): void
     {
-        $configuration = new Configuration();
-
-        $config = $this->processConfiguration($configuration, $configs);
-
         $loader = new YamlFileLoader(
             $container,
             new FileLocator(__DIR__.'/../Resources/config')
@@ -54,9 +42,5 @@ class PdirContaoKlaroConsentManagerExtension extends Extension
         $loader->load('parameters.yml');
         $loader->load('services.yml');
         $loader->load('listener.yml');
-
-        $rootKey = $this->getAlias();
-
-        $container->setParameter($rootKey.'.foo.bar', $config['foo']['bar']);
     }
 }
