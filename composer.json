@@ -13,7 +13,9 @@
     "bar",
     "privacy",
     "settings",
-    "klaro"
+    "klaro",
+    "popup",
+    "cookies"
   ],
   "license": "LGPL-3.0-or-later",
   "homepage": "https://pdir.de/consent/",
