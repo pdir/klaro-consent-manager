@@ -17,8 +17,6 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-use Pdir\ContaoKlaroConsentManager\Controller\FrontendModule\KlaroFeModuleController;
-
 /*
  * Backend modules
  */
@@ -27,9 +25,3 @@ $GLOBALS['TL_LANG']['MOD']['klaro_config'] = ['Klaro Konfiguration', 'Klaro Cons
 $GLOBALS['TL_LANG']['MOD']['klaro_service'] = ['Klaro Dienste', 'Klaro Dienste verwalten'];
 $GLOBALS['TL_LANG']['MOD']['klaro_translation'] = ['Klaro Übersetzungen', 'Klaro Übersetzungen verwalten'];
 $GLOBALS['TL_LANG']['MOD']['klaro_purpose'] = ['Klaro Zwecke', 'Klaro Zwecke verwalten'];
-
-/*
- * Frontend modules
- */
-$GLOBALS['TL_LANG']['FMD']['pdir'] = 'Klaro Consent Manager';
-$GLOBALS['TL_LANG']['FMD'][KlaroFeModuleController::TYPE] = ['Klaro Frontend Modul', 'Text ToDo'];

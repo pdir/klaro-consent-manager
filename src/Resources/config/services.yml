@@ -3,14 +3,6 @@ services:
         autowire: true
         autoconfigure: true
 
-    Pdir\ContaoKlaroConsentManager\Controller\FrontendModule\KlaroFeModuleController:
-        tags:
-            - { name: container.service_subscriber }
-        public: true
-        # Since Symfony 5 the container has to be set manually
-        calls:
-            - [ setContainer, [ '@Psr\Container\ContainerInterface' ] ]
-
     # Hooks
     pdir.klaro.hooks.generatepage:
         class: Pdir\ContaoKlaroConsentManager\Hooks\GeneratePageHook
