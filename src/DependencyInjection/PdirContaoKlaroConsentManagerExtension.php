@@ -39,7 +39,6 @@ class PdirContaoKlaroConsentManagerExtension extends Extension
             new FileLocator(__DIR__.'/../Resources/config')
         );
 
-        $loader->load('parameters.yml');
         $loader->load('services.yml');
         $loader->load('listener.yml');
     }
