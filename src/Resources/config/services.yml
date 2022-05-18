@@ -1,0 +1,15 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    # Hooks
+    pdir.klaro.hooks.generatepage:
+        class: Pdir\ContaoKlaroConsentManager\Hooks\GeneratePageHook
+
+    pdir.klaro.hooks.getcontentelement:
+        class: Pdir\ContaoKlaroConsentManager\Hooks\GetContentElementHook
+
+    # InsertTags
+    Pdir\ContaoKlaroConsentManager\EventListener\KlaroButtonInsertTagListener:
+        public: true

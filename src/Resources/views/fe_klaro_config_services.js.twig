@@ -1,0 +1,26 @@
+{% for service in services %}
+    {
+        name: '{{ service.name|raw }}',
+        default: {{ service.default }},
+
+        translations: {
+            {{ service.translations | raw }}
+        },
+
+        purposes: [{{ service.purposes | raw }}],
+
+        cookies: [{{  service.cookies | raw }}],
+
+        callback: function (consent, service) {
+            {{ service.callback | raw }}
+        },
+
+        required: {{ service.required }},
+
+        optOut: {{ service.optOut }},
+
+        onlyOnce: {{ service.onlyOnce }},
+
+        contextualConsentOnly: {{ service.contextualConsentOnly }},
+    },
+{% endfor %}

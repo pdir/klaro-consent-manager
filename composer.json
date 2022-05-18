@@ -1,0 +1,82 @@
+{
+  "name": "pdir/klaro-consent-manager",
+  "type": "contao-bundle",
+  "description": "Use Klaro! Consent Manager in Contao CMS",
+  "keywords": [
+    "consent",
+    "cookie",
+    "cookiebar",
+    "gdpr",
+    "dsgvo",
+    "manager",
+    "cookiebanner",
+    "bar",
+    "privacy",
+    "settings",
+    "klaro",
+    "popup",
+    "cookies"
+  ],
+  "license": "LGPL-3.0-or-later",
+  "homepage": "https://pdir.de/consent/",
+  "authors": [
+    {
+      "name": "Webdesign für Dresden",
+      "homepage": "https://pdir.de",
+      "email": "develop@pdir.de",
+      "role": "Developer"
+    }
+  ],
+  "require": {
+    "php": "^7.2 || ^8.0",
+    "contao/core-bundle": "^4.9"
+  },
+  "conflict": {
+    "contao/core": "*",
+    "contao/manager-plugin": "<2.0 || >=3.0"
+  },
+  "require-dev": {
+    "contao/manager-plugin": "^2.0",
+    "contao/easy-coding-standard": "^3.0",
+    "phpunit/phpunit": "^8.5 || ^9.5",
+    "symfony/phpunit-bridge": "^5.3 || ^6.0"
+  },
+  "extra": {
+    "contao-manager-plugin": "Pdir\\ContaoKlaroConsentManager\\ContaoManager\\Plugin"
+  },
+  "autoload": {
+    "psr-4": {
+      "Pdir\\ContaoKlaroConsentManager\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Pdir\\ContaoKlaroConsentManager\\Tests\\": "tests/"
+    }
+  },
+  "support": {
+    "docs": "https://pdir.de/docs/extensions/klaro-consent-manager/",
+    "issues": "https://github.com/pdir/klaro-consent-manager/issues",
+    "source": "https://github.com/pdir/klaro-consent-manager"
+  },
+  "scripts": {
+    "cs-fixer": [
+      "vendor/bin/ecs check src/ tests/ --fix --ansi"
+    ]
+  },
+  "config": {
+    "allow-plugins": {
+      "contao-components/installer": true,
+      "dealerdirect/phpcodesniffer-composer-installer": true,
+      "contao/manager-plugin": true,
+      "composer/package-versions-deprecated": true
+    }
+  },
+  "suggest": {
+    "contao-themes-net/mate-theme-bundle": "Contains an extensive configuration file with over 20 services for the Klaro Consent Manager. You can find out more by clicking on the \"Project website\" button. | Enthält eine umfangreiche Konfigurationsdatei mit über 20 Diensten für den Klaro Consent Manager. Mehr erfährst du über den Button \"Projektwebseite\".",
+    "contao-themes-net/odd-theme-bundle": "Contains an extensive configuration file with over 20 services for the Klaro Consent Manager. You can find out more by clicking on the \"Project website\" button. | Enthält eine umfangreiche Konfigurationsdatei mit über 20 Diensten für den Klaro Consent Manager. Mehr erfährst du über den Button \"Projektwebseite\".",
+    "contao-themes-net/nature-theme-bundle": "Contains an extensive configuration file with over 20 services for the Klaro Consent Manager. You can find out more by clicking on the \"Project website\" button. | Enthält eine umfangreiche Konfigurationsdatei mit über 20 Diensten für den Klaro Consent Manager. Mehr erfährst du über den Button \"Projektwebseite\".",
+    "contao-themes-net/zero-one-theme-bundle": "Contains an extensive configuration file with over 20 services for the Klaro Consent Manager. You can find out more by clicking on the \"Project website\" button. | Enthält eine umfangreiche Konfigurationsdatei mit über 20 Diensten für den Klaro Consent Manager. Mehr erfährst du über den Button \"Projektwebseite\".",
+    "contao-themes-net/convert-theme-bundle": "Contains an extensive configuration file with over 20 services for the Klaro Consent Manager. You can find out more by clicking on the \"Project website\" button. | Enthält eine umfangreiche Konfigurationsdatei mit über 20 Diensten für den Klaro Consent Manager. Mehr erfährst du über den Button \"Projektwebseite\"."
+  }
+}

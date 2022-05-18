@@ -1,0 +1,29 @@
+services:
+
+    pdir.klaro.configlistener:
+        class: Pdir\ContaoKlaroConsentManager\EventListener\KlaroConfigListener
+        arguments:
+            - "@request_stack"
+            - "@session"
+            - "@logger"
+
+    pdir.klaro.servicelistener:
+        class: Pdir\ContaoKlaroConsentManager\EventListener\KlaroServiceListener
+        arguments:
+            - "@request_stack"
+            - "@session"
+            - "@logger"
+
+    pdir.klaro.translationlistener:
+        class: Pdir\ContaoKlaroConsentManager\EventListener\KlaroTranslationListener
+        arguments:
+            - "@request_stack"
+            - "@session"
+            - "@logger"
+
+    pdir.klaro.contentlistener:
+        class: Pdir\ContaoKlaroConsentManager\EventListener\KlaroContentListener
+        arguments:
+            - "@request_stack"
+            - "@session"
+            - "@logger"

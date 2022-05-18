@@ -1,0 +1,17 @@
+<?php $this->extend('block_searchable'); ?>
+
+<?php $this->block('content'); ?>
+<div data-name="contao-ce-text">
+  <?php if (!$this->addBefore): ?>
+    <?= $this->text ?>
+  <?php endif; ?>
+
+  <?php if ($this->addImage): ?>
+    <?php $this->insert('image', $this->arrData); ?>
+  <?php endif; ?>
+
+  <?php if ($this->addBefore): ?>
+    <?= $this->text ?>
+  <?php endif; ?>
+</div>
+<?php $this->endblock(); ?>
