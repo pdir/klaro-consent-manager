@@ -32,7 +32,7 @@ $GLOBALS['TL_LANG']['tl_klaro_service'] = [
     'title_legend' => 'Name',
     'title' => ["Name der $sgl-Konfiguration", 'Geben Sie einen Namen für diese Konfiguration ein.'],
     // service legend
-    'service_legend' => "$sgl-Name und Zwecke",
+    'service_legend' => "$sgl-Name, Zwecke und Cookie-Regeln",
     'name' => ["Name des {$sgl}es", "Geben Sie den Namen für den $sgl ein, den $klaro intern als Symbol für diesen Dienst verwendet."],
     'purposes' => ['Zwecke', "Wählen Sie hier mindestens einen Zweck, dem dieser Dienst zugeordnet ist. Ist die Liste leer, so müssen Sie zuerst unter dem Menüpunkt &raquo;$klaro-Zwecke&laquo; mindestens einen Zweck definieren."],
     'cookies' => ['Cookie-Regeln', "Die Cookie-Regeln sind etwas kompliziert. <a style='color:green;' href='https://heyklaro.com/docs/integration/annotated-configuration'>Hier finden Sie nähere Informationen zu den $klaro-Cookie-Regeln.</a>"],

@@ -59,7 +59,6 @@ function handleService(consent, state)
                 condition = (state === 'show' ? c : !c),
                 condition2 = (consent === 'agreed' ? condition : !condition);
             el.style.display = condition2 ? 'block' : 'none';
-console.log(service,consent,state,condition,condition2);
         }
     )
 }
@@ -70,9 +69,7 @@ console.log(service,consent,state,condition,condition2);
  * @type {{update: watcher1.update}}
  */
 watcher1 = {
-    update: function(obj, name, consents) {
-console.log(consents);
-    }
+    update: function(obj, name, consents) {}
 }
 
 /*  register the watcher */

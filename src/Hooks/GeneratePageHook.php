@@ -82,21 +82,20 @@ class GeneratePageHook
 
         $root = Frontend::getRootPageFromUrl();
 
-        // check for Klaro default translation zz
-        if (($this->translationZZ = KlaroTranslationModel::findByLang_code('zz')) === null) {
-            throw new \Exception();
-        }
-        // check for Klaro current page translation
-        if (($this->translationPage = KlaroTranslationModel::findByLang_code($objPage->language)) === null) {
-            throw new \Exception();
-        }
-
-        $this->arrTranslations = array_merge($this->translationZZ->fetchAll(), $this->translationPage->fetchAll());
-
         // Check if klaro must be loaded
         if (!$root->includeKlaro && 0 !== $root->klaroConfig) {
             return;
         }
+        // at first, check for Klaro current page translation
+        if (($this->translationPage = KlaroTranslationModel::findByLang_code($objPage->language)) === null) {
+            throw new \Exception("No Klaro Translation for Language '$objPage->language' found. Please create a Klaro Translation.");
+        }
+        // if no translation given, check for a Klaro default translation zz
+        if (($this->translationZZ = KlaroTranslationModel::findByLang_code('zz')) === null) {
+            throw new \Exception("No Klaro Translation for Language 'zz' found. Please create a Klaro Translation.");
+        }
+
+        $this->arrTranslations = array_merge($this->translationZZ->fetchAll(), $this->translationPage->fetchAll());
 
         // check if current page is in exclude list
         if (null !== $root->klaroExclude) {
@@ -297,20 +296,19 @@ class GeneratePageHook
      */
     private function buildConfigTranslationPurposes($klaroConfigModel)
     {
-        // checking the given translations - by default two translations should be available
+        // checks the given translations - by default two translations should be available
         // standard page language given?
         if ($this->translationPage) {
-            $arrPurposes = StringUtil::deserialize($this->translationPage->purposes);
+            $arrPurposes = StringUtil::deserialize($this->translationPage->purposes) ?? [];
         }
         // fallback page language given?
         elseif ($this->translationZZ) {
-            $arrPurposes = StringUtil::deserialize($this->translationZZ->purposes);
+            $arrPurposes = StringUtil::deserialize($this->translationZZ->purposes) ?? [];
         }
-        // ToDo: no translation is given
         else {
             $arrPurposes = [];
         }
-        // assemble
+
         $strPurposes = '';
 
         foreach ($arrPurposes as $translation) {

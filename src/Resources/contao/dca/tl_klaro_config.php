@@ -82,10 +82,10 @@ $GLOBALS['TL_DCA'][$strTable] = [
         'default' => '{title_legend},title;'.
             '{services_legend},services;'.
             '{script_legend},scriptLoadingMode,myConfigVariableName;'.
-            '{consent_legend},noticeAsModal,mustConsent,default,acceptAll,hideDeclineAll,hideLearnMore,hideModal;'.
+            '{consent_legend},htmlTexts,noticeAsModal,mustConsent,default,acceptAll,hideDeclineAll,hideLearnMore,hideModal;'.
             '{cookie_legend},elementID,storageName,storageMethod,cookieDomain,cookieExpiresAfterDays;'.
             '{callback_legend},callback;'.
-            '{expert_legend},htmlTexts,testing;',
+            '{expert_legend},testing;',
     ],
     // Subpalettes
     'subpalettes' => [],
