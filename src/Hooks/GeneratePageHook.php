@@ -19,6 +19,7 @@ declare(strict_types=1);
 
 namespace Pdir\ContaoKlaroConsentManager\Hooks;
 
+use Contao\CoreBundle\Monolog\ContaoContext;
 use Contao\CoreBundle\ServiceAnnotation\Hook;
 use Contao\Frontend;
 use Contao\FrontendTemplate;
@@ -29,6 +30,7 @@ use Contao\StringUtil;
 use Pdir\ContaoKlaroConsentManager\Model\KlaroConfigModel;
 use Pdir\ContaoKlaroConsentManager\Model\KlaroPurposeModel;
 use Pdir\ContaoKlaroConsentManager\Model\KlaroTranslationModel;
+use Psr\Log\LoggerInterface;
 use Twig\Environment as TwigEnvironment;
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
@@ -43,7 +45,15 @@ use Twig\Error\SyntaxError;
  */
 class GeneratePageHook
 {
+    /**
+     * @var TwigEnvironment
+     */
     private $twig;
+
+    /**
+     * @var LoggerInterface
+     */
+    private $logger;
 
     /**
      * the Klaro fallback language code zz:.
@@ -66,9 +76,10 @@ class GeneratePageHook
      */
     private $arrTranslations = [];
 
-    public function __construct(TwigEnvironment $twig)
+    public function __construct(TwigEnvironment $twig, LoggerInterface $logger)
     {
         $this->twig = $twig;
+        $this->logger = $logger;
     }
 
     /**
@@ -80,15 +91,22 @@ class GeneratePageHook
     {
         global $objPage;
 
+        // build a logger context
+        $arrContext = ['contao' => new ContaoContext(__METHOD__, ContaoContext::ERROR)];
+
         $root = Frontend::getRootPageFromUrl();
 
         // check for Klaro default translation zz
         if (($this->translationZZ = KlaroTranslationModel::findByLang_code('zz')) === null) {
-            throw new \Exception();
+            $this->logger->alert("Klaro is not properly configured at the moment. The fallback language 'zz' is missing. Please define an fallback language for the locale 'zz' in your 'Translations'.", $arrContext);
+
+            return;
         }
         // check for Klaro current page translation
         if (($this->translationPage = KlaroTranslationModel::findByLang_code($objPage->language)) === null) {
-            throw new \Exception();
+            $this->logger->alert("Klaro is not properly configured at the moment. The page default language '{$objPage->language}' is missing. Please define the page default language for the locale '{$objPage->language}' in your 'Translations'.", $arrContext);
+
+            return;
         }
 
         $this->arrTranslations = array_merge($this->translationZZ->fetchAll(), $this->translationPage->fetchAll());

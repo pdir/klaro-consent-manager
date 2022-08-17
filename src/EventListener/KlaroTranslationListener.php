@@ -19,7 +19,6 @@ declare(strict_types=1);
 
 namespace Pdir\ContaoKlaroConsentManager\EventListener;
 
-use Contao\BackendUser;
 use Contao\CoreBundle\ServiceAnnotation\Callback;
 use Contao\DataContainer;
 use Contao\Message;
@@ -32,21 +31,8 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class KlaroTranslationListener
 {
-    private $request;
-
-    private $session;
-
-    private $logger;
-
     public function __construct(RequestStack $requestStack, SessionInterface $session, LoggerInterface $logger)
     {
-        $this->request = $requestStack->getCurrentRequest();
-        $this->session = $session;
-        $this->user = BackendUser::getInstance();
-        $this->logger = $logger;
-
-        // handle session bag
-        $this->beBag = $this->session->getBag('contao_backend');
     }
 
     /**
@@ -83,9 +69,13 @@ class KlaroTranslationListener
      */
     public function purposesSave($value, DataContainer $dc)
     {
-        $savedPurposes = StringUtil::deserialize($value ?? []);
-        $availablePurposes = KlaroPurposeModel::findAll()->fetchEach('klaro_key');
-        $savedPurposesValues = array_map(static function ($value) { return $value['key']; }, $savedPurposes);
+        // tolerant treatment of missing parameters
+        if (null === $purposeModel = KlaroPurposeModel::findAll()) {
+            return $value;
+        }
+
+        $availablePurposes = $purposeModel->fetchEach('klaro_key');
+        $savedPurposesValues = array_map(static function ($value) { return $value['key']; }, StringUtil::deserialize($value ?? []));
         $arrDifferences = array_diff($savedPurposesValues, $availablePurposes);
 
         if (0 !== \count($arrDifferences)) {
@@ -137,9 +127,13 @@ class KlaroTranslationListener
      */
     public function servicesSave($value, DataContainer $dc)
     {
-        $savedServices = StringUtil::deserialize($value ?? []);
-        $availableServices = KlaroServiceModel::findAll()->fetchEach('name');
-        $savedServicesValues = array_map(static function ($value) { return $value['key']; }, $savedServices);
+        // tolerant treatment of missing parameters
+        if (null === $serviceModel = KlaroServiceModel::findAll()) {
+            return $value;
+        }
+
+        $availableServices = $serviceModel->fetchEach('name');
+        $savedServicesValues = array_map(static function ($value) { return $value['key']; }, StringUtil::deserialize($value ?? []));
         $arrDifferences = array_diff($savedServicesValues, $availableServices);
 
         if (0 !== \count($arrDifferences)) {

@@ -6,6 +6,9 @@ services:
     # Hooks
     pdir.klaro.hooks.generatepage:
         class: Pdir\ContaoKlaroConsentManager\Hooks\GeneratePageHook
+        arguments:
+            - "@twig"
+            - "@logger"
 
     pdir.klaro.hooks.getcontentelement:
         class: Pdir\ContaoKlaroConsentManager\Hooks\GetContentElementHook
