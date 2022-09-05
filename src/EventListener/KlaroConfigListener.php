@@ -20,7 +20,6 @@ declare(strict_types=1);
 namespace Pdir\ContaoKlaroConsentManager\EventListener;
 
 use Contao\BackendUser;
-use Contao\CoreBundle\ServiceAnnotation\Callback;
 use Contao\DataContainer;
 use Pdir\ContaoKlaroConsentManager\Model\KlaroServiceModel;
 use Psr\Log\LoggerInterface;

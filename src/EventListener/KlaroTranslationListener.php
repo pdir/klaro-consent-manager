@@ -75,7 +75,7 @@ class KlaroTranslationListener
         }
 
         $availablePurposes = $purposeModel->fetchEach('klaro_key');
-        $savedPurposesValues = array_map(static function ($value) { return $value['key']; }, StringUtil::deserialize($value ?? []));
+        $savedPurposesValues = array_map(static fn ($value) => $value['key'], StringUtil::deserialize($value ?? []));
         $arrDifferences = array_diff($savedPurposesValues, $availablePurposes);
 
         if (0 !== \count($arrDifferences)) {
@@ -133,7 +133,7 @@ class KlaroTranslationListener
         }
 
         $availableServices = $serviceModel->fetchEach('name');
-        $savedServicesValues = array_map(static function ($value) { return $value['key']; }, StringUtil::deserialize($value ?? []));
+        $savedServicesValues = array_map(static fn ($value) => $value['key'], StringUtil::deserialize($value ?? []));
         $arrDifferences = array_diff($savedServicesValues, $availableServices);
 
         if (0 !== \count($arrDifferences)) {
@@ -163,23 +163,23 @@ class KlaroTranslationListener
         [$label, $tip] = $GLOBALS['TL_LANG']['tl_klaro_translation']['ccMonitor'];
 
         return <<< HTML
-<div class="clr widget">
-    <h3>
-        <label for="ctrl_ccAcceptAlways">$label</label>
-    </h3>
-    <div data-type="placeholder">
-        <div class="klaro cm-as-context-notice" lang="de" >
-            <div class="context-notice" >
-                <p id="ccmQuestion">Translation?</p>
-                <p class="cm-buttons">
-                    <button id="ccmButtonOnce" class="cm-btn cm-btn-success" type="button">Ja</button>
-                    <button id="ccmButtonAlways" class="cm-btn cm-btn-success-var" type="button">Immer</button>
-                </p>
+            <div class="clr widget">
+                <h3>
+                    <label for="ctrl_ccAcceptAlways">$label</label>
+                </h3>
+                <div data-type="placeholder">
+                    <div class="klaro cm-as-context-notice" lang="de" >
+                        <div class="context-notice" >
+                            <p id="ccmQuestion">Translation?</p>
+                            <p class="cm-buttons">
+                                <button id="ccmButtonOnce" class="cm-btn cm-btn-success" type="button">Ja</button>
+                                <button id="ccmButtonAlways" class="cm-btn cm-btn-success-var" type="button">Immer</button>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <p class="tl_help tl_tip" title="">$tip</p>
             </div>
-        </div>
-    </div>
-    <p class="tl_help tl_tip" title="">$tip</p>
-</div>
-HTML;
+            HTML;
     }
 }
