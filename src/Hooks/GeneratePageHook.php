@@ -102,7 +102,7 @@ class GeneratePageHook
 
             return;
         }
-        // check for Klaro current page translation
+        // at first, check for Klaro current page translation
         if (($this->translationPage = KlaroTranslationModel::findByLang_code($objPage->language)) === null) {
             $this->logger->alert("Klaro is not properly configured at the moment. The page default language '{$objPage->language}' is missing. Please define the page default language for the locale '{$objPage->language}' in your 'Translations'.", $arrContext);
 
@@ -110,11 +110,6 @@ class GeneratePageHook
         }
 
         $this->arrTranslations = array_merge($this->translationZZ->fetchAll(), $this->translationPage->fetchAll());
-
-        // Check if klaro must be loaded
-        if (!$root->includeKlaro && 0 !== $root->klaroConfig) {
-            return;
-        }
 
         // check if current page is in exclude list
         if (null !== $root->klaroExclude) {
@@ -315,20 +310,19 @@ class GeneratePageHook
      */
     private function buildConfigTranslationPurposes($klaroConfigModel)
     {
-        // checking the given translations - by default two translations should be available
+        // checks the given translations - by default two translations should be available
         // standard page language given?
         if ($this->translationPage) {
-            $arrPurposes = StringUtil::deserialize($this->translationPage->purposes);
+            $arrPurposes = StringUtil::deserialize($this->translationPage->purposes) ?? [];
         }
         // fallback page language given?
         elseif ($this->translationZZ) {
-            $arrPurposes = StringUtil::deserialize($this->translationZZ->purposes);
+            $arrPurposes = StringUtil::deserialize($this->translationZZ->purposes) ?? [];
         }
-        // ToDo: no translation is given
         else {
             $arrPurposes = [];
         }
-        // assemble
+
         $strPurposes = '';
 
         foreach ($arrPurposes as $translation) {

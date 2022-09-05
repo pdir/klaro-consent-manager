@@ -33,5 +33,5 @@ $GLOBALS['TL_LANG']['tl_klaro_purpose'] = [
     'title' => ['Name des Zwecks', 'Geben Sie einen Namen für diesen Zweck ein.'],
     // purpose legend
     'purpose_legend' => 'Zweck',
-    'klaro_key' => ['Klaro Schlüssel', "Geben Sie hier die Zeichenkette ein, die $klaro intern als einheitlichen Schlüssel für diesen Zweck verwendet."],
+    'klaro_key' => ['Klaro Schlüssel', "Geben Sie hier die Zeichenkette ein, die $klaro intern als einheitlichen Schlüssel für diesen Zweck verwendet. Es sind nur Kleinbuchstaben und der Bindestrich zulässig!"],
 ];
