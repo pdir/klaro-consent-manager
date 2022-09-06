@@ -43,18 +43,24 @@ class KlaroTranslationListener
      */
     public function purposesLoad($value, DataContainer $dc)
     {
-        $storedPurposes = StringUtil::deserialize($value ?? []);
+        $flattenStoredPurposes = $this->flatten(StringUtil::deserialize($value ?? []));
         $availablePurposes = KlaroPurposeModel::findAll();
+        $buffer = [];
 
-        $arr = [];
-
-        if (0 === \count($storedPurposes)) {
-            foreach ($availablePurposes as $i => $ap) {
-                $arr[$i] = ['key' => $ap->klaro_key, 'value' => '?'];
+        if (null !== $availablePurposes)
+        {
+            foreach ($availablePurposes as $ap)
+            {
+                // if the stored value is empty, the value defined in the table is used instead
+                $buffer[] = ['key' => $ap->klaro_key, 'value' => empty($flattenStoredPurposes[$ap->klaro_key]) ? $ap->title : $flattenStoredPurposes[$ap->klaro_key]];
             }
-            $value = serialize($arr);
-        }
+            $value = serialize($buffer);
+        } else {
+            // Klaro is not yet configured correctly
+            $GLOBALS['TL_DCA']['tl_klaro_translation']['fields']['purposes']['eval']['disabled'] = true;
+            Message::addError($GLOBALS['TL_LANG']['tl_klaro_translation']['purposes_empty']);
 
+        }
         return $value;
     }
 
@@ -101,18 +107,24 @@ class KlaroTranslationListener
      */
     public function servicesLoad($value, DataContainer $dc)
     {
-        $storedServices = StringUtil::deserialize($value ?? []);
+        $flattenStoredServices = $this->flatten(StringUtil::deserialize($value ?? []));
         $availableServices = KlaroServiceModel::findAll();
+        $buffer = [];
 
-        $arr = [];
-
-        if (0 === \count($storedServices)) {
-            foreach ($availableServices as $i => $as) {
-                $arr[$i] = ['key' => $as->name, 'value' => '?'];
+        if (null !== $availableServices)
+        {
+            foreach ($availableServices as $as)
+            {
+                // if the stored value is empty, the value defined in the table is used instead
+                $buffer[] = ['key' => $as->name, 'value' => empty($flattenStoredServices[$as->name]) ? $as->title : $flattenStoredServices[$as->name]];
             }
-            $value = serialize($arr);
-        }
+            $value = serialize($buffer);
+        } else {
+            // Klaro is not yet configured correctly
+            $GLOBALS['TL_DCA']['tl_klaro_translation']['fields']['services']['eval']['disabled'] = true;
+            Message::addError($GLOBALS['TL_LANG']['tl_klaro_translation']['services_empty']);
 
+        }
         return $value;
     }
 
@@ -181,5 +193,30 @@ class KlaroTranslationListener
                 <p class="tl_help tl_tip" title="">$tip</p>
             </div>
             HTML;
+    }
+
+    /**
+     * transforms the result of the key-value-wizzard from
+     *
+     *      [
+     *          0 => [key1 => value],
+     *          1 => [key2 => value],
+     *          n => [key3 => value],
+     *      ]
+     * to
+     *      [key1 => value, key2 => value, keyn => value]
+     *
+     * the keys must be unique!
+     *
+     * @param $arr
+     * @return array
+     */
+    private function flatten($arr):array
+    {
+        $buffer = [];
+
+        foreach($arr as $i => $data) { $buffer[$data['key']] = $data['value']; }
+
+        return $buffer;
     }
 }

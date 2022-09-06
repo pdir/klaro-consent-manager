@@ -61,7 +61,7 @@
   },
   "scripts": {
     "cs-fixer": [
-      "vendor/bin/ecs check src/ tests/ --fix --ansi"
+      "@php vendor/bin/ecs check src/ tests/ --fix --ansi"
     ]
   },
   "config": {
