@@ -25,6 +25,8 @@ use Contao\ManagerPlugin\Bundle\Parser\ParserInterface;
 
 /**
  * Class Plugin.
+ *
+ * @codeCoverageIgnore
  */
 class Plugin implements BundlePluginInterface
 {

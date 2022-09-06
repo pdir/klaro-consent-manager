@@ -318,11 +318,11 @@ class GeneratePageHook
         // checking the given translations - by default two translations should be available
         // standard page language given?
         if ($this->translationPage) {
-            $arrPurposes = StringUtil::deserialize($this->translationPage->purposes);
+            $arrPurposes = StringUtil::deserialize($this->translationPage->purposes) ?? [];
         }
         // fallback page language given?
         elseif ($this->translationZZ) {
-            $arrPurposes = StringUtil::deserialize($this->translationZZ->purposes);
+            $arrPurposes = StringUtil::deserialize($this->translationZZ->purposes) ?? [];
         }
         // ToDo: no translation is given
         else {

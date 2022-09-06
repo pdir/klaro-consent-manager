@@ -26,6 +26,8 @@ use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 
 /**
  * Class PdirContaoKlaroConsentManagerExtension.
+ *
+ * @codeCoverageIgnore
  */
 class PdirContaoKlaroConsentManagerExtension extends Extension
 {

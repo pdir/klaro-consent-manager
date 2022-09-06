@@ -60,9 +60,12 @@
     "source": "https://github.com/pdir/klaro-consent-manager"
   },
   "scripts": {
-    "cs-fixer": [
-      "@php vendor/bin/ecs check src/ tests/ --fix --ansi"
-    ]
+    "all": [
+      "@cs-fixer",
+      "@phpunit"
+    ],
+    "cs-fixer": "@php vendor/bin/ecs check src/ tests/ --fix --ansi",
+    "phpunit": "@php vendor\\bin\\phpunit --configuration phpunit.xml --coverage-text --log-junit report.xml"
   },
   "config": {
     "allow-plugins": {
