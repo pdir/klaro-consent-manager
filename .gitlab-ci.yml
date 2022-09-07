@@ -20,7 +20,7 @@ php:7.4:
 
 php:8.0:
     # This docker image comes with composer and ant.
-    image: jorge07/alpine-php:8.0-dev
+    image: mettepdirde/alpine-php:8.0-dev
     script:
         - vendor/bin/phpunit --configuration phpunit.xml --coverage-text --log-junit report.xml
 #        - vendor/bin/ecs check src tests
@@ -31,7 +31,7 @@ php:8.0:
 
 php:8.1:
     # This docker image comes with composer and ant.
-    image: jorge07/alpine-php:8.1-dev
+    image: mettepdirde/alpine-php:8.1-dev
     script:
         - vendor/bin/phpunit --configuration phpunit.xml --coverage-text --log-junit report.xml
     #        - vendor/bin/ecs check src tests
