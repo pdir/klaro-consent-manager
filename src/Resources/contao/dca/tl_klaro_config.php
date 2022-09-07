@@ -17,14 +17,20 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
+use Contao\DC_Table;
+use Contao\System;
+
 $strTable = 'tl_klaro_config';
+
+System::loadLanguageFile($strTable);
+
 /*
  * Table tl_klaro_config
  */
 $GLOBALS['TL_DCA'][$strTable] = [
     // Config
     'config' => [
-        'dataContainer' => 'Table',
+        'dataContainer' => DC_Table::class,
         'enableVersioning' => true,
         'sql' => [
             'keys' => [

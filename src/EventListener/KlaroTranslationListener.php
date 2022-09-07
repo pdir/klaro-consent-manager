@@ -31,10 +31,6 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class KlaroTranslationListener
 {
-    public function __construct(RequestStack $requestStack, SessionInterface $session, LoggerInterface $logger)
-    {
-    }
-
     /**
      * @Callback(
      *     table="tl_klaro_translation",

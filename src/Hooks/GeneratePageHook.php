@@ -373,9 +373,7 @@ class GeneratePageHook
     private function buildConfigServices(KlaroConfigModel $klaroConfigModel): string
     {
         // get all services for the given config
-        if (null !== $klaroConfigModel->services) {
-            $services = $klaroConfigModel->getRelated('services');
-        }
+        $services = !is_null($klaroConfigModel->services) ? $klaroConfigModel->getRelated('services') : null;
 
         // adjust fields
         $serviceFieldsCallback = static function (&$value, $key, $_this): void {

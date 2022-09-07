@@ -17,10 +17,12 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
+use Contao\System;
 use Pdir\ContaoKlaroConsentManager\Model\KlaroConfigModel;
 use Pdir\ContaoKlaroConsentManager\Model\KlaroPurposeModel;
 use Pdir\ContaoKlaroConsentManager\Model\KlaroServiceModel;
 use Pdir\ContaoKlaroConsentManager\Model\KlaroTranslationModel;
+use Symfony\Component\HttpFoundation\Request;
 
 /*
  * Backend modules
@@ -44,14 +46,16 @@ $GLOBALS['BE_MOD']['pdir']['klaro_purpose'] = [
     'tables' => ['tl_klaro_purpose'],
 ];
 
-if (TL_MODE === 'BE') {
+$scopeMatcher = System::getContainer()->get('contao.routing.scope_matcher');
+$currentRequest = System::getContainer()->get('request_stack')->getCurrentRequest() ?? Request::create('');
+
+if ($scopeMatcher->isBackendRequest($currentRequest)) {
     // only BE
     $GLOBALS['TL_CSS'][] = 'bundles/pdircontaoklaroconsentmanager/css/be.css';
-} elseif (TL_MODE === 'FE') {
+} elseif ($scopeMatcher->isFrontendRequest($currentRequest)) {
     // only FE
     $GLOBALS['TL_CSS'][] = 'bundles/pdircontaoklaroconsentmanager/css/fe.css';
 }
-    // both
 
 /*
  * Models
