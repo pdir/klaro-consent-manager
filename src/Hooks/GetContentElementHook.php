@@ -19,7 +19,6 @@ declare(strict_types=1);
 
 namespace Pdir\ContaoKlaroConsentManager\Hooks;
 
-use Contao\ContentElement;
 use Contao\ContentModel;
 use Contao\CoreBundle\ServiceAnnotation\Hook;
 
@@ -28,7 +27,7 @@ use Contao\CoreBundle\ServiceAnnotation\Hook;
  */
 class GetContentElementHook
 {
-    public function __invoke(ContentModel $contentModel, string $buffer, ContentElement $element)
+    public function __invoke(ContentModel $contentModel, string $buffer, $element)
     {
         $arrConsentValues = ['1' => 'agreed', '2' => 'rejected'];
         $arrStateValues = ['1' => 'show', '2' => 'hide'];
