@@ -17,14 +17,20 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
+use Contao\DC_Table;
+use Contao\System;
+
 $strTable = 'tl_klaro_config';
+
+System::loadLanguageFile($strTable);
+
 /*
  * Table tl_klaro_config
  */
 $GLOBALS['TL_DCA'][$strTable] = [
     // Config
     'config' => [
-        'dataContainer' => 'Table',
+        'dataContainer' => DC_Table::class,
         'enableVersioning' => true,
         'sql' => [
             'keys' => [
@@ -82,10 +88,10 @@ $GLOBALS['TL_DCA'][$strTable] = [
         'default' => '{title_legend},title;'.
             '{services_legend},services;'.
             '{script_legend},scriptLoadingMode,myConfigVariableName;'.
-            '{consent_legend},noticeAsModal,mustConsent,default,acceptAll,hideDeclineAll,hideLearnMore,hideModal;'.
+            '{consent_legend},htmlTexts,noticeAsModal,mustConsent,default,acceptAll,hideDeclineAll,hideLearnMore,hideModal;'.
             '{cookie_legend},elementID,storageName,storageMethod,cookieDomain,cookieExpiresAfterDays;'.
             '{callback_legend},callback;'.
-            '{expert_legend},htmlTexts,testing;',
+            '{expert_legend},testing;',
     ],
     // Subpalettes
     'subpalettes' => [],

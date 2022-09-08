@@ -19,6 +19,7 @@ declare(strict_types=1);
 
 namespace Pdir\ContaoKlaroConsentManager\Hooks;
 
+use Contao\CoreBundle\Monolog\ContaoContext;
 use Contao\CoreBundle\ServiceAnnotation\Hook;
 use Contao\Frontend;
 use Contao\FrontendTemplate;
@@ -29,6 +30,7 @@ use Contao\StringUtil;
 use Pdir\ContaoKlaroConsentManager\Model\KlaroConfigModel;
 use Pdir\ContaoKlaroConsentManager\Model\KlaroPurposeModel;
 use Pdir\ContaoKlaroConsentManager\Model\KlaroTranslationModel;
+use Psr\Log\LoggerInterface;
 use Twig\Environment as TwigEnvironment;
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
@@ -43,7 +45,15 @@ use Twig\Error\SyntaxError;
  */
 class GeneratePageHook
 {
+    /**
+     * @var TwigEnvironment
+     */
     private $twig;
+
+    /**
+     * @var LoggerInterface
+     */
+    private $logger;
 
     /**
      * the Klaro fallback language code zz:.
@@ -66,9 +76,10 @@ class GeneratePageHook
      */
     private $arrTranslations = [];
 
-    public function __construct(TwigEnvironment $twig)
+    public function __construct(TwigEnvironment $twig, LoggerInterface $logger)
     {
         $this->twig = $twig;
+        $this->logger = $logger;
     }
 
     /**
@@ -80,23 +91,25 @@ class GeneratePageHook
     {
         global $objPage;
 
+        // build a logger context
+        $arrContext = ['contao' => new ContaoContext(__METHOD__, ContaoContext::ERROR)];
+
         $root = Frontend::getRootPageFromUrl();
 
         // check for Klaro default translation zz
         if (($this->translationZZ = KlaroTranslationModel::findByLang_code('zz')) === null) {
-            throw new \Exception();
+            $this->logger->alert("Klaro is not properly configured at the moment. The fallback translation 'zz' is missing. Please define an fallback language for the locale 'zz' in your 'Translations'.", $arrContext);
+
+            return;
         }
-        // check for Klaro current page translation
+        // at first, check for Klaro current page translation
         if (($this->translationPage = KlaroTranslationModel::findByLang_code($objPage->language)) === null) {
-            throw new \Exception();
+            $this->logger->alert("Klaro is not properly configured at the moment. The page default language '{$objPage->language}' is missing. Please define the page default language for the locale '{$objPage->language}' in your 'Translations'.", $arrContext);
+
+            return;
         }
 
         $this->arrTranslations = array_merge($this->translationZZ->fetchAll(), $this->translationPage->fetchAll());
-
-        // Check if klaro must be loaded
-        if (!$root->includeKlaro && 0 !== $root->klaroConfig) {
-            return;
-        }
 
         // check if current page is in exclude list
         if (null !== $root->klaroExclude) {
@@ -297,20 +310,19 @@ class GeneratePageHook
      */
     private function buildConfigTranslationPurposes($klaroConfigModel)
     {
-        // checking the given translations - by default two translations should be available
+        // checks the given translations - by default two translations should be available
         // standard page language given?
         if ($this->translationPage) {
-            $arrPurposes = StringUtil::deserialize($this->translationPage->purposes);
+            $arrPurposes = StringUtil::deserialize($this->translationPage->purposes) ?? [];
         }
         // fallback page language given?
         elseif ($this->translationZZ) {
-            $arrPurposes = StringUtil::deserialize($this->translationZZ->purposes);
+            $arrPurposes = StringUtil::deserialize($this->translationZZ->purposes) ?? [];
         }
-        // ToDo: no translation is given
         else {
             $arrPurposes = [];
         }
-        // assemble
+
         $strPurposes = '';
 
         foreach ($arrPurposes as $translation) {
@@ -355,9 +367,7 @@ class GeneratePageHook
     private function buildConfigServices(KlaroConfigModel $klaroConfigModel): string
     {
         // get all services for the given config
-        if (null !== $klaroConfigModel->services) {
-            $services = $klaroConfigModel->getRelated('services');
-        }
+        $services = !is_null($klaroConfigModel->services) ? $klaroConfigModel->getRelated('services') : null;
 
         // adjust fields
         $serviceFieldsCallback = static function (&$value, $key, $_this): void {

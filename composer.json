@@ -28,8 +28,8 @@
     }
   ],
   "require": {
-    "php": "^7.2 || ^8.0",
-    "contao/core-bundle": "^4.9"
+    "php": "^7.4 || ^8.0 || ^8.1",
+    "contao/core-bundle": "^4.9 || ^5.0"
   },
   "conflict": {
     "contao/core": "*",
@@ -60,9 +60,12 @@
     "source": "https://github.com/pdir/klaro-consent-manager"
   },
   "scripts": {
-    "cs-fixer": [
-      "vendor/bin/ecs check src/ tests/ --fix --ansi"
-    ]
+    "all": [
+      "@cs-fixer",
+      "@phpunit"
+    ],
+    "cs-fixer": "@php vendor/bin/ecs check src/ tests/ --fix --ansi",
+    "phpunit": "@php vendor\\bin\\phpunit --configuration phpunit.xml --coverage-text --log-junit report.xml"
   },
   "config": {
     "allow-plugins": {
