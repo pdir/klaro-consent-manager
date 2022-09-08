@@ -35,7 +35,7 @@ class KlaroTranslationModel extends Model
     public function getPurposeTranslations()
     {
         $result = [];
-        $arrPurposes = StringUtil::deserialize($this->purposes);
+        $arrPurposes = StringUtil::deserialize($this->purposes) ?? [];
         array_walk($arrPurposes, static function ($purpose) use (&$result): void { $result[$purpose['key']] = $purpose['value']; });
 
         return $result;
@@ -47,7 +47,7 @@ class KlaroTranslationModel extends Model
     public function getServiceTranslations()
     {
         $result = [];
-        $arrServices = StringUtil::deserialize($this->services);
+        $arrServices = StringUtil::deserialize($this->services) ?? [];
         array_walk($arrServices, static function ($service) use (&$result): void { $result[$service['key']] = $service['value']; });
 
         return $result;

@@ -19,33 +19,11 @@ declare(strict_types=1);
 
 namespace Pdir\ContaoKlaroConsentManager\EventListener;
 
-use Contao\BackendUser;
-use Contao\CoreBundle\ServiceAnnotation\Callback;
 use Contao\DataContainer;
 use Pdir\ContaoKlaroConsentManager\Model\KlaroServiceModel;
-use Psr\Log\LoggerInterface;
-use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class KlaroConfigListener
 {
-    private $request;
-
-    private $session;
-
-    private $logger;
-
-    public function __construct(RequestStack $requestStack, SessionInterface $session, LoggerInterface $logger)
-    {
-        $this->request = $requestStack->getCurrentRequest();
-        $this->session = $session;
-        $this->user = BackendUser::getInstance();
-        $this->logger = $logger;
-
-        // handle session bag
-        $this->beBag = $this->session->getBag('contao_backend');
-    }
-
     /**
      * Callback(
      *     table="tl_klaro_config",

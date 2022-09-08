@@ -19,8 +19,6 @@ declare(strict_types=1);
 
 namespace Pdir\ContaoKlaroConsentManager;
 
-use Pdir\ContaoKlaroConsentManager\DependencyInjection\PdirContaoKlaroConsentManagerExtension;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 /**
@@ -28,16 +26,4 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
  */
 class PdirContaoKlaroConsentManager extends Bundle
 {
-    public function getContainerExtension(): PdirContaoKlaroConsentManagerExtension
-    {
-        return new PdirContaoKlaroConsentManagerExtension();
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function build(ContainerBuilder $container): void
-    {
-        parent::build($container);
-    }
 }

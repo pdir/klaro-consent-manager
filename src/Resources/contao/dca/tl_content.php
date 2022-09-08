@@ -18,7 +18,9 @@ declare(strict_types=1);
  */
 
 use Contao\CoreBundle\DataContainer\PaletteManipulator;
+use Contao\System;
 
+System::loadLanguageFile('default');
 /*
  * define here the content elements for which a binding to Klaro
  * should be possible. note that for each element further code

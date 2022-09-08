@@ -24,29 +24,9 @@ use Contao\CoreBundle\ServiceAnnotation\Callback;
 use Contao\DataContainer;
 use Pdir\ContaoKlaroConsentManager\Model\KlaroPurposeModel;
 use Pdir\ContaoKlaroConsentManager\Model\KlaroTranslationModel;
-use Psr\Log\LoggerInterface;
-use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class KlaroServiceListener
 {
-    private $request;
-
-    private $session;
-
-    private $logger;
-
-    public function __construct(RequestStack $requestStack, SessionInterface $session, LoggerInterface $logger)
-    {
-        $this->request = $requestStack->getCurrentRequest();
-        $this->session = $session;
-        $this->user = BackendUser::getInstance();
-        $this->logger = $logger;
-
-        // handle session bag
-        $this->beBag = $this->session->getBag('contao_backend');
-    }
-
     /**
      * @Callback(
      *     table="tl_klaro_service",
@@ -68,11 +48,9 @@ class KlaroServiceListener
 
         if (null !== $purposes) {
             foreach ($purposes as $purpose) {
-                $options[$purpose->id] = null === $arrPurposeTranslation[$purpose->klaro_key] ||
-                    '' === $arrPurposeTranslation[$purpose->klaro_key] ||
-                    '?' === $arrPurposeTranslation[$purpose->klaro_key] ?
-                    "[$purpose->klaro_key] translation missing" :
-                    $arrPurposeTranslation[$purpose->klaro_key];
+                $options[$purpose->id] = \array_key_exists($purpose->klaro_key, $arrPurposeTranslation) ?
+                    $arrPurposeTranslation[$purpose->klaro_key] :
+                    "[$purpose->klaro_key] translation missing";
             }
         }
 

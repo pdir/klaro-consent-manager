@@ -98,7 +98,7 @@ class GeneratePageHook
 
         // check for Klaro default translation zz
         if (($this->translationZZ = KlaroTranslationModel::findByLang_code('zz')) === null) {
-            $this->logger->alert("Klaro is not properly configured at the moment. The fallback language 'zz' is missing. Please define an fallback language for the locale 'zz' in your 'Translations'.", $arrContext);
+            $this->logger->alert("Klaro is not properly configured at the moment. The fallback translation 'zz' is missing. Please define an fallback language for the locale 'zz' in your 'Translations'.", $arrContext);
 
             return;
         }
@@ -367,9 +367,7 @@ class GeneratePageHook
     private function buildConfigServices(KlaroConfigModel $klaroConfigModel): string
     {
         // get all services for the given config
-        if (null !== $klaroConfigModel->services) {
-            $services = $klaroConfigModel->getRelated('services');
-        }
+        $services = !is_null($klaroConfigModel->services) ? $klaroConfigModel->getRelated('services') : null;
 
         // adjust fields
         $serviceFieldsCallback = static function (&$value, $key, $_this): void {
