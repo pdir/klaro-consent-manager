@@ -43,17 +43,16 @@ class KlaroContentListener
         $translation = KlaroTranslationModel::findOneByLang_code(BackendUser::getInstance()->language);
         // flatten the purposes array
         $arrServiceTranslation = null !== $translation ? $translation->getServiceTranslations() : [];
-        // get all defined purposes
+
+        // get all defined services
         $services = KlaroServiceModel::findAll();
 
         if (null !== $services) {
             foreach ($services as $service) {
-                $options[$service->id] =
-                    null === $arrServiceTranslation[$service->name] ||
-                    '' === $arrServiceTranslation[$service->name] ||
-                    '?' === $arrServiceTranslation[$service->name] ?
-                    "[$service->name] translation missing" :
-                    $arrServiceTranslation[$service->name];
+                // check available translation
+                $options[$service->id] = \array_key_exists($service->name, $arrServiceTranslation) ?
+                    $arrServiceTranslation[$service->name] :
+                    "[$service->name] translation missing";
             }
         }
 
