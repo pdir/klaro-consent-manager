@@ -109,6 +109,8 @@ class GeneratePageHook
             return;
         }
 
+dump($this->translationPage);
+
         $this->arrTranslations = array_merge($this->translationZZ->fetchAll(), $this->translationPage->fetchAll());
 
         // check if current page is in exclude list
@@ -142,7 +144,9 @@ class GeneratePageHook
         $cssTemplate->version = 'v0.7'; // only for CDN
 
         // prepare translations
-        $translationsTemplate = $this->buildConfigTranslations($klaroConfig);
+        $translationsTemplate = "\n" . $this->buildConfigTranslations($klaroConfig);
+
+dump($translationsTemplate);
 
         // prepare services
         $servicesTemplate = $this->buildConfigServices($klaroConfig);
@@ -271,16 +275,17 @@ class GeneratePageHook
             $pm = PageModel::findByPk($translation['privacyPolicyUrl']);
 
             $template .= $this->keyToObject(
+                // the lang code xx:
                 $translation['lang_code'],
-                // privacyPolicy
-                $this->keyToString('privacyPolicyUrl', null === $pm ? '' : $pm->getFrontendUrl(), $klaroConfigModel, 12).
-                // consentNotice
-                $this->keyToObject('consentNotice', $this->keyToString('description', $translation['consentNotice'], $klaroConfigModel, 16), 12).
-                // consentModal
-                $this->keyToObject('consentModal', $this->keyToString('description', $translation['consentModal'], $klaroConfigModel, 16), 12).
-                // contextualConsent - not documented, see klaro.js line 1904 ff
-                $this->buildContextualConsentTranslation($translation, $klaroConfigModel).
-                // purposes
+                //      privacyPolicyUrl:
+                $this->keyToString('privacyPolicyUrl', null === $pm ? '' : $pm->getFrontendUrl(), $klaroConfigModel, 12) .
+                //      consentNotice:
+                $this->keyToObject('consentNotice', $this->keyToString('description', $translation['consentNotice'], $klaroConfigModel, 16), 12) .
+                //      consentModal:
+                $this->keyToObject('consentModal', $this->keyToString('description', $translation['consentModal'], $klaroConfigModel, 16), 12) .
+                //      contextualConsent - not documented, see klaro.js line 1904 ff
+                $this->buildContextualConsentTranslation($translation, $klaroConfigModel) .
+                //      purposes:
                 $this->keyToObject('purposes', $this->buildConfigTranslationPurposes($klaroConfigModel), 12), 8);
         }
 
@@ -313,25 +318,31 @@ class GeneratePageHook
         // checks the given translations - by default two translations should be available
         // standard page language given?
         if ($this->translationPage) {
+dump("standard page language given:  {$this->translationPage->lang_code}");
             $arrPurposes = StringUtil::deserialize($this->translationPage->purposes) ?? [];
+dump($arrPurposes);
         }
         // fallback page language given?
         elseif ($this->translationZZ) {
+dump("fallback page language given:  {$this->translationPage->lang_code}");
             $arrPurposes = StringUtil::deserialize($this->translationZZ->purposes) ?? [];
         }
         else {
+dump("no language is given:  {$this->translationPage->lang_code}");
             $arrPurposes = [];
         }
 
         $strPurposes = '';
 
+dump($arrPurposes);
         foreach ($arrPurposes as $translation) {
             $strPurposes .= $this->keyToObject(
+                // purposes:
                 $translation['key'],
                 $this->keyToString('title', $translation['value'], $klaroConfigModel, 20), 16
             );
         }
-
+dump($strPurposes);
         return $strPurposes;
     }
 

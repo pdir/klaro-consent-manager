@@ -23,14 +23,22 @@ use Contao\CoreBundle\ServiceAnnotation\Callback;
 use Contao\DataContainer;
 use Contao\Message;
 use Contao\StringUtil;
+use Doctrine\DBAL\Connection;
 use Pdir\ContaoKlaroConsentManager\Model\KlaroPurposeModel;
 use Pdir\ContaoKlaroConsentManager\Model\KlaroServiceModel;
+use Pdir\ContaoKlaroConsentManager\Model\KlaroTranslationModel;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class KlaroTranslationListener
 {
+
+    public function __construct(Connection $connection)
+    {
+        $this->connection = $connection;
+    }
+
     /**
      * @Callback(
      *     table="tl_klaro_translation",
@@ -40,6 +48,7 @@ class KlaroTranslationListener
     public function purposesLoad($value, DataContainer $dc)
     {
         $flattenStoredPurposes = $this->flatten(StringUtil::deserialize($value ?? []));
+
         $availablePurposes = KlaroPurposeModel::findAll();
         $buffer = [];
 
@@ -57,6 +66,7 @@ class KlaroTranslationListener
             Message::addError($GLOBALS['TL_LANG']['tl_klaro_translation']['purposes_empty']);
 
         }
+
         return $value;
     }
 
@@ -91,6 +101,8 @@ class KlaroTranslationListener
 
             throw new \Exception();
         }
+
+        $this->connection->update($dc->table, ['purposes' => $value], ['id' => $dc->id]);
 
         return $value;
     }

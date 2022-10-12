@@ -85,8 +85,10 @@ $GLOBALS['TL_DCA'][$strTable] = [
     // Palettes
     'palettes' => [
         '__selector__' => [],
-        'default' => '{title_legend},title;'.
-            '{purpose_legend},klaro_key;',
+        'default' =>
+            '{purpose_legend},klaro_key;' .
+            '{title_legend},title;'
+        ,
     ],
     // Subpalettes
     'subpalettes' => [],
@@ -98,17 +100,6 @@ $GLOBALS['TL_DCA'][$strTable] = [
         'tstamp' => [
             'sql' => "int(10) unsigned NOT NULL default '0'",
         ],
-        'title' => [
-            'inputType' => 'text',
-            'exclude' => true,
-            'search' => true,
-            'filter' => true,
-            'sorting' => true,
-            'flag' => 1,
-            'eval' => ['mandatory' => true, 'maxlength' => 255, 'tl_class' => 'w75'],
-            'sql' => "varchar(255) NOT NULL default ''",
-        ],
-
         'klaro_key' => [
             'exclude' => true,
             'inputType' => 'text',
@@ -119,6 +110,16 @@ $GLOBALS['TL_DCA'][$strTable] = [
                 'fixed' => true,
                 'default' => '',
             ],
+        ],
+        'title' => [
+            'inputType' => 'text',
+            'exclude' => true,
+            'search' => true,
+            'filter' => true,
+            'sorting' => true,
+            'flag' => 1,
+            'eval' => ['mandatory' => true, 'maxlength' => 255, 'tl_class' => 'w75'],
+            'sql' => "varchar(255) NOT NULL default ''",
         ],
     ],
 ];

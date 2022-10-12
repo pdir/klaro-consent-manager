@@ -19,6 +19,7 @@ declare(strict_types=1);
 
 use Contao\DC_Table;
 use Contao\System;
+use Doctrine\DBAL\Platforms\MySQLPlatform;
 
 $strTable = 'tl_klaro_translation';
 
@@ -89,7 +90,7 @@ $GLOBALS['TL_DCA'][$strTable] = [
             '{translation_legend},lang_code,privacyPolicyUrl;'.
             '{consent_notice_legend},consentNotice;'.
             '{consent_modal_legend},consentModal;'.
-            '{purposes_legend},purposes;'.
+            '{purposes_legend},purposes1;'.
             '{services_legend},services;'.
             '{contextual_consent_legend},ccDescription,ccAcceptOnce,ccAcceptAlways,ccMonitor;',
     ],
@@ -181,6 +182,43 @@ $GLOBALS['TL_DCA'][$strTable] = [
                 'tl_class' => 'w50',
             ],
             'sql' => 'blob NULL',
+        ],
+
+        'purposes1' => [
+            'exclude' => true,
+            'inputType' => 'multiColumnWizard',
+            'eval' => [
+                'columnFields' => [
+                    'key'   => [
+                        /*
+                         * it seems that the multiColumnWizard bundle does not yet support the current
+                         * handling of labels, they must be explicitly specified in the DCA.
+                         * Otherwise they will not be loaded
+                         */
+                        'label'     => $GLOBALS['TL_LANG'][$strTable]['title'],
+                        'exclude'   => true,
+                        'inputType' => 'text',
+                        'eval'      => ['mandatory' => true, 'tl_class' => 'w25']
+                    ],
+                    'title' => [
+                        'label' => $GLOBALS['TL_LANG'][$strTable]['title'],
+                        'exclude' => true,
+                        'inputType' => 'text',
+                        'eval'      => ['tl_class' => 'w75']
+                    ],
+                    'description' => [
+                        'label' => $GLOBALS['TL_LANG'][$strTable]['title'],
+                        'exclude' => true,
+                        'inputType' => 'textarea',
+                        'eval'      => [
+                            'rte'       => 'multiTinyMCE',
+                            'tl_class'  => 'clr',
+                            'style'     => 'width:100%;'
+                        ],
+                    ],
+                ]
+            ],
+            'sql' => "blob NULL"
         ],
 
         'services' => [
