@@ -211,7 +211,7 @@ $GLOBALS['TL_DCA'][$strTable] = [
                         'exclude' => true,
                         'inputType' => 'textarea',
                         'eval'      => [
-                            'rte'       => 'multiTinyMCE',
+                            'rte'       => 'tinyMCE|multiTinyMCE',
                             'tl_class'  => 'clr',
                             'style'     => 'width:100%;'
                         ],
