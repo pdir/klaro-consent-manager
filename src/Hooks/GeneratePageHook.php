@@ -176,6 +176,7 @@ dump($translationsTemplate);
                 ],
             ]
         );
+
         // prepare the klaro script template: HTML5 not Twig!
         $scriptTemplate = new FrontendTemplate('fe_klaro_script');
         // lock to version
@@ -224,15 +225,17 @@ dump($translationsTemplate);
             );
             // decode the translation string
             $strTrService = \is_array($arrFound) && \count($arrFound) > 0 ? current(array_values($arrFound))['value'] : '';
+
             $translations .= 'zz' === $tr['lang_code'] ?
-                "{$tr['lang_code']}: {
+                "'{$tr['lang_code']}': {
                 title: '$strTrService',
             },
             " :
-                "{$tr['lang_code']}: {
+                "'{$tr['lang_code']}': {
                 description: '$strTrService',
             },
 ";
+
         }
 
         return $translations;
@@ -275,17 +278,17 @@ dump($translationsTemplate);
             $pm = PageModel::findByPk($translation['privacyPolicyUrl']);
 
             $template .= $this->keyToObject(
-                // the lang code xx:
+                // the lang_code 'xx_XX':
                 $translation['lang_code'],
-                //      privacyPolicyUrl:
-                $this->keyToString('privacyPolicyUrl', null === $pm ? '' : $pm->getFrontendUrl(), $klaroConfigModel, 12) .
-                //      consentNotice:
-                $this->keyToObject('consentNotice', $this->keyToString('description', $translation['consentNotice'], $klaroConfigModel, 16), 12) .
-                //      consentModal:
-                $this->keyToObject('consentModal', $this->keyToString('description', $translation['consentModal'], $klaroConfigModel, 16), 12) .
-                //      contextualConsent - not documented, see klaro.js line 1904 ff
-                $this->buildContextualConsentTranslation($translation, $klaroConfigModel) .
-                //      purposes:
+                //  privacyPolicyUrl:
+                $this->keyToString('privacyPolicyUrl', null === $pm ? '' : $pm->getFrontendUrl(), $klaroConfigModel, 12).
+                //  consentNotice:
+                $this->keyToObject('consentNotice', $this->keyToString('description', $translation['consentNotice'], $klaroConfigModel, 16), 12).
+                //  consentModal:
+                $this->keyToObject('consentModal', $this->keyToString('description', $translation['consentModal'], $klaroConfigModel, 16), 12).
+                //  contextualConsent: - not documented, see klaro.js line 1904 ff
+                $this->buildContextualConsentTranslation($translation, $klaroConfigModel).
+                //  purposes:
                 $this->keyToObject('purposes', $this->buildConfigTranslationPurposes($klaroConfigModel), 12), 8);
         }
 
@@ -467,6 +470,8 @@ dump($strPurposes);
      */
     private function keyToObject($key, $value, $pos = 0)
     {
-        return empty($value) || null === $value ? '' : str_repeat(' ', $pos)."$key: {\n$value".str_repeat(' ', $pos)."},\n";
+        return empty($value) ?
+            '' :
+            str_repeat(' ', $pos)."'$key': {\n$value".str_repeat(' ', $pos)."},\n";
     }
 }

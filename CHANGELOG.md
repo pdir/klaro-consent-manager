@@ -10,6 +10,10 @@ Types of changes
     Security in case of vulnerabilities.
 )
 
+## [1.0.3](https://github.com/pdir/klaro-consent-manager/tree/1.0.3) – 2022-10-13
+
+- [Fixed] Allow language codes with minus sign like de-CH in Contao 4.9 (ISO-639-1)
+
 ## [1.0.2](https://github.com/pdir/klaro-consent-manager/tree/1.0.2) – 2022-09-14
 
 - [Fixed] service option bug
