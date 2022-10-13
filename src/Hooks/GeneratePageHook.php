@@ -172,6 +172,7 @@ class GeneratePageHook
                 ],
             ]
         );
+
         // prepare the klaro script template: HTML5 not Twig!
         $scriptTemplate = new FrontendTemplate('fe_klaro_script');
         // lock to version
@@ -220,15 +221,17 @@ class GeneratePageHook
             );
             // decode the translation string
             $strTrService = \is_array($arrFound) && \count($arrFound) > 0 ? current(array_values($arrFound))['value'] : '';
+
             $translations .= 'zz' === $tr['lang_code'] ?
-                "{$tr['lang_code']}: {
+                "'{$tr['lang_code']}': {
                 title: '$strTrService',
             },
             " :
-                "{$tr['lang_code']}: {
+                "'{$tr['lang_code']}': {
                 description: '$strTrService',
             },
 ";
+
         }
 
         return $translations;
@@ -271,16 +274,17 @@ class GeneratePageHook
             $pm = PageModel::findByPk($translation['privacyPolicyUrl']);
 
             $template .= $this->keyToObject(
+                // the lang_code 'xx_XX':
                 $translation['lang_code'],
-                // privacyPolicy
+                //  privacyPolicyUrl:
                 $this->keyToString('privacyPolicyUrl', null === $pm ? '' : $pm->getFrontendUrl(), $klaroConfigModel, 12).
-                // consentNotice
+                //  consentNotice:
                 $this->keyToObject('consentNotice', $this->keyToString('description', $translation['consentNotice'], $klaroConfigModel, 16), 12).
-                // consentModal
+                //  consentModal:
                 $this->keyToObject('consentModal', $this->keyToString('description', $translation['consentModal'], $klaroConfigModel, 16), 12).
-                // contextualConsent - not documented, see klaro.js line 1904 ff
+                //  contextualConsent: - not documented, see klaro.js line 1904 ff
                 $this->buildContextualConsentTranslation($translation, $klaroConfigModel).
-                // purposes
+                //  purposes:
                 $this->keyToObject('purposes', $this->buildConfigTranslationPurposes($klaroConfigModel), 12), 8);
         }
 
@@ -456,6 +460,6 @@ class GeneratePageHook
      */
     private function keyToObject($key, $value, $pos = 0)
     {
-        return empty($value) || null === $value ? '' : str_repeat(' ', $pos)."$key: {\n$value".str_repeat(' ', $pos)."},\n";
+        return empty($value) || null === $value ? '' : str_repeat(' ', $pos)."'$key': {\n$value".str_repeat(' ', $pos)."},\n";
     }
 }
