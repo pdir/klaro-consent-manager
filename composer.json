@@ -29,7 +29,8 @@
   ],
   "require": {
     "php": "^7.4 || ^8.0 || ^8.1",
-    "contao/core-bundle": "^4.9 || ^5.0"
+    "contao/core-bundle": "^4.9 || ^5.0",
+    "twig/extra-bundle": "^v3.4"
   },
   "conflict": {
     "contao/core": "*",

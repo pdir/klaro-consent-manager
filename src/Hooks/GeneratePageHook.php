@@ -221,11 +221,11 @@ class GeneratePageHook
             // decode the translation string
             $strTrService = \is_array($arrFound) && \count($arrFound) > 0 ? current(array_values($arrFound))['value'] : '';
             $translations .= 'zz' === $tr['lang_code'] ?
-                "{$tr['lang_code']}: {
+                "'{$tr['lang_code']}': {
                 title: '$strTrService',
             },
             " :
-                "{$tr['lang_code']}: {
+                "'{$tr['lang_code']}': {
                 description: '$strTrService',
             },
 ";
@@ -271,7 +271,7 @@ class GeneratePageHook
             $pm = PageModel::findByPk($translation['privacyPolicyUrl']);
 
             $template .= $this->keyToObject(
-                $translation['lang_code'],
+                "'".$translation['lang_code']."'",
                 // privacyPolicy
                 $this->keyToString('privacyPolicyUrl', null === $pm ? '' : $pm->getFrontendUrl(), $klaroConfigModel, 12).
                 // consentNotice
