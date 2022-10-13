@@ -5,7 +5,7 @@ cache:
 before_script:
 #    - cp ci/php.ini /usr/local/etc/php/conf.d/test.ini
     - composer self-update
-    - COMPOSER_MEMORY_LIMIT=-1 composer install -n --prefer-dist --no-progress
+    - COMPOSER_MEMORY_LIMIT=-1 composer install -n --prefer-dist --no-progress --ignore-platform-req=ext-simplexml --ignore-platform-req=ext-tokenizer --ignore-platform-req=ext-pdo
 
 php:7.4:
     # This docker image comes with composer and ant.
