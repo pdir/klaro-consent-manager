@@ -44,6 +44,12 @@ $GLOBALS['TL_LANG']['tl_klaro_translation'] = [
     // purposes legend
     'purposes_legend' => 'Translations for purposes',
     'purposes' => ['Translation table for registered purposes', "Here you can define the $sgl for all registered purposes. If you want to rebuild the list of keys, delete all entries and then remove the values from the last remaining key-value pair. Then click &raquo;Save&laquo; The list will then be rebuilt from the already registered purposes."],
+
+    'purposes1' => ['Translation table', "Hier können Sie die $sgl für alle registrierten Zwecke definieren. Möchten Sie die Liste der Schlüssel neu aufbauen, so löschen Sie alle Einträge und entfernen Sie dann die Werte aus dem letzten verbleibenden Schlüssel-Wert-Paar. Klicken Sie dann auf &raquo;Speichern&laquo; Die Liste wird dann aus den bereits registrierten Zwecken neu erstellt."],
+    'purposes_key' => ["Purpose-key", 'Here you can enter the purpose-key.'],
+    'purposes_translation' => ['Translation', 'Here you can define a Translation.'],
+    'purposes_description' => ['Description', 'Here you can define a Description.'],
+
     'purposes_empty' => 'You have not defined any <b>purposes</b> yet. Please define <b>purposes</b> first before you can enter translations for them here. here',
     // services legend
     'services_legend' => 'Translation for services',

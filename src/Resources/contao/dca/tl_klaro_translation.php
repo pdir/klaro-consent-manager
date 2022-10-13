@@ -195,25 +195,26 @@ $GLOBALS['TL_DCA'][$strTable] = [
                          * handling of labels, they must be explicitly specified in the DCA.
                          * Otherwise they will not be loaded
                          */
-                        'label'     => $GLOBALS['TL_LANG'][$strTable]['title'],
+                        'label'     => $GLOBALS['TL_LANG'][$strTable]['purposes_key'],
                         'exclude'   => true,
                         'inputType' => 'text',
-                        'eval'      => ['mandatory' => true, 'tl_class' => 'w25']
+                        'eval'      => ['mandatory' => true, 'tl_class' => '', 'style' => '']
                     ],
-                    'title' => [
-                        'label' => $GLOBALS['TL_LANG'][$strTable]['title'],
-                        'exclude' => true,
+                    'translation' => [
+                        'label' => $GLOBALS['TL_LANG'][$strTable]['purposes_translation'],
+                        'exclude'   => true,
                         'inputType' => 'text',
-                        'eval'      => ['tl_class' => 'w75']
+                        'eval'      => ['tl_class' => '']
                     ],
                     'description' => [
-                        'label' => $GLOBALS['TL_LANG'][$strTable]['title'],
-                        'exclude' => true,
+                        'label' => $GLOBALS['TL_LANG'][$strTable]['purposes_description'],
+                        'exclude'   => true,
                         'inputType' => 'textarea',
                         'eval'      => [
-                            'rte'       => 'tinyMCE|multiTinyMCE',
-                            'tl_class'  => 'clr',
-                            'style'     => 'width:100%;'
+                            'rte'       => 'tinyMCEmulti|',
+                            'rows'      => '3',
+                            'tl_class'  => 'w50',
+                            'style'     => ''
                         ],
                     ],
                 ]

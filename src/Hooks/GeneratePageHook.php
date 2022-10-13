@@ -90,28 +90,35 @@ class GeneratePageHook
     public function __invoke(PageModel $pageModel, LayoutModel $layout, PageRegular $pageRegular): void
     {
         global $objPage;
-
+dump("aktuelle Seiten-Sprache ist: [$objPage->language]");
         // build a logger context
         $arrContext = ['contao' => new ContaoContext(__METHOD__, ContaoContext::ERROR)];
 
         $root = Frontend::getRootPageFromUrl();
 
-        // check for Klaro default translation zz
-        if (($this->translationZZ = KlaroTranslationModel::findByLang_code('zz')) === null) {
-            $this->logger->alert("Klaro is not properly configured at the moment. The fallback translation 'zz' is missing. Please define an fallback language for the locale 'zz' in your 'Translations'.", $arrContext);
-
-            return;
-        }
         // at first, check for Klaro current page translation
         if (($this->translationPage = KlaroTranslationModel::findByLang_code($objPage->language)) === null) {
             $this->logger->alert("Klaro is not properly configured at the moment. The page default language '{$objPage->language}' is missing. Please define the page default language for the locale '{$objPage->language}' in your 'Translations'.", $arrContext);
+dump("eine Übersetzung für die Seitensprache [$objPage->language] wurde NICHT gefunden");
+            //return;
+        }
+dump("eine Übersetzung für die Seitensprache [$objPage->language] ist vorhanden");
 
+        // check for Klaro default translation zz
+        if (($this->translationZZ = KlaroTranslationModel::findByLang_code('zz')) === null) {
+            $this->logger->alert("Klaro is not properly configured at the moment. The fallback translation 'zz' is missing. Please define an fallback language for the locale 'zz' in your 'Translations'.", $arrContext);
+dump("eine Übersetzung für die Fallbacksprache ['zz'] wurde NICHT gefunden");
             return;
         }
+dump("eine Übersetzung für die Seitensprache ['zz'] ist vorhanden");
 
-dump($this->translationPage);
+        // prepare save merge
+        $arrTranslationZZ   = is_null($this->translationZZ) ? [] : $this->translationZZ->fetchAll();
+        $arrTranslationPage = is_null($this->translationPage) ? [] : $this->translationPage->fetchAll();
 
-        $this->arrTranslations = array_merge($this->translationZZ->fetchAll(), $this->translationPage->fetchAll());
+        $this->arrTranslations = array_merge($arrTranslationZZ, $arrTranslationPage);
+
+dump("merge: ", $this->arrTranslations);
 
         // check if current page is in exclude list
         if (null !== $root->klaroExclude) {
@@ -189,6 +196,7 @@ dump($translationsTemplate);
         //$GLOBALS['TL_CSS']['klaro'] = "https://cdn.kiprotect.com/klaro/{$cssTemplate->version}/klaro.min.css";
         $GLOBALS['TL_CSS']['klaro'] = 'bundles/pdircontaoklaroconsentmanager/css/klaro.css';
         $GLOBALS['TL_BODY']['klaro'] = $scriptTemplate->parse();
+dump($GLOBALS['TL_BODY']['klaro']);
         $GLOBALS['TL_BODY'][] = "<script {$klaroConfig->scriptLoadingMode} type='application/javascript' src='bundles/pdircontaoklaroconsentmanager/js/fe.js'></script>";
     }
 
@@ -235,7 +243,6 @@ dump($translationsTemplate);
                 description: '$strTrService',
             },
 ";
-
         }
 
         return $translations;
@@ -322,13 +329,13 @@ dump($translationsTemplate);
         // standard page language given?
         if ($this->translationPage) {
 dump("standard page language given:  {$this->translationPage->lang_code}");
-            $arrPurposes = StringUtil::deserialize($this->translationPage->purposes) ?? [];
+            $arrPurposes = StringUtil::deserialize($this->translationPage->purposes1) ?? [];
 dump($arrPurposes);
         }
         // fallback page language given?
         elseif ($this->translationZZ) {
-dump("fallback page language given:  {$this->translationPage->lang_code}");
-            $arrPurposes = StringUtil::deserialize($this->translationZZ->purposes) ?? [];
+dump("fallback page language given:  {$this->translationZZ->lang_code}");
+            $arrPurposes = StringUtil::deserialize($this->translationZZ->purposes1) ?? [];
         }
         else {
 dump("no language is given:  {$this->translationPage->lang_code}");
@@ -337,12 +344,12 @@ dump("no language is given:  {$this->translationPage->lang_code}");
 
         $strPurposes = '';
 
-dump($arrPurposes);
         foreach ($arrPurposes as $translation) {
             $strPurposes .= $this->keyToObject(
-                // purposes:
                 $translation['key'],
-                $this->keyToString('title', $translation['value'], $klaroConfigModel, 20), 16
+                $this->keyToString('title', $translation['translation'], $klaroConfigModel, 20) .
+                $this->keyToString('description', $translation['description'], $klaroConfigModel, 20),
+                16
             );
         }
 dump($strPurposes);
@@ -445,6 +452,8 @@ dump($strPurposes);
     }
 
     /**
+     * creates a javascript key-value string like 'key': 'value'
+     *
      * @param $key
      * @param $value
      *
@@ -455,23 +464,25 @@ dump($strPurposes);
         return '' === $value || empty($value) || null === $value ?
             '' :
             ('1' === $klaroConfig->htmlTexts ?
-                str_repeat(' ', $pos)."$key: '$value',\n" :
-                strip_tags(str_repeat(' ', $pos)."$key: '$value',\n")
+                str_repeat(' ', $pos)."'$key': '$value',\n" :
+                strip_tags(str_repeat(' ', $pos)."'$key': '$value',\n")
             )
         ;
     }
 
     /**
+     * creates a javascript object-string like 'key': { content }
+     *
      * @param $key
      * @param $value
      * @param $pos
      *
      * @return string
      */
-    private function keyToObject($key, $value, $pos = 0)
+    private function keyToObject($key, $content, $pos = 0)
     {
-        return empty($value) ?
+        return empty($content) ?
             '' :
-            str_repeat(' ', $pos)."'$key': {\n$value".str_repeat(' ', $pos)."},\n";
+            str_repeat(' ', $pos)."'$key': {\n$content".str_repeat(' ', $pos)."},\n";
     }
 }

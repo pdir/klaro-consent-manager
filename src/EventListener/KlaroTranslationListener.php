@@ -42,6 +42,44 @@ class KlaroTranslationListener
     /**
      * @Callback(
      *     table="tl_klaro_translation",
+     *     target="fields.purposes1.load"
+     * )
+     */
+    public function purposes1Load($value, DataContainer $dc)
+    {
+        $arrStoredPurposes = StringUtil::deserialize($value ?? []);
+dump($arrStoredPurposes);
+        $availablePurposes = KlaroPurposeModel::findAll();
+        $buffer = [];
+
+        if (null !== $availablePurposes)
+        {
+            foreach ($availablePurposes as $ap)
+            {
+dump("ist key: [$ap->klaro_key] in " . implode(',', $arrStoredPurposes));
+
+dump(in_array($ap->klaro_key, $arrStoredPurposes));
+                // if the stored value is empty, the value defined in the table is used instead
+                $buffer[] = [
+                    'key' => $ap->klaro_key,
+                    'translation' => empty($arrStoredPurposes[$ap->klaro_key]) ?
+                        $ap->title :
+                        $arrStoredPurposes[$ap->klaro_key]
+                ];
+            }
+            $value = serialize($buffer);
+        } else {
+            // Klaro is not yet configured correctly
+            $GLOBALS['TL_DCA']['tl_klaro_translation']['fields']['purposes']['eval']['disabled'] = true;
+            Message::addError($GLOBALS['TL_LANG']['tl_klaro_translation']['purposes_empty']);
+        }
+
+        return $value;
+    }
+
+    /**
+     * @Callback(
+     *     table="tl_klaro_translation",
      *     target="fields.purposes.load"
      * )
      */
@@ -66,6 +104,43 @@ class KlaroTranslationListener
             Message::addError($GLOBALS['TL_LANG']['tl_klaro_translation']['purposes_empty']);
 
         }
+
+        return $value;
+    }
+
+    /**
+     * @Callback(
+     *     table="tl_klaro_translation",
+     *     target="fields.purposes1.save"
+     * )
+     * checks if all available purpose keys are specified,
+     * invalid keys are not stored, if an invalid key is present
+     * an exception is thrown
+     */
+    public function purposes1Save($value, DataContainer $dc)
+    {
+        // tolerant treatment of missing parameters
+        if (null === $purposeModel = KlaroPurposeModel::findAll()) {
+            return $value;
+        }
+
+        $availablePurposes = $purposeModel->fetchEach('klaro_key');
+        $savedPurposesValues = array_map(static fn ($value) => $value['key'], StringUtil::deserialize($value ?? []));
+        $arrDifferences = array_diff($savedPurposesValues, $availablePurposes);
+
+        if (0 !== \count($arrDifferences)) {
+            $strMsg = $GLOBALS['TL_LANG']['tl_klaro_translation']['purposesSaveError'];
+            $arrPns = $GLOBALS['TL_LANG']['tl_klaro_translation']['purposesSavePronouns'];
+            $strDifferences = implode(', ', $arrDifferences);
+            $strPurposes = implode(', ', $availablePurposes);
+            [$a,$b] = 1 === \count($arrDifferences) ? $arrPns['sgl'] : $arrPns['pl'];
+
+            Message::addError(sprintf($strMsg, $a, $strDifferences, $b, $strPurposes));
+
+            throw new \Exception();
+        }
+
+        $this->connection->update($dc->table, ['purposes' => $value], ['id' => $dc->id]);
 
         return $value;
     }
