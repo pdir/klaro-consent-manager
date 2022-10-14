@@ -43,9 +43,8 @@ $GLOBALS['TL_LANG']['tl_klaro_translation'] = [
     'consentModal' => ['Text for the &raquo;modal dialog&laquo; (max. 4096 characters)', "This text appears in the modal dialog of the $klaro consent manager."],
     // purposes legend
     'purposes_legend' => 'Translations for purposes',
-    'purposes' => ['Translation table for registered purposes', "Here you can define the $sgl for all registered purposes. If you want to rebuild the list of keys, delete all entries and then remove the values from the last remaining key-value pair. Then click &raquo;Save&laquo; The list will then be rebuilt from the already registered purposes."],
 
-    'purposes1' => ['Translation table', "Hier können Sie die $sgl für alle registrierten Zwecke definieren. Möchten Sie die Liste der Schlüssel neu aufbauen, so löschen Sie alle Einträge und entfernen Sie dann die Werte aus dem letzten verbleibenden Schlüssel-Wert-Paar. Klicken Sie dann auf &raquo;Speichern&laquo; Die Liste wird dann aus den bereits registrierten Zwecken neu erstellt."],
+    'purposes' => ['Translation table for registered purposes', "Here you can define the $sgl for all registered purposes. If you want to rebuild the list of keys, delete all entries and then remove the values from the last remaining key-value pair. Then click &raquo;Save&laquo; The list will then be rebuilt from the already registered purposes."],
     'purposes_key' => ["Purpose-key", 'Here you can enter the purpose-key.'],
     'purposes_translation' => ['Translation', 'Here you can define a Translation.'],
     'purposes_description' => ['Description', 'Here you can define a Description.'],

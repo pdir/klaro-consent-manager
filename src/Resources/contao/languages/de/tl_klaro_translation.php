@@ -43,8 +43,8 @@ $GLOBALS['TL_LANG']['tl_klaro_translation'] = [
     'consentModal' => ['Text im &raquo;Modal-Dialog&laquo; (max. 4096 Zeichen)', "Dieser Text erscheint im Modal-Dialog des $klaro-Consent-Managers."],
     // purposes legend
     'purposes_legend' => 'Übersetzungen für Zwecke',
+
     'purposes' => ['Übersetzungstabelle', "Hier können Sie die $sgl für alle registrierten Zwecke definieren. Möchten Sie die Liste der Schlüssel neu aufbauen, so löschen Sie alle Einträge und entfernen Sie dann die Werte aus dem letzten verbleibenden Schlüssel-Wert-Paar. Klicken Sie dann auf &raquo;Speichern&laquo; Die Liste wird dann aus den bereits registrierten Zwecken neu erstellt."],
-    'purposes1' => ['Übersetzungstabelle', "Hier können Sie die $sgl für alle registrierten Zwecke definieren. Möchten Sie die Liste der Schlüssel neu aufbauen, so löschen Sie alle Einträge und entfernen Sie dann die Werte aus dem letzten verbleibenden Schlüssel-Wert-Paar. Klicken Sie dann auf &raquo;Speichern&laquo; Die Liste wird dann aus den bereits registrierten Zwecken neu erstellt."],
     'purposes_key' => ['Schlüssel', 'Geben Sie hier den Schlüssel ein'],
     'purposes_translation' => ['Übersetzung', 'Geben Sie hier die Übersetzung ein'],
     'purposes_description' => ['Beschreibung', 'Geben Sie hier eine Beschreibung für diesen Zweck ein.'],

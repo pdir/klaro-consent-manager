@@ -329,13 +329,13 @@ dump($GLOBALS['TL_BODY']['klaro']);
         // standard page language given?
         if ($this->translationPage) {
 dump("standard page language given:  {$this->translationPage->lang_code}");
-            $arrPurposes = StringUtil::deserialize($this->translationPage->purposes1) ?? [];
+            $arrPurposes = StringUtil::deserialize($this->translationPage->purposes) ?? [];
 dump($arrPurposes);
         }
         // fallback page language given?
         elseif ($this->translationZZ) {
 dump("fallback page language given:  {$this->translationZZ->lang_code}");
-            $arrPurposes = StringUtil::deserialize($this->translationZZ->purposes1) ?? [];
+            $arrPurposes = StringUtil::deserialize($this->translationZZ->purposes) ?? [];
         }
         else {
 dump("no language is given:  {$this->translationPage->lang_code}");
