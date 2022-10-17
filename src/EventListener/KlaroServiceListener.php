@@ -50,12 +50,13 @@ class KlaroServiceListener
             foreach ($purposes as $purpose) {
                 $options[$purpose->id] =
                     \array_key_exists($purpose->klaro_key, $arrPurposeTranslation) &&
-                    !empty($arrPurposeTranslation[$purpose->klaro_key])
-                        ?
-                    $arrPurposeTranslation[$purpose->klaro_key] :
-                    "[$purpose->klaro_key] translation missing";
+                    !empty($arrPurposeTranslation[$purpose->klaro_key]) ?
+                    "{$arrPurposeTranslation[$purpose->klaro_key]} ($purpose->klaro_key)"
+                        :
+                    "translation? ($purpose->klaro_key)";
             }
         }
+
         return $options;
     }
 }

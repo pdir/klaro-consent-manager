@@ -19,7 +19,6 @@ declare(strict_types=1);
 
 use Contao\DC_Table;
 use Contao\System;
-use Doctrine\DBAL\Platforms\MySQLPlatform;
 
 $strTable = 'tl_klaro_translation';
 
@@ -90,7 +89,7 @@ $GLOBALS['TL_DCA'][$strTable] = [
             '{translation_legend},lang_code,privacyPolicyUrl;'.
             '{consent_notice_legend},consentNotice;'.
             '{consent_modal_legend},consentModal;'.
-            '{purposes_legend},test;'.
+            '{purposes_legend},purposes;'.
             '{services_legend},services;'.
             '{contextual_consent_legend},ccDescription,ccAcceptOnce,ccAcceptAlways,ccMonitor;',
     ],
@@ -174,92 +173,87 @@ $GLOBALS['TL_DCA'][$strTable] = [
             ],
         ],
 
-//        'purposes' => [
-//            'exclude' => true,
-//            'inputType' => 'keyValueWizard',
-//            'eval' => [
-//                'allowHtml' => false,
-//                'tl_class' => 'w50',
-//            ],
-//            'sql' => 'blob NULL',
-//        ],
-
         'purposes' => [
             'exclude' => true,
             'sorting' => false,
             'inputType' => 'multiColumnWizard',
             'eval' => [
                 'columnFields' => [
-                    'key'   => [
+                    'key' => [
                         /*
                          * it seems that the multiColumnWizard bundle does not yet support the current
                          * handling of labels, they must be explicitly specified in the DCA.
                          * Otherwise they will not be loaded
                          */
-                        'label'     => $GLOBALS['TL_LANG'][$strTable]['purposes_key'],
-                        'exclude'   => true,
+                        'label' => $GLOBALS['TL_LANG'][$strTable]['purposes_key'],
+                        'exclude' => true,
                         'sorting' => false,
                         'inputType' => 'text',
-                        'eval'      => ['mandatory' => true, 'tl_class' => '', 'style' => '']
+                        'eval' => ['mandatory' => false, 'tl_class' => '', 'style' => ''],
                     ],
                     'translation' => [
                         'label' => $GLOBALS['TL_LANG'][$strTable]['purposes_translation'],
-                        'exclude'   => true,
+                        'exclude' => true,
                         'sorting' => false,
                         'inputType' => 'text',
-                        'eval'      => ['tl_class' => '']
+                        'eval' => ['tl_class' => ''],
                     ],
                     'description' => [
                         'label' => $GLOBALS['TL_LANG'][$strTable]['purposes_description'],
-                        'exclude'   => true,
+                        'exclude' => true,
                         'sorting' => false,
                         'inputType' => 'textarea',
-                        'eval'      => [
-                            'rte'       => 'tinyMCEmulti|',
-                            'rows'      => '1',
-                            'tl_class'  => 'w50',
-                            'style'     => 'height:100px;'
+                        'eval' => [
+                            'rte' => 'tinyMCEmulti|',
+                            'rows' => '1',
+                            'tl_class' => 'w50',
+                            'style' => 'height:100px;',
                         ],
                     ],
-                ]
+                ],
             ],
-            'sql' => "blob NULL"
-        ],
-
-        'test' => [
-            'exclude' => true,
-            'inputType' => 'multiColumnWizard',
-            'eval' => [
-                'disableSorting' => true,
-                'columnFields' => [
-                    'key'   => [
-                        /*
-                         * it seems that the multiColumnWizard bundle does not yet support the current
-                         * handling of labels, they must be explicitly specified in the DCA.
-                         * Otherwise they will not be loaded
-                         */
-                        'label'     => $GLOBALS['TL_LANG'][$strTable]['purposes_key'],
-                        'exclude'   => true,
-                        'inputType' => 'text',
-                        'eval'      => ['mandatory' => true, 'tl_class' => '', 'style' => '']
-                    ],
-                    'translation' => [
-                        'label' => $GLOBALS['TL_LANG'][$strTable]['purposes_translation'],
-                        'exclude'   => true,
-                        'inputType' => 'text',
-                        'eval'      => ['tl_class' => '']
-                    ],
-                ]
-            ],
-            'sql' => "blob NULL"
+            'sql' => 'blob NULL',
         ],
 
         'services' => [
             'exclude' => true,
-            'inputType' => 'keyValueWizard',
+            'sorting' => false,
+            'inputType' => 'multiColumnWizard',
             'eval' => [
-                'allowHtml' => false,
-                'tl_class' => 'w50',
+                //'generateTableless' => true,
+                'columnFields' => [
+                    'key' => [
+                        /*
+                         * it seems that the multiColumnWizard bundle does not yet support the current
+                         * handling of labels, they must be explicitly specified in the DCA.
+                         * Otherwise they will not be loaded
+                         */
+                        'label' => $GLOBALS['TL_LANG'][$strTable]['services_key'],
+                        'exclude' => true,
+                        'sorting' => false,
+                        'inputType' => 'text',
+                        'eval' => [],
+                    ],
+                    'translation' => [
+                        'label' => $GLOBALS['TL_LANG'][$strTable]['services_translation'],
+                        'exclude' => true,
+                        'sorting' => false,
+                        'inputType' => 'text',
+                        'eval' => [],
+                    ],
+                    'description' => [
+                        'label' => $GLOBALS['TL_LANG'][$strTable]['services_description'],
+                        'exclude' => true,
+                        'sorting' => false,
+                        'inputType' => 'textarea',
+                        'eval' => [
+                            'rte' => 'tinyMCEmulti|',
+                            'rows' => '1',
+                            'tl_class' => 'w50',
+                            'style' => 'height:100px;',
+                        ],
+                    ],
+                ],
             ],
             'sql' => 'blob NULL',
         ],

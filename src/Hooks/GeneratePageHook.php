@@ -90,7 +90,6 @@ class GeneratePageHook
     public function __invoke(PageModel $pageModel, LayoutModel $layout, PageRegular $pageRegular): void
     {
         global $objPage;
-dump("aktuelle Seiten-Sprache ist: [$objPage->language]");
         // build a logger context
         $arrContext = ['contao' => new ContaoContext(__METHOD__, ContaoContext::ERROR)];
 
@@ -99,26 +98,19 @@ dump("aktuelle Seiten-Sprache ist: [$objPage->language]");
         // at first, check for Klaro current page translation
         if (($this->translationPage = KlaroTranslationModel::findByLang_code($objPage->language)) === null) {
             $this->logger->alert("Klaro is not properly configured at the moment. The page default language '{$objPage->language}' is missing. Please define the page default language for the locale '{$objPage->language}' in your 'Translations'.", $arrContext);
-dump("eine Übersetzung für die Seitensprache [$objPage->language] wurde NICHT gefunden");
-            //return;
         }
-dump("eine Übersetzung für die Seitensprache [$objPage->language] ist vorhanden");
 
         // check for Klaro default translation zz
         if (($this->translationZZ = KlaroTranslationModel::findByLang_code('zz')) === null) {
             $this->logger->alert("Klaro is not properly configured at the moment. The fallback translation 'zz' is missing. Please define an fallback language for the locale 'zz' in your 'Translations'.", $arrContext);
-dump("eine Übersetzung für die Fallbacksprache ['zz'] wurde NICHT gefunden");
             return;
         }
-dump("eine Übersetzung für die Seitensprache ['zz'] ist vorhanden");
 
         // prepare save merge
         $arrTranslationZZ   = is_null($this->translationZZ) ? [] : $this->translationZZ->fetchAll();
         $arrTranslationPage = is_null($this->translationPage) ? [] : $this->translationPage->fetchAll();
-
+        // merge
         $this->arrTranslations = array_merge($arrTranslationZZ, $arrTranslationPage);
-
-dump("merge: ", $this->arrTranslations);
 
         // check if current page is in exclude list
         if (null !== $root->klaroExclude) {
@@ -152,8 +144,6 @@ dump("merge: ", $this->arrTranslations);
 
         // prepare translations
         $translationsTemplate = "\n" . $this->buildConfigTranslations($klaroConfig);
-
-dump($translationsTemplate);
 
         // prepare services
         $servicesTemplate = $this->buildConfigServices($klaroConfig);
@@ -196,7 +186,6 @@ dump($translationsTemplate);
         //$GLOBALS['TL_CSS']['klaro'] = "https://cdn.kiprotect.com/klaro/{$cssTemplate->version}/klaro.min.css";
         $GLOBALS['TL_CSS']['klaro'] = 'bundles/pdircontaoklaroconsentmanager/css/klaro.css';
         $GLOBALS['TL_BODY']['klaro'] = $scriptTemplate->parse();
-dump($GLOBALS['TL_BODY']['klaro']);
         $GLOBALS['TL_BODY'][] = "<script {$klaroConfig->scriptLoadingMode} type='application/javascript' src='bundles/pdircontaoklaroconsentmanager/js/fe.js'></script>";
     }
 
@@ -227,12 +216,11 @@ dump($GLOBALS['TL_BODY']['klaro']);
                     if ($service['key'] === $strServiceName) {
                         return true;
                     }
-
                     return false;
                 }
             );
             // decode the translation string
-            $strTrService = \is_array($arrFound) && \count($arrFound) > 0 ? current(array_values($arrFound))['value'] : '';
+            $strTrService = \is_array($arrFound) && \count($arrFound) > 0 ? current(array_values($arrFound))['translation'] : '';
 
             $translations .= 'zz' === $tr['lang_code'] ?
                 "'{$tr['lang_code']}': {
@@ -328,17 +316,13 @@ dump($GLOBALS['TL_BODY']['klaro']);
         // checks the given translations - by default two translations should be available
         // standard page language given?
         if ($this->translationPage) {
-dump("standard page language given:  {$this->translationPage->lang_code}");
             $arrPurposes = StringUtil::deserialize($this->translationPage->purposes) ?? [];
-dump($arrPurposes);
         }
         // fallback page language given?
         elseif ($this->translationZZ) {
-dump("fallback page language given:  {$this->translationZZ->lang_code}");
             $arrPurposes = StringUtil::deserialize($this->translationZZ->purposes) ?? [];
         }
         else {
-dump("no language is given:  {$this->translationPage->lang_code}");
             $arrPurposes = [];
         }
 
@@ -352,7 +336,7 @@ dump("no language is given:  {$this->translationPage->lang_code}");
                 16
             );
         }
-dump($strPurposes);
+
         return $strPurposes;
     }
 

@@ -49,9 +49,8 @@ class KlaroTranslationListener
     {
         //
         $arrStoredPurposes = StringUtil::deserialize($value ?? []);
-
         $availablePurposes = KlaroPurposeModel::findAll();
-
+        $lang = $dc->activeRecord->lang_code;
         $buffer = [];
 
         if (null !== $availablePurposes)
@@ -67,16 +66,16 @@ class KlaroTranslationListener
                     // fill the buffer with the stored values
                     $buffer[] = [
                         'key' => $ap->klaro_key,
-                        'translation' => empty($sp['translation']) ? '?' : $sp['translation'],
-                        'description' => empty($sp['description']) ? '?' : $sp['description'],
+                        'translation' => empty($sp['translation']) ? "translation $lang missing" : $sp['translation'],
+                        'description' => empty($sp['description']) ? "description $lang missing" : $sp['description'],
                     ];
                 } else
                 {
                     // fill the buffer only with the available keys
                     $buffer[] = [
                         'key' => $ap->klaro_key,
-                        'translation' => '',
-                        'description' => '',
+                        'translation' => "translation $lang missing",
+                        'description' => "description $lang missing",
                     ];
                 }
             }
@@ -90,20 +89,6 @@ class KlaroTranslationListener
 
         return $value;
     }
-
-    /**
-     * @Callback(
-     *     table="tl_klaro_translation",
-     *     target="fields.test.save"
-     * )
-     */
-    public function testSave($value, DataContainer $dc)
-    {
-dump(__FUNCTION__, $value);
-#die();
-        return $value;
-    }
-
 
     /**
      * @Callback(
@@ -122,9 +107,7 @@ dump(__FUNCTION__, $value);
         }
         // check purpose keys
         $availablePurposes = $purposeModel->fetchEach('klaro_key');
-#dump($availablePurposes);
         $savedPurposesValues = array_map(static fn ($value) => $value['key'], StringUtil::deserialize($value ?? []));
-#dump($savedPurposesValues);
         $arrDifferences = array_diff($savedPurposesValues, $availablePurposes);
 
         if (0 !== \count($arrDifferences)) {
@@ -140,8 +123,7 @@ dump(__FUNCTION__, $value);
         } else {
             $this->connection->update($dc->table, ['purposes' => $value], ['id' => $dc->id]);
         }
-#dump($value);
-#die();
+
         return $value;
     }
 
@@ -153,24 +135,45 @@ dump(__FUNCTION__, $value);
      */
     public function servicesLoad($value, DataContainer $dc)
     {
-        $flattenStoredServices = $this->flatten(StringUtil::deserialize($value ?? []));
+        //
+        $arrStoredServices = StringUtil::deserialize($value ?? []);
         $availableServices = KlaroServiceModel::findAll();
+        $lang = $dc->activeRecord->lang_code;
         $buffer = [];
 
         if (null !== $availableServices)
         {
             foreach ($availableServices as $as)
             {
-                // if the stored value is empty, the value defined in the table is used instead
-                $buffer[] = ['key' => $as->name, 'value' => empty($flattenStoredServices[$as->name]) ? $as->title : $flattenStoredServices[$as->name]];
+                // is the currend purpose already saved?
+                $sp = $this->isInServices($as->name, $arrStoredServices);
+                // the purpose key is already stored
+                if(\count($sp) > 0)
+                {
+                    // fill the buffer with the stored values
+                    $buffer[] = [
+                        'key' => $as->name,
+                        'translation' => empty($sp['translation']) ? "translation $lang missing" : $sp['translation'],
+                        'description' => empty($sp['description']) ? "description $lang missing" : $sp['description'],
+                    ];
+                } else
+                {
+                    // fill the buffer only with the available keys
+                    $buffer[] = [
+                        'key' => $as->name,
+                        'translation' => "translation $lang missing",
+                        'description' => "description $lang missing",
+                    ];
+                }
             }
+            // rebuild the value from the buffer
             $value = serialize($buffer);
         } else {
-            // Klaro is not yet configured correctly
+            // there are no purposes defined yet
             $GLOBALS['TL_DCA']['tl_klaro_translation']['fields']['services']['eval']['disabled'] = true;
             Message::addError($GLOBALS['TL_LANG']['tl_klaro_translation']['services_empty']);
-
         }
+
         return $value;
     }
 
@@ -276,7 +279,22 @@ dump(__FUNCTION__, $value);
             {
                 #"{$data['key']} === $value"
                 if($data['key'] === $value) {
-#dump("[$value] gefunden in: [" . implode(', ', $data));
+                    return $data;
+                }
+            }
+        }
+        return $result;
+    }
+
+    private function isInServices($value, array $services): array
+    {
+        $result = [];
+
+        if(count($services) > 0 )
+        {
+            foreach ($services as $i => $data)
+            {
+                if($data['key'] === $value) {
                     return $data;
                 }
             }

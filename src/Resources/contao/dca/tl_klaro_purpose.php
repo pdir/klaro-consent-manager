@@ -85,10 +85,8 @@ $GLOBALS['TL_DCA'][$strTable] = [
     // Palettes
     'palettes' => [
         '__selector__' => [],
-        'default' =>
-            '{purpose_legend},klaro_key;' .
-            '{title_legend},title;'
-        ,
+        'default' => '{purpose_legend},klaro_key;'.
+            '{title_legend},title;',
     ],
     // Subpalettes
     'subpalettes' => [],
