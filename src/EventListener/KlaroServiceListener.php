@@ -39,18 +39,14 @@ class KlaroServiceListener
     public function buildPurposesOptions(DataContainer $dc)
     {
         $options = [];
-        // get the translation for the current user language
-        $translation = KlaroTranslationModel::findOneByLang_code(BackendUser::getInstance()->language);
-        // flatten the purposes array
-        $arrPurposeTranslation = null !== $translation ? $translation->getPurposeTranslations() : [];
-        // get all defined purposes
+
         $purposes = KlaroPurposeModel::findAll();
 
-        if (null !== $purposes) {
-            foreach ($purposes as $purpose) {
-                $options[$purpose->id] = \array_key_exists($purpose->klaro_key, $arrPurposeTranslation) ?
-                    $arrPurposeTranslation[$purpose->klaro_key] :
-                    "[$purpose->klaro_key] translation missing";
+        if (null !== $purposes)
+        {
+            foreach ($purposes as $purpose)
+            {
+                $options[$purpose->id] = $purpose->title;
             }
         }
 
