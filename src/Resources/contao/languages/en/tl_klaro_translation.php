@@ -44,9 +44,15 @@ $GLOBALS['TL_LANG']['tl_klaro_translation'] = [
     // purposes legend
     'purposes_legend' => 'Translations for purposes',
     'purposes' => ['Translation table for registered purposes', "Here you can define the $sgl for all registered purposes. If you want to rebuild the list of keys, delete all entries and then remove the values from the last remaining key-value pair. Then click &raquo;Save&laquo; The list will then be rebuilt from the already registered purposes."],
+    'purposes_key' => ['Purpose-key', 'Here you can enter the purpose-key.'],
+    'purposes_translation' => ['Translation', 'Here you can define a Translation.'],
+    'purposes_description' => ['Description', 'Here you can define a Description.'],
     'purposes_empty' => 'You have not defined any <b>purposes</b> yet. Please define <b>purposes</b> first before you can enter translations for them here. here',
     // services legend
     'services_legend' => 'Translation for services',
+    'services_key' => ['Service-key', 'Here you can enter the service-key.'],
+    'services_translation' => ['Translation', 'Here you can define a Translation.'],
+    'services_description' => ['Description', 'Here you can define a Description.'],
     'services' => ['Translation table for registered services', "Here you can define the $sgl for all registered purposes. If you want to rebuild the list of keys, delete all entries and then remove the values from the last remaining key-value pair. Then click &raquo;Save&laquo; The list will then be rebuilt from the already registered services."],
     'services_empty' => 'You have not defined any <b>services</b> yet. Please define <b>services</b> first before you can enter translations for them here. here',
     // contextual consent legend

@@ -8,6 +8,8 @@ services:
 
     pdir.klaro.translationlistener:
         class: Pdir\ContaoKlaroConsentManager\EventListener\KlaroTranslationListener
+        arguments:
+            - '@database_connection'
 
     pdir.klaro.contentlistener:
         class: Pdir\ContaoKlaroConsentManager\EventListener\KlaroContentListener
