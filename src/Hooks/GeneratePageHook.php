@@ -90,26 +90,27 @@ class GeneratePageHook
     public function __invoke(PageModel $pageModel, LayoutModel $layout, PageRegular $pageRegular): void
     {
         global $objPage;
-
         // build a logger context
         $arrContext = ['contao' => new ContaoContext(__METHOD__, ContaoContext::ERROR)];
 
         $root = Frontend::getRootPageFromUrl();
 
-        // check for Klaro default translation zz
-        if (($this->translationZZ = KlaroTranslationModel::findByLang_code('zz')) === null) {
-            $this->logger->alert("Klaro is not properly configured at the moment. The fallback translation 'zz' is missing. Please define an fallback language for the locale 'zz' in your 'Translations'.", $arrContext);
-
-            return;
-        }
         // at first, check for Klaro current page translation
         if (($this->translationPage = KlaroTranslationModel::findByLang_code($objPage->language)) === null) {
             $this->logger->alert("Klaro is not properly configured at the moment. The page default language '{$objPage->language}' is missing. Please define the page default language for the locale '{$objPage->language}' in your 'Translations'.", $arrContext);
+        }
 
+        // check for Klaro default translation zz
+        if (($this->translationZZ = KlaroTranslationModel::findByLang_code('zz')) === null) {
+            $this->logger->alert("Klaro is not properly configured at the moment. The fallback translation 'zz' is missing. Please define an fallback language for the locale 'zz' in your 'Translations'.", $arrContext);
             return;
         }
 
-        $this->arrTranslations = array_merge($this->translationZZ->fetchAll(), $this->translationPage->fetchAll());
+        // prepare save merge
+        $arrTranslationZZ   = is_null($this->translationZZ) ? [] : $this->translationZZ->fetchAll();
+        $arrTranslationPage = is_null($this->translationPage) ? [] : $this->translationPage->fetchAll();
+        // merge
+        $this->arrTranslations = array_merge($arrTranslationZZ, $arrTranslationPage);
 
         // check if current page is in exclude list
         if (null !== $root->klaroExclude) {
@@ -142,7 +143,7 @@ class GeneratePageHook
         $cssTemplate->version = 'v0.7'; // only for CDN
 
         // prepare translations
-        $translationsTemplate = $this->buildConfigTranslations($klaroConfig);
+        $translationsTemplate = "\n" . $this->buildConfigTranslations($klaroConfig);
 
         // prepare services
         $servicesTemplate = $this->buildConfigServices($klaroConfig);
@@ -215,12 +216,11 @@ class GeneratePageHook
                     if ($service['key'] === $strServiceName) {
                         return true;
                     }
-
                     return false;
                 }
             );
             // decode the translation string
-            $strTrService = \is_array($arrFound) && \count($arrFound) > 0 ? current(array_values($arrFound))['value'] : '';
+            $strTrService = \is_array($arrFound) && \count($arrFound) > 0 ? current(array_values($arrFound))['translation'] : '';
 
             $translations .= 'zz' === $tr['lang_code'] ?
                 "'{$tr['lang_code']}': {
@@ -231,7 +231,6 @@ class GeneratePageHook
                 description: '$strTrService',
             },
 ";
-
         }
 
         return $translations;
@@ -331,7 +330,9 @@ class GeneratePageHook
         foreach ($arrPurposes as $translation) {
             $strPurposes .= $this->keyToObject(
                 $translation['key'],
-                $this->keyToString('title', $translation['value'], $klaroConfigModel, 20), 16
+                $this->keyToString('title', $translation['translation'], $klaroConfigModel, 20) .
+                $this->keyToString('description', $translation['description'], $klaroConfigModel, 20),
+                16
             );
         }
 
@@ -434,6 +435,8 @@ class GeneratePageHook
     }
 
     /**
+     * creates a javascript key-value string like 'key': 'value'
+     *
      * @param $key
      * @param $value
      *
@@ -444,21 +447,25 @@ class GeneratePageHook
         return '' === $value || empty($value) || null === $value ?
             '' :
             ('1' === $klaroConfig->htmlTexts ?
-                str_repeat(' ', $pos)."$key: '$value',\n" :
-                strip_tags(str_repeat(' ', $pos)."$key: '$value',\n")
+                str_repeat(' ', $pos)."'$key': '$value',\n" :
+                strip_tags(str_repeat(' ', $pos)."'$key': '$value',\n")
             )
         ;
     }
 
     /**
+     * creates a javascript object-string like 'key': { content }
+     *
      * @param $key
      * @param $value
      * @param $pos
      *
      * @return string
      */
-    private function keyToObject($key, $value, $pos = 0)
+    private function keyToObject($key, $content, $pos = 0)
     {
-        return empty($value) || null === $value ? '' : str_repeat(' ', $pos)."'$key': {\n$value".str_repeat(' ', $pos)."},\n";
+        return empty($content) ?
+            '' :
+            str_repeat(' ', $pos)."'$key': {\n$content".str_repeat(' ', $pos)."},\n";
     }
 }

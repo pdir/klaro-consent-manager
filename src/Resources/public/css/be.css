@@ -19,8 +19,7 @@
     float: left;
     min-height: 80px;
 }
-/* hide the second column inside the key-value-Wizard */
-#ctrl_cookies tbody tr td:nth-child(2),
-#ctrl_cookies thead tr th:nth-child(2) {
-    display: none;
+/* align input fields in table cells */
+.tl_modulewizard td {
+    vertical-align:top;
 }
