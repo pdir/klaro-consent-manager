@@ -173,8 +173,6 @@ class GeneratePageHook
             ]
         );
 
-dump($configJsTemplate);
-
         // prepare the klaro script template: HTML5 not Twig!
         $scriptTemplate = new FrontendTemplate('fe_klaro_script');
         // lock to version
