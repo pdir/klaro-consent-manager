@@ -286,7 +286,6 @@ class GeneratePageHook
                 //  purposes:
                 $this->keyToObject('purposes', $this->buildConfigTranslationPurposes($klaroConfigModel), 12), 8);
         }
-
         return "$template\n   ";
     }
 
