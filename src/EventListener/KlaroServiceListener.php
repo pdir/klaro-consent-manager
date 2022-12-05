@@ -19,11 +19,9 @@ declare(strict_types=1);
 
 namespace Pdir\ContaoKlaroConsentManager\EventListener;
 
-use Contao\BackendUser;
 use Contao\CoreBundle\ServiceAnnotation\Callback;
 use Contao\DataContainer;
 use Pdir\ContaoKlaroConsentManager\Model\KlaroPurposeModel;
-use Pdir\ContaoKlaroConsentManager\Model\KlaroTranslationModel;
 
 class KlaroServiceListener
 {
@@ -42,10 +40,8 @@ class KlaroServiceListener
 
         $purposes = KlaroPurposeModel::findAll();
 
-        if (null !== $purposes)
-        {
-            foreach ($purposes as $purpose)
-            {
+        if (null !== $purposes) {
+            foreach ($purposes as $purpose) {
                 $options[$purpose->id] = $purpose->title;
             }
         }
