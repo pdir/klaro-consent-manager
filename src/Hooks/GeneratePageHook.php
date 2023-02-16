@@ -180,14 +180,17 @@ class GeneratePageHook
         $scriptTemplate->version = 'v0.7'; // only for CDN
 
         // a fallback config
-        //$configJsFallbackSrc = 'bundles/pdircontaoklaroconsentmanager/js/config.js';
+        $configJsFallbackSrc = 'bundles/pdircontaoklaroconsentmanager/js/config.min.js';
+        $configJsDebugSrc = 'bundles/pdircontaoklaroconsentmanager/js/config_debug.js';
+        #$scriptTemplate->klaro_config = "<script type='application/javascript' src='$configJsDebugSrc'></script>";
         $scriptTemplate->klaro_config = "<script type='application/javascript'>$configJsTemplate</script>";
-        //$scriptTemplate->klaro_script = "<script $mode data-config='klaroConfig' type='application/javascript' src='https://cdn.kiprotect.com/klaro/{$scriptTemplate->version}/klaro.js'></script>";
-        $scriptTemplate->klaro_script = "<script {$klaroConfig->scriptLoadingMode} data-config='{$klaroConfig->myConfigVariableName}' type='application/javascript' src='bundles/pdircontaoklaroconsentmanager/js/klaro.js'></script>";
-        //$GLOBALS['TL_CSS']['klaro'] = "https://cdn.kiprotect.com/klaro/{$cssTemplate->version}/klaro.min.css";
-        $GLOBALS['TL_CSS']['klaro'] = 'bundles/pdircontaoklaroconsentmanager/css/klaro.css';
+
+        // provide the klaro.js Script
+        $scriptTemplate->klaro_script = "<script {$klaroConfig->scriptLoadingMode} data-config='{$klaroConfig->myConfigVariableName}' type='application/javascript' src='bundles/pdircontaoklaroconsentmanager/js/klaro.min.js'></script>";
+
+        $GLOBALS['TL_CSS']['klaro'] = 'bundles/pdircontaoklaroconsentmanager/css/klaro.min.css';
         $GLOBALS['TL_BODY']['klaro'] = $scriptTemplate->parse();
-        $GLOBALS['TL_BODY'][] = "<script {$klaroConfig->scriptLoadingMode} type='application/javascript' src='bundles/pdircontaoklaroconsentmanager/js/fe.js'></script>";
+        $GLOBALS['TL_BODY'][] = "<script {$klaroConfig->scriptLoadingMode} type='application/javascript' src='bundles/pdircontaoklaroconsentmanager/js/fe.min.js'></script>";
     }
 
     /**
