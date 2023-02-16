@@ -180,15 +180,10 @@ class GeneratePageHook
         $scriptTemplate->version = 'v0.7'; // only for CDN
 
         // a fallback config
-        $configJsFallbackSrc = 'bundles/pdircontaoklaroconsentmanager/js/config.js';
-        $configJsDebugSrc = 'bundles/pdircontaoklaroconsentmanager/js/config_debug.js';
-        #$scriptTemplate->klaro_config = "<script type='application/javascript' src='$configJsDebugSrc'></script>";
+        //$configJsFallbackSrc = 'bundles/pdircontaoklaroconsentmanager/js/config.js';
         $scriptTemplate->klaro_config = "<script type='application/javascript'>$configJsTemplate</script>";
-
-        // provide the klaro.js Script
-        $scriptTemplate->klaro_script = "<script {$klaroConfig->scriptLoadingMode} data-config='klaroConfig' type='application/javascript' src='https://cdn.kiprotect.com/klaro/{$scriptTemplate->version}/klaro.js'></script>";
-        #$scriptTemplate->klaro_script = "<script {$klaroConfig->scriptLoadingMode} data-config='{$klaroConfig->myConfigVariableName}' type='application/javascript' src='bundles/pdircontaoklaroconsentmanager/js/klaro.js'></script>";
-
+        //$scriptTemplate->klaro_script = "<script $mode data-config='klaroConfig' type='application/javascript' src='https://cdn.kiprotect.com/klaro/{$scriptTemplate->version}/klaro.js'></script>";
+        $scriptTemplate->klaro_script = "<script {$klaroConfig->scriptLoadingMode} data-config='{$klaroConfig->myConfigVariableName}' type='application/javascript' src='bundles/pdircontaoklaroconsentmanager/js/klaro.js'></script>";
         //$GLOBALS['TL_CSS']['klaro'] = "https://cdn.kiprotect.com/klaro/{$cssTemplate->version}/klaro.min.css";
         $GLOBALS['TL_CSS']['klaro'] = 'bundles/pdircontaoklaroconsentmanager/css/klaro.css';
         $GLOBALS['TL_BODY']['klaro'] = $scriptTemplate->parse();
