@@ -41,6 +41,9 @@ class TranslationPurposes extends AbstractMigration
     private \stdClass $sourceColumn;
     private \stdClass $backupColumn;
 
+    /**
+     * @throws Exception
+     */
     public function __construct(Connection $connection)
     {
         /**
@@ -75,7 +78,12 @@ class TranslationPurposes extends AbstractMigration
         };
 
         $this->connection = $connection;
-        $this->schemaManager = $connection->createSchemaManager();
+
+        if(method_exists($connection,'createSchemaManager')) {
+            $this->schemaManager = $connection->createSchemaManager();
+        } else {
+            $this->schemaManager = $connection->getSchemaManager();
+        }
 
         $this->sourceColumn = new \stdClass();
         $this->sourceColumn->name = 'purposes';
@@ -155,6 +163,10 @@ class TranslationPurposes extends AbstractMigration
         $result = false;
 
         $translations = KlaroTranslationModel::findBy(["{$columnObject->name} IS NOT NULL"], 1);
+
+        if(null === $translations) {
+            return $result;
+        }
 
         foreach ($translations as $translation) {
             $value = $translation->{$columnObject->name};

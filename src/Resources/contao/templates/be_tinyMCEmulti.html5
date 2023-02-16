@@ -57,7 +57,11 @@ if ($GLOBALS['TL_CONFIG']['useRTE']):
     <?php $this->endblock(); ?>
 
     <?php $this->block('cache_suffix'); ?>
-    cache_suffix: '?v=<?= $this->assetVersion('js/tinymce.min.js', 'contao-components/tinymce4') ?>',
+      <?php if(method_exists($this,'assetVersion')): ?>
+        cache_suffix: '?v=<?= $this->assetVersion('js/tinymce.min.js', 'contao-components/tinymce4') ?>',
+      <?php else: ?>
+        cache_suffix: '?v=<?= $this->asset('js/tinymce.min.js', 'contao-components/tinymce4') ?>',
+      <?php endif; ?>
     <?php $this->endblock(); ?>
 
     <?php $this->block('custom'); ?>
