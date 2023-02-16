@@ -178,6 +178,7 @@ class GeneratePageHook
         $scriptTemplate = new FrontendTemplate('fe_klaro_script');
         // lock to version
         $scriptTemplate->version = 'v0.7'; // only for CDN
+
         // a fallback config
         //$configJsFallbackSrc = 'bundles/pdircontaoklaroconsentmanager/js/config.js';
         $scriptTemplate->klaro_config = "<script type='application/javascript'>$configJsTemplate</script>";
@@ -191,7 +192,7 @@ class GeneratePageHook
 
     /**
      * builds a translation section for a single service
-     * the section looks like this:.
+     * the section looks like this:
      *
      * translations: {
      *      zz: {
@@ -201,12 +202,18 @@ class GeneratePageHook
      *          description: '',
      *      },
      * },
+     *
+     * 14.12.2022 it seems that the zz key here
      */
     public function buildConfigServiceTranslations($strServiceName): string
     {
         $translations = '';
 
-        foreach ($this->arrTranslations as $tr) {
+        $removeLanguageZZ = function($value) { return !(strpos($value['lang_code'], 'zz') === 0); };
+
+        $arrFilteredWithoutZZ = array_filter($this->arrTranslations, $removeLanguageZZ,  ARRAY_FILTER_USE_BOTH);
+
+        foreach ($arrFilteredWithoutZZ as $tr) {
             // get all service translations
             $services = StringUtil::deserialize($tr['services']);
             // get the translation for the current service
