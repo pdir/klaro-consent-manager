@@ -67,8 +67,8 @@
       "@cs-fixer",
       "@phpunit"
     ],
-    "cs-fixer": "@php vendor/bin/ecs check src/ tests/ --fix --ansi",
-    "phpunit": "@php vendor\\bin\\phpunit --configuration phpunit.xml --coverage-text --log-junit report.xml"
+    "cs-fixer": "vendor/bin/ecs check src/ tests/ --fix",
+    "phpunit": "vendor\\bin\\phpunit --configuration phpunit.xml --coverage-text --log-junit report.xml"
   },
   "config": {
     "allow-plugins": {
