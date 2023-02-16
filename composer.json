@@ -76,7 +76,8 @@
       "dealerdirect/phpcodesniffer-composer-installer": true,
       "contao/manager-plugin": true,
       "composer/package-versions-deprecated": true,
-      "bamarni/composer-bin-plugin": true
+      "bamarni/composer-bin-plugin": true,
+      "php-http/discovery": true
     }
   },
   "suggest": {
