@@ -1,5 +1,8 @@
 services:
 
+    pdir.klaro.hh_google_maps_listener:
+        class: Pdir\ContaoKlaroConsentManager\EventListener\HeimrichHannotGoogleMapsListener
+
     pdir.klaro.configlistener:
         class: Pdir\ContaoKlaroConsentManager\EventListener\KlaroConfigListener
 

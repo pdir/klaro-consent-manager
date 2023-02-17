@@ -1,0 +1,23 @@
+<div data-name="google-maps">
+    {% if not skipHtml|default(false) %}
+        {{ mapHtml|raw }}
+    {% endif %}
+
+    {% if not skipCss|default(false) %}
+        {{ mapCss|raw }}
+    {% endif %}
+
+    {% if not skipJs|default(false) %}
+        {{ mapJs|raw }}
+
+        {#    {{ mapGoogleJs|raw }}#}
+    {% endif %}
+
+    {% if mapConfig.staticMapNoscript|default() %}
+        <noscript>
+            <p>
+                <img src="{{ staticMapUrl }}" alt="">
+            </p>
+        </noscript>
+    {% endif %}
+</div>

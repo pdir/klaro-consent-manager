@@ -10,6 +10,14 @@ Types of changes
     Security in case of vulnerabilities.
 )
 
+## [1.1.0](https://github.com/pdir/klaro-consent-manager/tree/1.1.0) – 2023-02-17
+
+- [Added] More elements can be added to a Klaro service (html, list, table, code, image, youtube, vimeo, download, downloads, form) [#1](https://github.com/pdir/klaro-consent-manager/issues/1)
+- [Added] Add 2 migrations for old translations fields
+- [Added] Add support for [H+H Google Maps Bundle](https://github.com/heimrichhannot/contao-google-maps-bundle)
+- [Changed] Add missing translations feature for services
+- [Fixed] Fix be_tinyMCEmulti template in Contao 4.9
+
 ## [1.0.3](https://github.com/pdir/klaro-consent-manager/tree/1.0.3) – 2022-10-13
 
 - [Fixed] Allow language codes with minus sign like de-CH in Contao 4.9 (ISO-639-1)
