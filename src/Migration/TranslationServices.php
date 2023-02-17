@@ -152,9 +152,11 @@ class TranslationServices extends AbstractMigration
      */
     private function itemsAreNotConverted(\stdClass $columnObject)
     {
-        $result = false;
+        $translations = KlaroTranslationModel::findBy(["? IS NOT NULL"], $columnObject->name);
 
-        $translations = KlaroTranslationModel::findBy(["{$columnObject->name} IS NOT NULL"], 1);
+        if(null === $translations) {
+            return false;
+        }
 
         foreach ($translations as $translation) {
             $value = $translation->{$columnObject->name};
@@ -173,7 +175,7 @@ class TranslationServices extends AbstractMigration
             }
         }
 
-        return $result;
+        return false;
     }
 
     /**
@@ -195,7 +197,7 @@ class TranslationServices extends AbstractMigration
         $fieldName = $columnObject->name;
 
         // ony convert fields with valid data
-        $translations = KlaroTranslationModel::findBy(["{$columnObject->name} IS NOT NULL"], 1);
+        $translations = KlaroTranslationModel::findBy(["? IS NOT NULL"], $columnObject->name);
 
         foreach ($translations as $translation) {
             $serializedValue = $translation->$fieldName;

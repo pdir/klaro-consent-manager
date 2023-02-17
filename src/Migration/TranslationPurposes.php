@@ -109,6 +109,7 @@ class TranslationPurposes extends AbstractMigration
         }
         // get all columns
         $this->columns = $this->schemaManager->listTableColumns($this->myTable);
+
         // check
         if (
             isset($this->columns[$this->sourceColumn->name]) && // if the source column to be converted exists
@@ -160,12 +161,10 @@ class TranslationPurposes extends AbstractMigration
      */
     private function itemsAreNotConverted(\stdClass $columnObject)
     {
-        $result = false;
-
-        $translations = KlaroTranslationModel::findBy(["{$columnObject->name} IS NOT NULL"], 1);
+        $translations = KlaroTranslationModel::findBy(["? IS NOT NULL"], $columnObject->name);
 
         if(null === $translations) {
-            return $result;
+            return false;
         }
 
         foreach ($translations as $translation) {
@@ -185,7 +184,7 @@ class TranslationPurposes extends AbstractMigration
             }
         }
 
-        return $result;
+        return false;
     }
 
     /**
@@ -207,7 +206,7 @@ class TranslationPurposes extends AbstractMigration
         $fieldName = $columnObject->name;
 
         // ony convert fields with valid data
-        $translations = KlaroTranslationModel::findBy(["{$columnObject->name} IS NOT NULL"], 1);
+        $translations = KlaroTranslationModel::findBy(["? IS NOT NULL"], $columnObject->name);
 
         foreach ($translations as $translation) {
             $serializedValue = $translation->$fieldName;
