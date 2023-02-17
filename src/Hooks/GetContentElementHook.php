@@ -66,7 +66,7 @@ class GetContentElementHook
             case 'downloads':
             case 'form':
                 $buffer = $element->Template->parse();
-                $buffer = preg_replace('/(class=\".+\")/', 'data-name="'.$dataName.'" \1', $buffer);
+                $buffer = preg_replace('/(class=\".+\")/', 'data-namep="'.$dataName.'" \1', $buffer);
                 break;
             # case 'module':
 
