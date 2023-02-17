@@ -50,9 +50,9 @@ class KlaroContentListener
         if (null !== $services) {
             foreach ($services as $service) {
                 // check available translation
-                $options[$service->id] = \array_key_exists($service->name, $arrServiceTranslation) ?
-                    $arrServiceTranslation[$service->name] :
-                    "[$service->name] translation missing";
+                $options[$service->id] = \array_key_exists($service->title, $arrServiceTranslation) ?
+                    $arrServiceTranslation[$service->title] :
+                    "[$service->title] translation missing";
             }
         }
 

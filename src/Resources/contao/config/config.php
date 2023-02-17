@@ -51,10 +51,7 @@ $currentRequest = System::getContainer()->get('request_stack')->getCurrentReques
 
 if ($scopeMatcher->isBackendRequest($currentRequest)) {
     // only BE
-    $GLOBALS['TL_CSS'][] = 'bundles/pdircontaoklaroconsentmanager/css/be.css';
-} elseif ($scopeMatcher->isFrontendRequest($currentRequest)) {
-    // only FE
-    $GLOBALS['TL_CSS'][] = 'bundles/pdircontaoklaroconsentmanager/css/fe.css';
+    $GLOBALS['TL_CSS'][] = 'bundles/pdircontaoklaroconsentmanager/css/be.css|static';
 }
 
 /*

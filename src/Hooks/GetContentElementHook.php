@@ -55,9 +55,20 @@ class GetContentElementHook
         switch ($element->type) {
             case 'text':
             case 'headline':
+            case 'html':
+            case 'list':
+            case 'table':
+            case 'code':
+            case 'image':
+            case 'youtube':
+            case 'vimeo':
+            case 'download':
+            case 'downloads':
+            case 'form':
                 $buffer = $element->Template->parse();
-                $buffer = preg_replace('/(class=\".+\")/', 'data-namep="'.$dataName.'" \1', $buffer);
+                $buffer = preg_replace('/(class=\".+\")/', 'data-name="'.$dataName.'" \1', $buffer);
                 break;
+            # case 'module':
 
             default:
         }

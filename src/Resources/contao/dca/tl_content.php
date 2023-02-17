@@ -26,7 +26,7 @@ System::loadLanguageFile('default');
  * should be possible. note that for each element further code
  * must be provided in the hooks
  */
-$arrAllowedCTEs = ['headline', 'text'];
+$arrAllowedCTEs = ['headline', 'text', 'html', 'list', 'table', 'code', 'image', 'youtube', 'vimeo', 'download', 'downloads', 'form'];
 
 foreach (array_keys($GLOBALS['TL_DCA']['tl_content']['palettes']) as $palette) {
     if (in_array($palette, $arrAllowedCTEs, true)) {

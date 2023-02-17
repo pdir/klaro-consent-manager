@@ -188,7 +188,7 @@ class GeneratePageHook
         // provide the klaro.js Script
         $scriptTemplate->klaro_script = "<script {$klaroConfig->scriptLoadingMode} data-config='{$klaroConfig->myConfigVariableName}' type='application/javascript' src='bundles/pdircontaoklaroconsentmanager/js/klaro.min.js'></script>";
 
-        $GLOBALS['TL_CSS']['klaro'] = 'bundles/pdircontaoklaroconsentmanager/css/klaro.min.css';
+        #$GLOBALS['TL_CSS']['klaro'] = 'bundles/pdircontaoklaroconsentmanager/css/klaro.min.css|static';
         $GLOBALS['TL_BODY']['klaro'] = $scriptTemplate->parse();
         $GLOBALS['TL_BODY'][] = "<script {$klaroConfig->scriptLoadingMode} type='application/javascript' src='bundles/pdircontaoklaroconsentmanager/js/fe.min.js'></script>";
     }
@@ -231,6 +231,7 @@ class GeneratePageHook
             );
             // decode the translation string
             $strTrService = \is_array($arrFound) && \count($arrFound) > 0 ? current(array_values($arrFound))['translation'] : '';
+            $strTrServiceDescription = \is_array($arrFound) && \count($arrFound) > 0 ? current(array_values($arrFound))['description'] : '';
 
             $translations .= 'zz' === $tr['lang_code'] ?
                 "'{$tr['lang_code']}': {
@@ -238,7 +239,7 @@ class GeneratePageHook
             },
             " :
                 "'{$tr['lang_code']}': {
-                description: '$strTrService',
+                description: '$strTrServiceDescription',
             },
 ";
         }

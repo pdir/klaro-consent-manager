@@ -204,8 +204,16 @@ class TranslationServices extends AbstractMigration
         // ony convert fields with valid data
         $translations = KlaroTranslationModel::findBy(["? IS NOT NULL"], $columnObject->name);
 
+        if(null === $translations) {
+            return false;
+        }
+
         foreach ($translations as $translation) {
             $serializedValue = $translation->$fieldName;
+
+            if(null === $serializedValue) {
+                continue;
+            }
 
             if (strpos($serializedValue, 'value') > 0) {
                 $translation->$fieldName = $transcoder($translation->$fieldName);
