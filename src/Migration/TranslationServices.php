@@ -75,7 +75,12 @@ class TranslationServices extends AbstractMigration
         };
 
         $this->connection = $connection;
-        $this->schemaManager = $connection->createSchemaManager();
+
+        if(method_exists($connection,'createSchemaManager')) {
+            $this->schemaManager = $connection->createSchemaManager();
+        } else {
+            $this->schemaManager = $connection->getSchemaManager();
+        }
 
         $this->sourceColumn = new \stdClass();
         $this->sourceColumn->name = 'services';
