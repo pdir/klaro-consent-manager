@@ -52,7 +52,13 @@ class GetContentElementHook
         $state = $arrStateValues[$element->klaro_state];
         $dataName = "{$serviceName}-{$consent}-{$state}";
 
+        if(null === $element->Template) {
+            return $buffer;
+        }
+
         switch ($element->type) {
+            case 'module':
+                return $buffer;
             case 'text':
             case 'headline':
             case 'html':
@@ -68,7 +74,6 @@ class GetContentElementHook
                 $buffer = $element->Template->parse();
                 $buffer = preg_replace('/(class=\".+\")/', 'data-namep="'.$dataName.'" \1', $buffer);
                 break;
-            # case 'module':
 
             default:
         }
