@@ -10,7 +10,7 @@ Types of changes
     Security in case of vulnerabilities.
 )
 
-## [1.1.0](https://github.com/pdir/klaro-consent-manager/tree/1.1.0) – 2023-02-17
+## [1.1.0](https://github.com/pdir/klaro-consent-manager/tree/1.1.0) – 2023-02-19
 
 - [Added] More elements can be added to a Klaro service (html, list, table, code, image, youtube, vimeo, download, downloads, form) [#1](https://github.com/pdir/klaro-consent-manager/issues/1)
 - [Added] Add 2 migrations for old translations fields
