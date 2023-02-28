@@ -5,7 +5,7 @@ declare(strict_types=1);
 /*
  * Klaro Consent Manager bundle for Contao Open Source CMS
  *
- * Copyright (c) 2022 pdir / digital agentur // pdir GmbH
+ * Copyright (c) 2023 pdir / digital agentur // pdir GmbH
  *
  * @package    klaro-consent-manager
  * @link       https://pdir.de/consent/
@@ -18,6 +18,6 @@ declare(strict_types=1);
  */
 
 $GLOBALS['TL_LANG']['tl_content']['klaro_legend'] = 'Klaro-Einstellungen';
-$GLOBALS['TL_LANG']['tl_content']['klaro_service'] = ['Element mit einem Klaro Dienst verknüpfen', 'Hier können Sie dem Inhaltselement einen Anzeigestatus in Abhängigkeit von der Zustimmung zu einem Klaro-Dienst zuweisen.'];
-$GLOBALS['TL_LANG']['tl_content']['klaro_consent'] = ['wenn', 'Zugestimmt oder abgelehnt?'];
+$GLOBALS['TL_LANG']['tl_content']['klaro_service'] = ['Wenn bei Dienst...', 'Hier können Sie dem Inhaltselement einen Anzeigestatus in Abhängigkeit von der Zustimmung zu einem Klaro-Dienst zuweisen.'];
+$GLOBALS['TL_LANG']['tl_content']['klaro_consent'] = ['den Zustand ... hat,', 'Zugestimmt oder abgelehnt?'];
 $GLOBALS['TL_LANG']['tl_content']['klaro_state'] = ['dann', 'Hier können Sie dem Inhaltselement einen Anzeigestatus in Abhängigkeit von der Zustimmung zu einem Klaro-Dienst zuweisen.'];

@@ -5,7 +5,7 @@ declare(strict_types=1);
 /*
  * Klaro Consent Manager bundle for Contao Open Source CMS
  *
- * Copyright (c) 2022 pdir / digital agentur // pdir GmbH
+ * Copyright (c) 2023 pdir / digital agentur // pdir GmbH
  *
  * @package    klaro-consent-manager
  * @link       https://pdir.de/consent/
@@ -79,7 +79,7 @@ class TranslationPurposes extends AbstractMigration
 
         $this->connection = $connection;
 
-        if(method_exists($connection,'createSchemaManager')) {
+        if (method_exists($connection, 'createSchemaManager')) {
             $this->schemaManager = $connection->createSchemaManager();
         } else {
             $this->schemaManager = $connection->getSchemaManager();
@@ -161,9 +161,9 @@ class TranslationPurposes extends AbstractMigration
      */
     private function itemsAreNotConverted(\stdClass $columnObject)
     {
-        $translations = KlaroTranslationModel::findBy(["? IS NOT NULL"], $columnObject->name);
+        $translations = KlaroTranslationModel::findBy(['? IS NOT NULL'], $columnObject->name);
 
-        if(null === $translations) {
+        if (null === $translations) {
             return false;
         }
 
@@ -206,16 +206,16 @@ class TranslationPurposes extends AbstractMigration
         $fieldName = $columnObject->name;
 
         // ony convert fields with valid data
-        $translations = KlaroTranslationModel::findBy(["? IS NOT NULL"], $columnObject->name);
+        $translations = KlaroTranslationModel::findBy(['? IS NOT NULL'], $columnObject->name);
 
-        if(null === $translations) {
+        if (null === $translations) {
             return false;
         }
 
         foreach ($translations as $translation) {
             $serializedValue = $translation->$fieldName;
 
-            if(null === $serializedValue) {
+            if (null === $serializedValue) {
                 continue;
             }
 
