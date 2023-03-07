@@ -5,7 +5,7 @@ declare(strict_types=1);
 /*
  * Klaro Consent Manager bundle for Contao Open Source CMS
  *
- * Copyright (c) 2022 pdir / digital agentur // pdir GmbH
+ * Copyright (c) 2023 pdir / digital agentur // pdir GmbH
  *
  * @package    klaro-consent-manager
  * @link       https://pdir.de/consent/
@@ -52,13 +52,14 @@ class GetContentElementHook
         $state = $arrStateValues[$element->klaro_state];
         $dataName = "{$serviceName}-{$consent}-{$state}";
 
-        if(null === $element->Template) {
+        if (null === $element->Template) {
             return $buffer;
         }
 
         switch ($element->type) {
             case 'module':
                 return $buffer;
+
             case 'text':
             case 'headline':
             case 'html':

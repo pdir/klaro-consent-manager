@@ -5,7 +5,7 @@ declare(strict_types=1);
 /*
  * Klaro Consent Manager bundle for Contao Open Source CMS
  *
- * Copyright (c) 2022 pdir / digital agentur // pdir GmbH
+ * Copyright (c) 2023 pdir / digital agentur // pdir GmbH
  *
  * @package    klaro-consent-manager
  * @link       https://pdir.de/consent/
@@ -43,18 +43,19 @@ class KlaroContentListener
         $translation = KlaroTranslationModel::findOneByLang_code(BackendUser::getInstance()->language);
         // flatten the purposes array
         $arrServiceTranslation = null !== $translation ? $translation->getServiceTranslations() : [];
-
         // get all defined services
         $services = KlaroServiceModel::findAll();
 
-        if (null !== $services) {
+        if ($services) {
             foreach ($services as $service) {
                 // check available translation
-                $options[$service->id] = \array_key_exists($service->title, $arrServiceTranslation) ?
-                    $arrServiceTranslation[$service->title] :
-                    "[$service->title] translation missing";
+                $options[$service->id] = \array_key_exists($service->name, $arrServiceTranslation) ?
+                    $arrServiceTranslation[$service->name] :
+                    "[$service->name] translation missing";
             }
         }
+
+        asort($options);
 
         return $options;
     }

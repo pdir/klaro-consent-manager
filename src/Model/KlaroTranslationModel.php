@@ -5,7 +5,7 @@ declare(strict_types=1);
 /*
  * Klaro Consent Manager bundle for Contao Open Source CMS
  *
- * Copyright (c) 2022 pdir / digital agentur // pdir GmbH
+ * Copyright (c) 2023 pdir / digital agentur // pdir GmbH
  *
  * @package    klaro-consent-manager
  * @link       https://pdir.de/consent/
@@ -48,7 +48,10 @@ class KlaroTranslationModel extends Model
     {
         $result = [];
         $arrServices = StringUtil::deserialize($this->services) ?? [];
-        array_walk($arrServices, static function ($service) use (&$result): void { $result[$service['key']] = $service['value']; });
+        array_walk(
+            $arrServices,
+            static function ($service) use (&$result): void { $result[$service['key']] = $service['translation']; }
+        );
 
         return $result;
     }

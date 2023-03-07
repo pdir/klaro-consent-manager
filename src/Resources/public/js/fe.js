@@ -25,6 +25,8 @@ let m = klaro.getManager();
  */
 let c = m.defaultConsents;
 
+let isOnceCall = false;
+
 /**
  * returns true, if all services are accepted, otherwise false
  *
@@ -37,6 +39,7 @@ function agreedAll()
 }
 
 /**
+ * returns true, if all services were rejected, otherwise false
  *
  * @returns {boolean}
  */
@@ -52,7 +55,8 @@ function rejectedAll()
 function handleService(consent, state)
 {
     let key = `${consent}-${state}`;
-    document.querySelectorAll(`[data-namep$=${key}]:not([data-namep^=servicesall])`).forEach(
+    let nodes = document.querySelectorAll(`[data-namep$=${key}]:not([data-namep^=servicesall])`);
+    nodes.forEach(
         el => {
             let service = el.dataset.namep.substring(0, el.dataset.namep.length - key.length - 1),
                 c = m.getConsent(service),
@@ -63,13 +67,48 @@ function handleService(consent, state)
     )
 }
 
+function handleWatcherUpdate(consents) {
+  // iterate over each service
+  for (const [service, consent] of Object.entries(consents)) {
+    let selectorToShow = `[data-namep=${service}-agreed-show], [data-namep=${service}-rejected-hide]`,
+      selectorToHide = `[data-namep=${service}-agreed-hide], [data-namep=${service}-rejected-show]`,
+      show = document.querySelectorAll(selectorToShow),
+      hide = document.querySelectorAll(selectorToHide)
+    ;
+    show.forEach(el => { el.style.display = consent ? 'block' : 'none'; });
+    hide.forEach(el => { el.style.display = consent ? 'none' : 'block'; });
+  }
+}
+
 /**
  * define a watcher object see: https://heyklaro.com/docs/api/js_api
  *
  * @type {{update: watcher1.update}}
  */
-watcher1 = {
-    update: function(obj, name, consents) {}
+let watcher1 = {
+    /**
+     *
+     * @param obj a klaro consent object?
+     * @param name 'consent' for a normal consent update or 'applyConsent' for a contextual consent update
+     * @param consents an object of the current consent state after the watcher has been triggered, like
+     * { 'service0' : bool, 'service1': bool, etc... }
+     */
+    update: function(obj, name, consents) {
+      /**
+       * this strange construct, handles changes through a contextualConsent object.
+       * If consented to in a context, the update callback fires multiple times,
+       * setting the status of the consent multiple times as well.
+       */
+      if(name==='applyConsents') {
+        isOnceCall = true;
+        handleWatcherUpdate(obj.executedOnce);
+      } else {
+        if(!isOnceCall) {
+          handleWatcherUpdate(consents);
+          isOnceCall = false;
+        }
+      }
+    }
 }
 
 /*  register the watcher */
@@ -96,7 +135,7 @@ if(rejectedAll())
 }
 
 /**
- * handle services
+ * these functions were called once when loading the script
  */
 handleService('agreed','show');
 handleService('agreed','hide');

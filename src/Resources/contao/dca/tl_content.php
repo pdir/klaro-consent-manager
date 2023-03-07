@@ -5,7 +5,7 @@ declare(strict_types=1);
 /*
  * Klaro Consent Manager bundle for Contao Open Source CMS
  *
- * Copyright (c) 2022 pdir / digital agentur // pdir GmbH
+ * Copyright (c) 2023 pdir / digital agentur // pdir GmbH
  *
  * @package    klaro-consent-manager
  * @link       https://pdir.de/consent/
@@ -32,9 +32,9 @@ foreach (array_keys($GLOBALS['TL_DCA']['tl_content']['palettes']) as $palette) {
     if (in_array($palette, $arrAllowedCTEs, true)) {
         PaletteManipulator::create()
             ->addLegend('klaro_legend', ['template_legend', 'template_legend:hide'], PaletteManipulator::POSITION_BEFORE)
-            ->addField('klaro_state', 'klaro_legend', PaletteManipulator::POSITION_AFTER)
-            ->addField('klaro_consent', 'klaro_legend', PaletteManipulator::POSITION_AFTER)
             ->addField('klaro_service', 'klaro_legend', PaletteManipulator::POSITION_AFTER)
+            ->addField('klaro_consent', 'klaro_legend', PaletteManipulator::POSITION_AFTER)
+            ->addField('klaro_state', 'klaro_legend', PaletteManipulator::POSITION_AFTER)
             ->applyToPalette($palette, 'tl_content')
         ;
     }

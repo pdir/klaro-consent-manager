@@ -5,7 +5,7 @@ declare(strict_types=1);
 /*
  * Klaro Consent Manager bundle for Contao Open Source CMS
  *
- * Copyright (c) 2022 pdir / digital agentur // pdir GmbH
+ * Copyright (c) 2023 pdir / digital agentur // pdir GmbH
  *
  * @package    klaro-consent-manager
  * @link       https://pdir.de/consent/
@@ -49,4 +49,4 @@ $GLOBALS['TL_LANG']['klaro']['klaro_services']['options'] = [
     '-1' => 'Alle Dienste',
 ];
 $GLOBALS['TL_LANG']['klaro']['klaro_consent']['options'] = ['1' => 'zugestimmt', '2' => 'abgelehnt'];
-$GLOBALS['TL_LANG']['klaro']['klaro_state']['options'] = ['1' => 'Element einblenden', '2' => 'Element ausblenden'];
+$GLOBALS['TL_LANG']['klaro']['klaro_state']['options'] = ['1' => '...zeige dieses Element', '2' => '...verberge dieses Element'];

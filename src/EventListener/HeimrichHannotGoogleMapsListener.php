@@ -37,7 +37,8 @@ class HeimrichHannotGoogleMapsListener
 
         // replace ivory_google_map_init_source -> need to adjust service callback -> see docs
         preg_match('!ivory_google_map_init_source\(([^\)]+)\);!', $GLOBALS['TL_BODY']['huhGoogleMaps'], $match);
-        if(isset($match[1])) {
+
+        if (isset($match[1])) {
             $GLOBALS['TL_BODY']['huhGoogleMaps'] = str_replace('script type="text/javascript"', "script type=\"text/javascript\" data-gmap-callback=$match[1]", $GLOBALS['TL_BODY']['huhGoogleMaps']);
         }
         $GLOBALS['TL_BODY']['huhGoogleMaps'] = str_replace($match[0], '', $GLOBALS['TL_BODY']['huhGoogleMaps']);
