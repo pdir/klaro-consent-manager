@@ -54,6 +54,11 @@ if ($scopeMatcher->isBackendRequest($currentRequest)) {
     $GLOBALS['TL_CSS'][] = 'bundles/pdircontaoklaroconsentmanager/css/be.css|static';
 }
 
+if ($scopeMatcher->isFrontendRequest($currentRequest)) {
+{
+    $GLOBALS['TL_CSS'][] = 'bundles/pdircontaoklaroconsentmanager/css/fe.scss|static';
+}
+
 /*
  * Models
  */
