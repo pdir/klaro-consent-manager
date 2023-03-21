@@ -13,6 +13,7 @@ Types of changes
 ## [1.1.3](https://github.com/pdir/klaro-consent-manager/tree/1.1.3) – 2023-03-16
 
 - [Changed] Change link color and button background color
+- [Added] Add twig templates for contao 5 content elements
 
 ## [1.1.2](https://github.com/pdir/klaro-consent-manager/tree/1.1.2) – 2023-03-07
 
