@@ -10,6 +10,10 @@ Types of changes
     Security in case of vulnerabilities.
 )
 
+## [1.1.4](https://github.com/pdir/klaro-consent-manager/tree/1.1.4) – 2023-04-28
+
+- [Fixed] remove duplicate brace 
+
 ## [1.1.3](https://github.com/pdir/klaro-consent-manager/tree/1.1.3) – 2023-03-16
 
 - [Changed] link color and button background color
