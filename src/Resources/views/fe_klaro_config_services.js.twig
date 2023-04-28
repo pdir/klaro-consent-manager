@@ -22,5 +22,21 @@
         onlyOnce: {{ service.onlyOnce }},
 
         contextualConsentOnly: {{ service.contextualConsentOnly }},
+
+        onAccept: `
+            {{ service.onAccept | raw }}
+        `,
+
+        onInit: `
+            {{ service.onInit | raw }}
+        `,
+
+        onDecline: `
+            {{ service.onDecline | raw }}
+        `,
+
+        vars: {
+            {{ service.vars | raw }}
+        }
     },
 {% endfor %}
