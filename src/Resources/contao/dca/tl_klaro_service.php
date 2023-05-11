@@ -176,7 +176,7 @@ $GLOBALS['TL_DCA'][$strTable] = [
          */
         'cookies' => [
             'exclude' => true,
-            'inputType' => 'keyValueWizard',
+            'inputType' => 'listWizard',
             'eval' => [
                 'allowHtml' => false,
                 'tl_class' => 'w50',

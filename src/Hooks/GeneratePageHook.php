@@ -258,11 +258,14 @@ class GeneratePageHook
 
         if (null !== $arrCookies) {
             $arrResult = [];
-            array_walk($arrCookies, static function ($cookie) use (&$arrResult): void { $arrResult[] = str_replace('&#39;', "'", $cookie['key']); });
+            array_walk($arrCookies, static function ($cookie) use (&$arrResult): void { $arrResult[] = html_entity_decode(str_replace('&#39;', "'", $cookie)); });
             $result = implode(",\n          ", $arrResult);
-        } else {
+        }
+
+        if (null === $arrCookies) {
             $result = '';
         }
+
 
         return "\n          $result\n        ";
     }
