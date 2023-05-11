@@ -45,11 +45,11 @@ $GLOBALS['TL_LANG']['tl_klaro_service'] = [
     'contextualConsentOnly' => ['Contextual consent only', "If this option is enabled, $klaro will consider the service as &raquo;context-dependent&laquo;. This means that at the corresponding positions in the layout, a separate consent is requested before the element at that position is activated for this service."],
     // callback legend
     'callback_legend' => 'Callback',
-    'callback' => ['<b style="color:green">callback</b>: <b style="color:blue">function</b>(consent, service) {', "<b>}</b>\nYou can define here the function body for an optional callback function that will be called each time the consent status for a given service changes. The consent value is passed as the first parameter &raquo;consent&laquo; to the function (true=agree). The &raquo;service configuration&laquo; is passed as the second parameter &raquo;service&laquo;."],
+    'callback' => ['<b style="color:green">callback</b>: <b style="color:blue">function</b>(consent, service) {', "<b>}</b> You can define here the function body for an optional callback function that will be called each time the consent status for a given service changes. The consent value is passed as the first parameter &raquo;consent&laquo; to the function (true=agree). The &raquo;service configuration&laquo; is passed as the second parameter &raquo;service&laquo;."],
     // event_handler_legend
     'event_handler_legend' => 'Event-Handler-Definitionen',
-    'onAccept' => ['<b style="color:green">onAccept</b>: <b style="color:blue">function</b>() {', '<b>}</b>You can define the function body for an optional event handler here.'],
-    'onInit' => ['<b style="color:green">onInit</b>: <b style="color:blue">function</b>() {', '<b>}</b>You can define the function body for an optional event handler here.'],
-    'onDecline' => ['<b style="color:green">onDecline</b>: <b style="color:blue">function</b>() {', '<b>}</b>You can define the function body for an optional event handler here.'],
-    'vars' => ['<b style="color:green">vars</b>: {', '<b>}</b>You can define additional variables here.'],
+    'onAccept' => ['<b style="color:green">onAccept</b>: <b style="color:blue">function</b>(opts) {', '<b>}</b > You can define the function body for an optional event handler here.'],
+    'onInit' => ['<b style="color:green">onInit</b>: <b style="color:blue">function</b>(opts) {', '<b>}</b> You can define the function body for an optional event handler here.'],
+    'onDecline' => ['<b style="color:green">onDecline</b>: <b style="color:blue">function</b>(opts) {', '<b>}</b> You can define the function body for an optional event handler here.'],
+    'vars' => ['<b style="color:green">vars</b>: {', '<b>}</b> You can define additional variables here.'],
 ];
