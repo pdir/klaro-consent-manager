@@ -240,6 +240,7 @@ class GeneratePageHook
             " :
                 "'{$tr['lang_code']}': {
                 description: '$strTrServiceDescription',
+                title: '$strTrService',
             },
 ";
         }
