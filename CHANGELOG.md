@@ -10,6 +10,15 @@ Types of changes
     Security in case of vulnerabilities.
 )
 
+## [1.2.0](https://github.com/pdir/klaro-consent-manager/tree/1.2.0) – 2023-06-12
+
+- [Added] event handler `onAccept`, `onInit`, `onDecline` and `vars`
+- [Fixed] missing title translation
+
+## [1.1.4](https://github.com/pdir/klaro-consent-manager/tree/1.1.4) – 2023-05-02
+
+- [Fixed] remove duplicate brace 
+
 ## [1.1.3](https://github.com/pdir/klaro-consent-manager/tree/1.1.3) – 2023-03-16
 
 - [Changed] link color and button background color
