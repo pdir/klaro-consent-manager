@@ -88,7 +88,8 @@ $GLOBALS['TL_DCA'][$strTable] = [
         'default' => '{title_legend},title;'.
             '{service_legend},name,purposes,cookies;'.
             '{standard_legend},default,required,optOut,onlyOnce,contextualConsentOnly;'.
-            '{callback_legend},callback;',
+            '{callback_legend},callback;'.
+            '{event_handler_legend},onAccept,onInit,onDecline,vars;',
     ],
     // Fields
     'fields' => [
@@ -175,7 +176,7 @@ $GLOBALS['TL_DCA'][$strTable] = [
          */
         'cookies' => [
             'exclude' => true,
-            'inputType' => 'keyValueWizard',
+            'inputType' => 'listWizard',
             'eval' => [
                 'allowHtml' => false,
                 'tl_class' => 'w50',
@@ -264,5 +265,53 @@ $GLOBALS['TL_DCA'][$strTable] = [
                 'default' => '',
             ],
         ], // true
+
+        'onAccept' => [
+            'exclude' => true,
+            'inputType' => 'textarea',
+            'eval' => ['style' => 'height:120px', 'preserveTags' => true, 'class' => 'monospace', 'rte' => 'ace|html', 'tl_class' => 'clr'],
+            'sql' => [
+                'type' => 'text',
+                'length' => 4096,
+                'fixed' => true,
+                'notnull' => false,
+            ],
+        ],
+
+        'onInit' => [
+            'exclude' => true,
+            'inputType' => 'textarea',
+            'eval' => ['style' => 'height:120px', 'preserveTags' => true, 'class' => 'monospace', 'rte' => 'ace|html', 'tl_class' => 'clr'],
+            'sql' => [
+                'type' => 'text',
+                'length' => 4096,
+                'fixed' => true,
+                'notnull' => false,
+            ],
+        ],
+
+        'onDecline' => [
+            'exclude' => true,
+            'inputType' => 'textarea',
+            'eval' => ['style' => 'height:120px', 'preserveTags' => true, 'class' => 'monospace', 'rte' => 'ace|html', 'tl_class' => 'clr'],
+            'sql' => [
+                'type' => 'text',
+                'length' => 4096,
+                'fixed' => true,
+                'notnull' => false,
+            ],
+        ],
+
+        'vars' => [
+            'exclude' => true,
+            'inputType' => 'textarea',
+            'eval' => ['style' => 'height:120px', 'preserveTags' => true, 'class' => 'monospace', 'rte' => 'ace|html', 'tl_class' => 'clr'],
+            'sql' => [
+                'type' => 'text',
+                'length' => 4096,
+                'fixed' => true,
+                'notnull' => false,
+            ],
+        ],
     ],
 ];
