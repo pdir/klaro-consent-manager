@@ -10,7 +10,7 @@ Types of changes
     Security in case of vulnerabilities.
 )
 
-## [1.2.0](https://github.com/pdir/klaro-consent-manager/tree/1.2.0) – 2023-06-12
+## [1.2.0](https://github.com/pdir/klaro-consent-manager/tree/1.2.0) – 2023-10-11
 
 - [Added] event handler `onAccept`, `onInit`, `onDecline` and `vars`
 - [Fixed] missing title translation
