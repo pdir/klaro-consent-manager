@@ -68,4 +68,12 @@ $GLOBALS['TL_LANG']['tl_klaro_translation'] = [
 
     'servicesSavePronouns' => ['sgl' => ['The', 'is'], 'pl' => ['The', 'are']],
     'servicesSaveError' => '%s translation key [<b>%s</b>] %s unknown. You can only translate the following keys: [<b>%s</b>].',
+
+    // more translations
+    'more_translations_legend' => 'More translations',
+    'decline' => ['I decline', 'Translation for the button "I decline".'],
+    'ok' => ['That\'s ok', 'Translation for the button "That\'s ok".'],
+    'learnMore' => ['Let me choose', 'Translation for the link "Let me choose".'],
+    'acceptAll' => ['Accept all', 'Translation for the button "Accept all".'],
+    'acceptSelected' => ['Accept selected', 'Translation for the button "Accept selected".'],
 ];
