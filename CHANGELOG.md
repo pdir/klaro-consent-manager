@@ -10,7 +10,7 @@ Types of changes
     Security in case of vulnerabilities.
 )
 
-## [1.3.0](https://github.com/pdir/klaro-consent-manager/tree/1.2.0) – 2024-01-02
+## [1.3.0](https://github.com/pdir/klaro-consent-manager/tree/1.2.0) – 2024-01-12
 
 - [Added] Add dca fields for the translations
 
@@ -24,7 +24,7 @@ Types of changes
 
 ## [1.1.4](https://github.com/pdir/klaro-consent-manager/tree/1.1.4) – 2023-05-02
 
-- [Fixed] remove duplicate brace 
+- [Fixed] remove duplicate brace
 
 ## [1.1.3](https://github.com/pdir/klaro-consent-manager/tree/1.1.3) – 2023-03-16
 
@@ -33,9 +33,9 @@ Types of changes
 
 ## [1.1.2](https://github.com/pdir/klaro-consent-manager/tree/1.1.2) – 2023-03-07
 
-- [Fixed] Some minor bugs in the listing of translations fixed.  
-- [Fixed] Contao custom content elements are now handled correctly by Klaro.  
-  [Changed] The contextual consent event and the watcher update event have been improved.   
+- [Fixed] Some minor bugs in the listing of translations fixed.
+- [Fixed] Contao custom content elements are now handled correctly by Klaro.
+  [Changed] The contextual consent event and the watcher update event have been improved.
 
 ## [1.1.1](https://github.com/pdir/klaro-consent-manager/tree/1.1.1) – 2023-02-20
 
