@@ -91,7 +91,8 @@ $GLOBALS['TL_DCA'][$strTable] = [
             '{consent_modal_legend},consentModal;'.
             '{purposes_legend},purposes;'.
             '{services_legend},services;'.
-            '{contextual_consent_legend},ccDescription,ccAcceptOnce,ccAcceptAlways,ccMonitor;',
+            '{contextual_consent_legend},ccDescription,ccAcceptOnce,ccAcceptAlways,ccMonitor;'.
+            '{more_translations_legend},learnMore,decline,ok,acceptAll,acceptSelected;'
     ],
     // Subpalettes
     'subpalettes' => [],
@@ -294,6 +295,61 @@ $GLOBALS['TL_DCA'][$strTable] = [
                 'length' => 1024,
                 'fixed' => true,
                 'notnull' => false,
+            ],
+        ],
+
+        'learnMore' => [
+            'exclude' => true,
+            'inputType' => 'text',
+            'eval' => ['tl_class' => 'w25'],
+            'sql' => [
+                'type' => 'string',
+                'fixed' => true,
+                'default' => '',
+            ],
+        ],
+
+        'decline' => [
+            'exclude' => true,
+            'inputType' => 'text',
+            'eval' => ['tl_class' => 'w25'],
+            'sql' => [
+                'type' => 'string',
+                'fixed' => true,
+                'default' => '',
+            ],
+        ],
+
+        'ok' => [
+            'exclude' => true,
+            'inputType' => 'text',
+            'eval' => ['tl_class' => 'w25'],
+            'sql' => [
+                'type' => 'string',
+                'fixed' => true,
+                'default' => '',
+            ],
+        ],
+
+        'acceptAll' => [
+            'exclude' => true,
+            'inputType' => 'text',
+            'eval' => ['tl_class' => 'w25'],
+            'sql' => [
+                'type' => 'string',
+                'fixed' => true,
+                'default' => '',
+            ],
+        ],
+
+        'acceptSelected' => [
+            'exclude' => true,
+            'inputType' => 'text',
+            'eval' => ['tl_class' => 'w25'],
+            'sql' => [
+                'type' => 'string',
+                'fixed' => true,
+                'default' => '',
             ],
         ],
     ],

@@ -294,8 +294,14 @@ class GeneratePageHook
                 $this->keyToString('privacyPolicyUrl', null === $pm ? '' : $pm->getFrontendUrl(), $klaroConfigModel, 12).
                 //  consentNotice:
                 $this->keyToObject('consentNotice', $this->keyToString('description', $translation['consentNotice'], $klaroConfigModel, 16), 12).
+                $this->keyToObject('consentNotice', $this->keyToString('learnMore', $translation['learnMore'], $klaroConfigModel, 16), 12).
                 //  consentModal:
                 $this->keyToObject('consentModal', $this->keyToString('description', $translation['consentModal'], $klaroConfigModel, 16), 12).
+                //  More translations:
+                $this->keyToString('decline', $translation['decline'], $klaroConfigModel, 12).
+                $this->keyToString('ok', $translation['ok'], $klaroConfigModel, 12).
+                $this->keyToString('acceptAll', $translation['acceptAll'], $klaroConfigModel, 12).
+                $this->keyToString('acceptSelected', $translation['acceptSelected'], $klaroConfigModel, 12).
                 //  contextualConsent: - not documented, see klaro.js line 1904 ff
                 $this->buildContextualConsentTranslation($translation, $klaroConfigModel).
                 //  purposes:
