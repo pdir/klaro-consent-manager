@@ -293,8 +293,11 @@ class GeneratePageHook
                 //  privacyPolicyUrl:
                 $this->keyToString('privacyPolicyUrl', null === $pm ? '' : $pm->getFrontendUrl(), $klaroConfigModel, 12).
                 //  consentNotice:
-                $this->keyToObject('consentNotice', $this->keyToString('description', $translation['consentNotice'], $klaroConfigModel, 16), 12).
-                $this->keyToObject('consentNotice', $this->keyToString('learnMore', $translation['learnMore'], $klaroConfigModel, 16), 12).
+                $this->keyToObject(
+                    'consentNotice',
+                    $this->keyToString('description', $translation['consentNotice'], $klaroConfigModel, 16).
+                    $this->keyToString('learnMore', $translation['learnMore'], $klaroConfigModel, 16)
+                ).
                 //  consentModal:
                 $this->keyToObject('consentModal', $this->keyToString('description', $translation['consentModal'], $klaroConfigModel, 16), 12).
                 //  More translations:
