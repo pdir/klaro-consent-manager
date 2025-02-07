@@ -10,7 +10,11 @@ Types of changes
     Security in case of vulnerabilities.
 )
 
-## [1.3.0](https://github.com/pdir/klaro-consent-manager/tree/1.2.0) – 2024-01-12
+## [1.3.1](https://github.com/pdir/klaro-consent-manager/tree/1.3.1) – 2024-01-12
+
+- [Fixed] Fix translations
+
+## [1.3.0](https://github.com/pdir/klaro-consent-manager/tree/1.3.0) – 2024-01-12
 
 - [Added] Add dca fields for the translations
 
