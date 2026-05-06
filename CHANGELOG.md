@@ -10,6 +10,10 @@ Types of changes
     Security in case of vulnerabilities.
 )
 
+## [1.3.3](https://github.com/pdir/klaro-consent-manager/tree/1.3.3) – 2026-05-06
+
+- [Fixed] Reverted a change that caused a type error in `GeneratePageHook`
+
 ## [1.3.2](https://github.com/pdir/klaro-consent-manager/tree/1.3.2) – 2026-04-27
 
 - [Fixed] Type error in GeneratePageHook
